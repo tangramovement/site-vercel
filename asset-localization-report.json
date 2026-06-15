@@ -1,0 +1,442 @@
+{
+  "urls": 122,
+  "files": 87,
+  "failures": [],
+  "filesWritten": [
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\05KsVHGDmqXSBXM4yRZ65P8i0s.woff2",
+      "source": "https://framerusercontent.com/assets/05KsVHGDmqXSBXM4yRZ65P8i0s.woff2",
+      "length": 9444
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\1K3W8DizY3v4emK8Mb08YHxTbs.woff2",
+      "source": "https://framerusercontent.com/assets/1K3W8DizY3v4emK8Mb08YHxTbs.woff2",
+      "length": 4628
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\1ZFS7N918ojhhd0nQWdj3jz4w.woff2",
+      "source": "https://framerusercontent.com/assets/1ZFS7N918ojhhd0nQWdj3jz4w.woff2",
+      "length": 28004
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\2A4Xx7CngadFGlVV4xrO06OBHY.woff2",
+      "source": "https://framerusercontent.com/assets/2A4Xx7CngadFGlVV4xrO06OBHY.woff2",
+      "length": 4236
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\2uIBiALfCHVpWbHqRMZutfT7giU.woff2",
+      "source": "https://framerusercontent.com/assets/2uIBiALfCHVpWbHqRMZutfT7giU.woff2",
+      "length": 8632
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\3ZmXbBKToJifDV9gwcifVd1tEY.woff2",
+      "source": "https://framerusercontent.com/assets/3ZmXbBKToJifDV9gwcifVd1tEY.woff2",
+      "length": 7208
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\43sJ6MfOPh1LCJt46OvyDuSbA6o.woff2",
+      "source": "https://framerusercontent.com/assets/43sJ6MfOPh1LCJt46OvyDuSbA6o.woff2",
+      "length": 4960
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\4RAEQdEOrcnDkhHiiCbJOw92Lk.woff2",
+      "source": "https://framerusercontent.com/assets/4RAEQdEOrcnDkhHiiCbJOw92Lk.woff2",
+      "length": 7080
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\5HcVoGak8k5agFJSaKa4floXVu0.woff2",
+      "source": "https://framerusercontent.com/assets/5HcVoGak8k5agFJSaKa4floXVu0.woff2",
+      "length": 25276
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\5vvr9Vy74if2I6bQbJvbw7SY1pQ.woff2",
+      "source": "https://framerusercontent.com/assets/5vvr9Vy74if2I6bQbJvbw7SY1pQ.woff2",
+      "length": 8896
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\867QObYax8ANsfX4TGEVU9YiCM.woff2",
+      "source": "https://framerusercontent.com/assets/867QObYax8ANsfX4TGEVU9YiCM.woff2",
+      "length": 7408
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\A0Wcc7NgXMjUuFdquHDrIZpzZw0.woff2",
+      "source": "https://framerusercontent.com/assets/A0Wcc7NgXMjUuFdquHDrIZpzZw0.woff2",
+      "length": 4316
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\CfMzU8w2e7tHgF4T4rATMPuWosA.woff2",
+      "source": "https://framerusercontent.com/assets/CfMzU8w2e7tHgF4T4rATMPuWosA.woff2",
+      "length": 9500
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\DF7bjCRmStYPqSb945lAlMfCCVQ.woff2",
+      "source": "https://framerusercontent.com/assets/DF7bjCRmStYPqSb945lAlMfCCVQ.woff2",
+      "length": 24696
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\DOfvtmE1UplCq161m6Hj8CSQYg.woff2",
+      "source": "https://framerusercontent.com/assets/DOfvtmE1UplCq161m6Hj8CSQYg.woff2",
+      "length": 26696
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\DXD0Q7LSl7HEvDzucnyLnGBHM.woff2",
+      "source": "https://framerusercontent.com/assets/DXD0Q7LSl7HEvDzucnyLnGBHM.woff2",
+      "length": 27992
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\DpPBYI0sL4fYLgAkX8KXOPVt7c.woff2",
+      "source": "https://framerusercontent.com/assets/DpPBYI0sL4fYLgAkX8KXOPVt7c.woff2",
+      "length": 8892
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\EOr0mi4hNtlgWNn9if640EZzXCo.woff2",
+      "source": "https://framerusercontent.com/assets/EOr0mi4hNtlgWNn9if640EZzXCo.woff2",
+      "length": 7116
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\FNfhX3dt4ChuLJq2PwdlxHO7PU.woff2",
+      "source": "https://framerusercontent.com/assets/FNfhX3dt4ChuLJq2PwdlxHO7PU.woff2",
+      "length": 27036
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\GIryZETIX4IFypco5pYZONKhJIo.woff2",
+      "source": "https://framerusercontent.com/assets/GIryZETIX4IFypco5pYZONKhJIo.woff2",
+      "length": 4268
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\GrgcKwrN6d3Uz8EwcLHZxwEfC4.woff2",
+      "source": "https://framerusercontent.com/assets/GrgcKwrN6d3Uz8EwcLHZxwEfC4.woff2",
+      "length": 27380
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\H89BbHkbHDzlxZzxi8uPzTsp90.woff2",
+      "source": "https://framerusercontent.com/assets/H89BbHkbHDzlxZzxi8uPzTsp90.woff2",
+      "length": 9564
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\JeYwfuaPfZHQhEG8U5gtPDZ7WQ.woff2",
+      "source": "https://framerusercontent.com/assets/JeYwfuaPfZHQhEG8U5gtPDZ7WQ.woff2",
+      "length": 25348
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\NeGmSOXrPBfEFIy5YZeHq17LEDA.woff2",
+      "source": "https://framerusercontent.com/assets/NeGmSOXrPBfEFIy5YZeHq17LEDA.woff2",
+      "length": 7152
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\OYrD2tBIBPvoJXiIHnLoOXnY9M.woff2",
+      "source": "https://framerusercontent.com/assets/OYrD2tBIBPvoJXiIHnLoOXnY9M.woff2",
+      "length": 6652
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\Oyn2ZbENFdnW7mt2Lzjk1h9Zb9k.woff2",
+      "source": "https://framerusercontent.com/assets/Oyn2ZbENFdnW7mt2Lzjk1h9Zb9k.woff2",
+      "length": 4756
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\P2Bw01CtL0b9wqygO0sSVogWbo.woff2",
+      "source": "https://framerusercontent.com/assets/P2Bw01CtL0b9wqygO0sSVogWbo.woff2",
+      "length": 4168
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\QxmhnWTzLtyjIiZcfaLIJ8EFBXU.woff2",
+      "source": "https://framerusercontent.com/assets/QxmhnWTzLtyjIiZcfaLIJ8EFBXU.woff2",
+      "length": 30200
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\U9LaDDmbRhzX3sB8g8glTy5feTE.woff2",
+      "source": "https://framerusercontent.com/assets/U9LaDDmbRhzX3sB8g8glTy5feTE.woff2",
+      "length": 4424
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\VgYFWiwsAC5OYxAycRXXvhze58.woff2",
+      "source": "https://framerusercontent.com/assets/VgYFWiwsAC5OYxAycRXXvhze58.woff2",
+      "length": 26076
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\WZ367JPwf9bRW6LdTHN8rXgSjw.woff2",
+      "source": "https://framerusercontent.com/assets/WZ367JPwf9bRW6LdTHN8rXgSjw.woff2",
+      "length": 27736
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\X5hj6qzcHUYv7h1390c8Rhm6550.woff2",
+      "source": "https://framerusercontent.com/assets/X5hj6qzcHUYv7h1390c8Rhm6550.woff2",
+      "length": 6984
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\Y9k9QrlZAqio88Klkmbd8VoMQc.woff2",
+      "source": "https://framerusercontent.com/assets/Y9k9QrlZAqio88Klkmbd8VoMQc.woff2",
+      "length": 4504
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\Zwfz6xbVe5pmcWRJRgBDHnMkOkI.woff2",
+      "source": "https://framerusercontent.com/assets/Zwfz6xbVe5pmcWRJRgBDHnMkOkI.woff2",
+      "length": 6948
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\b6Y37FthZeALduNqHicBT6FutY.woff2",
+      "source": "https://framerusercontent.com/assets/b6Y37FthZeALduNqHicBT6FutY.woff2",
+      "length": 4168
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\bHYNJqzTyl2lqvmMiRRS6Y16Es.woff2",
+      "source": "https://framerusercontent.com/assets/bHYNJqzTyl2lqvmMiRRS6Y16Es.woff2",
+      "length": 26588
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\cRJyLNuTJR5jbyKzGi33wU9cqIQ.woff2",
+      "source": "https://framerusercontent.com/assets/cRJyLNuTJR5jbyKzGi33wU9cqIQ.woff2",
+      "length": 26280
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\cdAe8hgZ1cMyLu9g005pAW3xMo.woff2",
+      "source": "https://framerusercontent.com/assets/cdAe8hgZ1cMyLu9g005pAW3xMo.woff2",
+      "length": 7228
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\cugnVhSraaRyANCaUtI5FV17wk.woff2",
+      "source": "https://framerusercontent.com/assets/cugnVhSraaRyANCaUtI5FV17wk.woff2",
+      "length": 6572
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\efTfQcBJ53kM2pB1hezSZ3RDUFs.woff2",
+      "source": "https://framerusercontent.com/assets/efTfQcBJ53kM2pB1hezSZ3RDUFs.woff2",
+      "length": 4172
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\g0c8vEViiXNlKAgI4Ymmk3Ig.woff2",
+      "source": "https://framerusercontent.com/assets/g0c8vEViiXNlKAgI4Ymmk3Ig.woff2",
+      "length": 29696
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\gQhNpS3tN86g8RcVKYUUaKt2oMQ.woff2",
+      "source": "https://framerusercontent.com/assets/gQhNpS3tN86g8RcVKYUUaKt2oMQ.woff2",
+      "length": 4528
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\hyOgCu0Xnghbimh0pE8QTvtt2AU.woff2",
+      "source": "https://framerusercontent.com/assets/hyOgCu0Xnghbimh0pE8QTvtt2AU.woff2",
+      "length": 8908
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\jn4BtSPLlS0NDp1KiFAtFKiiY0o.woff2",
+      "source": "https://framerusercontent.com/assets/jn4BtSPLlS0NDp1KiFAtFKiiY0o.woff2",
+      "length": 27364
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\ky8ovPukK4dJ1Pxq74qGhOqCYI.woff2",
+      "source": "https://framerusercontent.com/assets/ky8ovPukK4dJ1Pxq74qGhOqCYI.woff2",
+      "length": 7376
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\lEJLP4R0yuCaMCjSXYHtJw72M.woff2",
+      "source": "https://framerusercontent.com/assets/lEJLP4R0yuCaMCjSXYHtJw72M.woff2",
+      "length": 6668
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\mkY5Sgyq51ik0AMrSBwhm9DJg.woff2",
+      "source": "https://framerusercontent.com/assets/mkY5Sgyq51ik0AMrSBwhm9DJg.woff2",
+      "length": 8716
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\oYaAX5himiTPYuN8vLWnqBbfD2s.woff2",
+      "source": "https://framerusercontent.com/assets/oYaAX5himiTPYuN8vLWnqBbfD2s.woff2",
+      "length": 4660
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\tKtBcDnBMevsEEJKdNGhhkLzYo.woff2",
+      "source": "https://framerusercontent.com/assets/tKtBcDnBMevsEEJKdNGhhkLzYo.woff2",
+      "length": 4052
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\tUSCtfYVM1I1IchuyCwz9gDdQ.woff2",
+      "source": "https://framerusercontent.com/assets/tUSCtfYVM1I1IchuyCwz9gDdQ.woff2",
+      "length": 6672
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\tVew2LzXJ1t7QfxP1gdTIdj2o0g.woff2",
+      "source": "https://framerusercontent.com/assets/tVew2LzXJ1t7QfxP1gdTIdj2o0g.woff2",
+      "length": 6324
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\u6gJwDuwB143kpNK1T1MDKDWkMc.woff2",
+      "source": "https://framerusercontent.com/assets/u6gJwDuwB143kpNK1T1MDKDWkMc.woff2",
+      "length": 7556
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\vFzuJY0c65av44uhEKB6vyjFMg.woff2",
+      "source": "https://framerusercontent.com/assets/vFzuJY0c65av44uhEKB6vyjFMg.woff2",
+      "length": 29416
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\vQyevYAyHtARFwPqUzQGpnDs.woff2",
+      "source": "https://framerusercontent.com/assets/vQyevYAyHtARFwPqUzQGpnDs.woff2",
+      "length": 27404
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\vebZUMjGyKkYsfcY73iwWTzLNag.woff2",
+      "source": "https://framerusercontent.com/assets/vebZUMjGyKkYsfcY73iwWTzLNag.woff2",
+      "length": 4016
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\vvNSqIj42qeQ2bvCRBIWKHscrc.woff2",
+      "source": "https://framerusercontent.com/assets/vvNSqIj42qeQ2bvCRBIWKHscrc.woff2",
+      "length": 4828
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\assets\\wccHG0r4gBDAIRhfHiOlq6oEkqw.woff2",
+      "source": "https://framerusercontent.com/assets/wccHG0r4gBDAIRhfHiOlq6oEkqw.woff2",
+      "length": 7360
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\0EMBt7GBbqphJWyPKQWIXsSho8Y.png",
+      "source": "https://framerusercontent.com/images/0EMBt7GBbqphJWyPKQWIXsSho8Y.png?width=1232&height=928",
+      "length": 659975
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\AQ4D45nqs3pQRoafe4dcrAOtk.jpg",
+      "source": "https://framerusercontent.com/images/AQ4D45nqs3pQRoafe4dcrAOtk.jpg?width=2048&height=1365",
+      "length": 402215
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\DDY3YSBvygUVOCUTQGvk0Lr1oY.png",
+      "source": "https://framerusercontent.com/images/DDY3YSBvygUVOCUTQGvk0Lr1oY.png",
+      "length": 4957
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\Iv6w7vVv5thecOCZs4tKggsUkWs.png",
+      "source": "https://framerusercontent.com/images/Iv6w7vVv5thecOCZs4tKggsUkWs.png?width=611&height=1308",
+      "length": 15218
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\KX3LayS56OxCxW5L488YHxjsVmc.jpeg",
+      "source": "https://framerusercontent.com/images/KX3LayS56OxCxW5L488YHxjsVmc.jpeg?width=3456&height=5184",
+      "length": 6331318
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\MmCCKraFnmcC8nILfhlo36abko.jpg",
+      "source": "https://framerusercontent.com/images/MmCCKraFnmcC8nILfhlo36abko.jpg?width=3456&height=5184",
+      "length": 1195092
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\NUayKxKqUP1gdru1FiQNZ1x7Yq4.png",
+      "source": "https://framerusercontent.com/images/NUayKxKqUP1gdru1FiQNZ1x7Yq4.png?width=1080&height=1080",
+      "length": 355987
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\QVERUMsyClsAIz0SLq1G6v1kPA.jpeg",
+      "source": "https://framerusercontent.com/images/QVERUMsyClsAIz0SLq1G6v1kPA.jpeg?width=1638&height=2048",
+      "length": 781849
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\WzHgzomAzNu5pDQoL692UnQw.svg",
+      "source": "https://framerusercontent.com/images/WzHgzomAzNu5pDQoL692UnQw.svg",
+      "length": 509
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\XkNWobREnQXyQ9K8Wf1rMvGg.svg",
+      "source": "https://framerusercontent.com/images/XkNWobREnQXyQ9K8Wf1rMvGg.svg?scale-down-to=1024&width=2461&height=476",
+      "length": 723
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\YNgR6jplU2GcoCPpaYoB74nKeOw.jpg",
+      "source": "https://framerusercontent.com/images/YNgR6jplU2GcoCPpaYoB74nKeOw.jpg?width=2736&height=1824",
+      "length": 1640353
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\ZoU2JqnbgpoqJtPERK5xmDUaY.jpg",
+      "source": "https://framerusercontent.com/images/ZoU2JqnbgpoqJtPERK5xmDUaY.jpg?width=1514&height=1283",
+      "length": 497650
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\g0QcWrxr87K0ufOxIUFBakwYA8.png",
+      "source": "https://framerusercontent.com/images/g0QcWrxr87K0ufOxIUFBakwYA8.png",
+      "length": 82262
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\hKGmTW7lzWU7jeXME9dm6tICRlk.jpg",
+      "source": "https://framerusercontent.com/images/hKGmTW7lzWU7jeXME9dm6tICRlk.jpg?width=5184&height=3456",
+      "length": 4685275
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\mCYiWcvkdKzs03lmiQPlvEKvY.jpg",
+      "source": "https://framerusercontent.com/images/mCYiWcvkdKzs03lmiQPlvEKvY.jpg?width=1638&height=2048",
+      "length": 902089
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\mJLl0evtfHxya9YBFapUjtMO8HY.svg",
+      "source": "https://framerusercontent.com/images/mJLl0evtfHxya9YBFapUjtMO8HY.svg",
+      "length": 524
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\tuTiNWk05nGiK5gJlTOFgCn2d4.jpg",
+      "source": "https://framerusercontent.com/images/tuTiNWk05nGiK5gJlTOFgCn2d4.jpg?width=2128&height=1644",
+      "length": 2062164
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\vRxTMjYbP3ypjaZeV6BCgvHz9xc.jpeg",
+      "source": "https://framerusercontent.com/images/vRxTMjYbP3ypjaZeV6BCgvHz9xc.jpeg?width=815&height=639",
+      "length": 156715
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\vawO31HUT1qdrFaE6682zdXM.jpg",
+      "source": "https://framerusercontent.com/images/vawO31HUT1qdrFaE6682zdXM.jpg?width=1216&height=1824",
+      "length": 709588
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\vxqllMdjOGv8AkxRNWQjRBXNskk.png",
+      "source": "https://framerusercontent.com/images/vxqllMdjOGv8AkxRNWQjRBXNskk.png?width=1080&height=1080",
+      "length": 272998
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\images\\ziVFpqtdv0wZkiNhJlg9NUFszQo.jpg",
+      "source": "https://framerusercontent.com/images/ziVFpqtdv0wZkiNhJlg9NUFszQo.jpg?width=2160&height=2700",
+      "length": 699863
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\sites\\3djdoBblANONaOy3cELXE6\\framer.CrvnDvTf.mjs",
+      "source": "https://framerusercontent.com/sites/3djdoBblANONaOy3cELXE6/framer.CrvnDvTf.mjs",
+      "length": 449268
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\sites\\3djdoBblANONaOy3cELXE6\\motion.BVZNNUfu.mjs",
+      "source": "https://framerusercontent.com/sites/3djdoBblANONaOy3cELXE6/motion.BVZNNUfu.mjs",
+      "length": 146364
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\sites\\3djdoBblANONaOy3cELXE6\\rE1AFsm37Jc1HrayX3YuCP9zCBBSlsQnGLrJwDvJ1QQ.CxZM5VCs.mjs",
+      "source": "https://framerusercontent.com/sites/3djdoBblANONaOy3cELXE6/rE1AFsm37Jc1HrayX3YuCP9zCBBSlsQnGLrJwDvJ1QQ.CxZM5VCs.mjs",
+      "length": 281700
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\sites\\3djdoBblANONaOy3cELXE6\\react.XiQm3DUZ.mjs",
+      "source": "https://framerusercontent.com/sites/3djdoBblANONaOy3cELXE6/react.XiQm3DUZ.mjs",
+      "length": 144652
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\sites\\3djdoBblANONaOy3cELXE6\\rolldown-runtime.CYC24FXu.mjs",
+      "source": "https://framerusercontent.com/sites/3djdoBblANONaOy3cELXE6/rolldown-runtime.CYC24FXu.mjs",
+      "length": 191
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\sites\\3djdoBblANONaOy3cELXE6\\script_main.DO_jJZZO.mjs",
+      "source": "https://framerusercontent.com/sites/3djdoBblANONaOy3cELXE6/script_main.DO_jJZZO.mjs",
+      "length": 79534
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\sites\\3djdoBblANONaOy3cELXE6\\searchIndex-Ll3I61eEA4Vf.json",
+      "source": "https://framerusercontent.com/sites/3djdoBblANONaOy3cELXE6/searchIndex-Ll3I61eEA4Vf.json",
+      "length": 6174
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\sites\\3djdoBblANONaOy3cELXE6\\searchIndex-ZrSOBn2CBZu3.json",
+      "source": "https://framerusercontent.com/sites/3djdoBblANONaOy3cELXE6/searchIndex-ZrSOBn2CBZu3.json",
+      "length": 6133
+    },
+    {
+      "file": "D:\\Projetos\\tangram-site-netlify\\mirror\\__framer__\\sites\\3djdoBblANONaOy3cELXE6\\shared-lib.bxn16fCm.mjs",
+      "source": "https://framerusercontent.com/sites/3djdoBblANONaOy3cELXE6/shared-lib.bxn16fCm.mjs",
+      "length": 56663
+    }
+  ]
+}

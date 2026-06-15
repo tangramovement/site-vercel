@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Editor Tangram</title>
+    <link rel="stylesheet" href="/admin/admin.css">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', function (user) {
+          if (!user && window.location.hash.includes('invite_token')) {
+            window.netlifyIdentity.open('signup');
+          }
+        });
+        window.netlifyIdentity.on('login', function () {
+          document.location.href = '/admin/';
+        });
+      }
+    </script>
+    <script src="https://unpkg.com/decap-cms@^3.8.0/dist/decap-cms.js"></script>
+    <script src="/admin/preview.js"></script>
+  </body>
+</html>

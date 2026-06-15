@@ -1,0 +1,491 @@
+local_backend: true
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: uploads
+public_folder: /uploads
+site_url: https://www.tangramovement.com
+display_url: https://www.tangramovement.com
+logo_url: /__framer__/images/XkNWobREnQXyQ9K8Wf1rMvGg.svg
+
+editor:
+  preview: true
+
+collections:
+  - name: site
+    label: Site Tangram
+    files:
+      - name: site
+        label: Conteudo do site
+        file: content/site.json
+        format: json
+        fields:
+          - label: SEO
+            name: seo
+            widget: object
+            fields:
+              - label: Titulo
+                name: title
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Descricao
+                name: description
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+              - { label: Imagem social, name: socialImage, widget: image, required: false }
+          - label: Links globais
+            name: links
+            widget: object
+            fields:
+              - { label: Instagram, name: instagram, widget: string }
+              - { label: Telefone WhatsApp, name: whatsappPhone, widget: string }
+              - { label: Link WhatsApp bio, name: whatsappBio, widget: string }
+              - { label: Email, name: email, widget: string }
+          - label: Menu
+            name: menu
+            widget: object
+            fields:
+              - label: Quem Somos
+                name: about
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Eventos
+                name: events
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Parceiros
+                name: partners
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Instagram
+                name: instagram
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Fale conosco
+                name: contact
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - label: Titulo
+                name: title
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Tickets
+                name: tickets
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Loading
+                name: loading
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+          - label: Agenda
+            name: agenda
+            widget: object
+            fields:
+              - label: Chamada
+                name: introLabel
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Titulo
+                name: introTitle
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Eventos
+                name: events
+                widget: list
+                summary: "{{fields.date}}"
+                fields:
+                  - { label: Ativo, name: active, widget: boolean, default: true }
+                  - { label: Data, name: date, widget: string }
+                  - label: Local
+                    name: place
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: string }
+                      - { label: EN, name: en, widget: string }
+                  - label: Headliner
+                    name: title
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: string }
+                      - { label: EN, name: en, widget: string }
+                  - label: Lineup
+                    name: lineup
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: string, required: false }
+                      - { label: EN, name: en, widget: string, required: false }
+                  - label: Label do ingresso
+                    name: ticketLabel
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: string }
+                      - { label: EN, name: en, widget: string }
+                  - { label: Link do ingresso, name: ticketUrl, widget: string }
+          - label: Highlights
+            name: highlights
+            widget: object
+            fields:
+              - label: Titulo
+                name: title
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Textos alternativos das imagens
+                name: images
+                widget: list
+                fields:
+                  - { label: Identificador da imagem, name: srcContains, widget: string }
+                  - label: Alt
+                    name: alt
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: string }
+                      - { label: EN, name: en, widget: string }
+          - label: Quem Somos
+            name: about
+            widget: object
+            fields:
+              - label: Eyebrow
+                name: eyebrow
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Titulo
+                name: title
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Texto
+                name: text
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+          - label: Cards de experiencia
+            name: experienceCards
+            widget: list
+            summary: "{{fields.title.pt}}"
+            fields:
+              - label: Titulo
+                name: title
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Texto
+                name: text
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+          - label: Tags
+            name: tags
+            widget: list
+            fields:
+              - { label: PT, name: pt, widget: string }
+              - { label: EN, name: en, widget: string }
+          - label: Fundadores
+            name: founders
+            widget: list
+            summary: "{{fields.name.pt}}"
+            fields:
+              - label: Nome
+                name: name
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Bio
+                name: bio
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+              - label: Botao
+                name: presskitLabel
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - { label: Link presskit, name: presskitUrl, widget: string, required: false }
+          - label: Movimento Vivo
+            name: movement
+            widget: object
+            fields:
+              - label: Titulo
+                name: title
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Texto
+                name: text
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+              - label: Titulo contato
+                name: contactTitle
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Texto contato
+                name: contactText
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+              - label: Texto apoio
+                name: supportText
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+              - label: Formulario
+                name: form
+                widget: object
+                fields:
+                  - label: Nome
+                    name: name
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: string }
+                      - { label: EN, name: en, widget: string }
+                  - label: Email
+                    name: email
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: string }
+                      - { label: EN, name: en, widget: string }
+                  - label: Telefone
+                    name: phone
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: string }
+                      - { label: EN, name: en, widget: string }
+                  - label: Local
+                    name: location
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: string }
+                      - { label: EN, name: en, widget: string }
+                  - label: Selecione
+                    name: select
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: string }
+                      - { label: EN, name: en, widget: string }
+                  - label: Botao
+                    name: submit
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: string }
+                      - { label: EN, name: en, widget: string }
+          - label: Parceiros
+            name: partners
+            widget: object
+            fields:
+              - label: Eyebrow
+                name: eyebrow
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Titulo
+                name: title
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Texto
+                name: text
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+              - label: CTA
+                name: cta
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+          - label: Proposito
+            name: purpose
+            widget: object
+            fields:
+              - label: Eyebrow
+                name: eyebrow
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Titulo
+                name: title
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Texto
+                name: text
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+              - label: Pilares
+                name: pillars
+                widget: list
+                summary: "{{fields.title.pt}}"
+                fields:
+                  - label: Titulo
+                    name: title
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: string }
+                      - { label: EN, name: en, widget: string }
+                  - label: Texto
+                    name: text
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: text }
+                      - { label: EN, name: en, widget: text }
+          - label: FAQ
+            name: faq
+            widget: object
+            fields:
+              - label: Eyebrow
+                name: eyebrow
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Titulo
+                name: title
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Intro
+                name: intro
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+              - label: CTA
+                name: ctaLines
+                widget: list
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Perguntas
+                name: items
+                widget: list
+                summary: "{{fields.question.pt}}"
+                fields:
+                  - label: Pergunta
+                    name: question
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: string }
+                      - { label: EN, name: en, widget: string }
+                  - label: Resposta
+                    name: answer
+                    widget: object
+                    fields:
+                      - { label: PT, name: pt, widget: text }
+                      - { label: EN, name: en, widget: text }
+          - label: Rodape
+            name: footer
+            widget: object
+            fields:
+              - label: Frase
+                name: headline
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: CTA
+                name: cta
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Local
+                name: location
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+              - label: Copyright
+                name: copyright
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: string }
+                  - { label: EN, name: en, widget: string }
+          - label: Mensagens WhatsApp
+            name: whatsappMessages
+            widget: object
+            fields:
+              - label: Fale conosco
+                name: contact
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+              - label: Parceiros
+                name: partner
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+              - label: Iniciar Movimento
+                name: start
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+              - label: Last Night
+                name: lastNight
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }
+              - label: FAQ
+                name: faq
+                widget: object
+                fields:
+                  - { label: PT, name: pt, widget: text }
+                  - { label: EN, name: en, widget: text }

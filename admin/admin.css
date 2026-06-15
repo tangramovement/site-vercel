@@ -1,0 +1,100 @@
+body {
+  background: #050505;
+}
+
+.tangram-preview {
+  min-height: 100vh;
+  background: #050505;
+  color: #f7f3ff;
+  font-family: Inter, Arial, sans-serif;
+  padding: 28px;
+}
+
+.tangram-preview__topbar {
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+}
+
+.tangram-preview__brand {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.tangram-preview__status {
+  color: #9dffbc;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.tangram-preview__grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+}
+
+.tangram-preview__card {
+  background: linear-gradient(180deg, rgba(22, 22, 26, 0.96), rgba(9, 9, 12, 0.96));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.tangram-preview__label {
+  color: #b5afbf;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.tangram-preview h1,
+.tangram-preview h2,
+.tangram-preview h3,
+.tangram-preview p {
+  margin: 0;
+}
+
+.tangram-preview h1 {
+  font-size: 48px;
+  line-height: 0.95;
+}
+
+.tangram-preview h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.tangram-preview p {
+  color: rgba(247, 243, 255, 0.76);
+  line-height: 1.55;
+}
+
+.tangram-preview__pill {
+  border: 1px solid rgba(170, 116, 255, 0.5);
+  border-radius: 999px;
+  color: #d9c5ff;
+  display: inline-flex;
+  font-size: 12px;
+  margin: 8px 8px 0 0;
+  padding: 7px 10px;
+}
+
+.tangram-preview__event {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+.tangram-preview__editable {
+  box-shadow: 0 0 0 1px rgba(123, 0, 255, 0.72), 0 0 0 4px rgba(123, 0, 255, 0.12);
+}
+
+@media (max-width: 900px) {
+  .tangram-preview__grid {
+    grid-template-columns: 1fr;
+  }
+}
