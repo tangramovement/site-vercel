@@ -4,10 +4,14 @@
   const TARGET_LANGUAGE = 'en';
   const TEXT_SELECTOR = 'p,h1,h2,h3,h4,h5,h6,span,a,button,label,summary,option,div';
   const APPLY_DELAY = 120;
+  const PREVIEW_PARAM = 'tangram-preview';
 
   let content = null;
   let applying = false;
   let applyTimer = 0;
+  let previewMode = false;
+  let activePreviewPath = '';
+  let previewMarker = null;
 
   const textBindings = [
     ['menu.about', ['Quem Somos', 'Who We Are']],
@@ -20,7 +24,7 @@
     ['hero.loading', ['loading...', 'Loading...']],
     ['highlights.title', ['HIGHLITS', 'HIGHLIGHTS']],
     ['about.eyebrow', ['Ativações', 'Ativacoes', 'Activations']],
-    ['about.title', ['QUEM SOMOS', 'WHO WE ARE']],
+    ['about.title', ['QUEM SOMOS', 'WHO WE ARE', 'NEXT MOVES']],
     ['about.text', ['A partir do conceito do Puzzle chinês o Tangram nasce com a proposta transformação, modularidade e co-criação', 'Inspired by the Chinese Tangram puzzle']],
     ['movement.title', ['Movimento Vivo', 'Living Movement']],
     ['movement.text', ['Acreditamos que toda experiência verdadeira reverbera além de si mesma', 'We believe every true experience reverberates beyond itself']],
@@ -149,6 +153,10 @@
     return path.split('.').reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined), source);
   }
 
+  function isPreviewRequest() {
+    return new URLSearchParams(window.location.search).get(PREVIEW_PARAM) === '1';
+  }
+
   function localize(value) {
     const language = localStorage.getItem(LANGUAGE_STORAGE_KEY) === TARGET_LANGUAGE ? 'en' : 'pt';
     if (!value) return '';
@@ -171,13 +179,32 @@
     const foldedAliases = new Set(aliases.map(fold));
     return Array.from(document.querySelectorAll(TEXT_SELECTOR)).filter((element) => {
       if (!isLeafTextElement(element)) return false;
-      if (element.dataset.tangramContentKey === key) return true;
+      if (element.dataset.tangramContentKey) {
+        if (element.dataset.tangramContentKey === key) return true;
+        if (shouldRebindHeading(element, key)) return true;
+        return false;
+      }
       const text = fold(element.textContent);
       if (!text) return false;
       for (const alias of foldedAliases) {
         if (text === alias || text.startsWith(alias) || alias.startsWith(text)) return true;
       }
       return false;
+    });
+  }
+
+  function shouldRebindHeading(element, key) {
+    const currentKey = element.dataset.tangramContentKey || '';
+    if (!/^(H1|H2|H3)$/.test(element.tagName)) return false;
+    if (currentKey.startsWith('menu.') && !key.startsWith('menu.')) return true;
+    return currentKey === 'hero.title' && key === 'about.title' && followsAboutEyebrow(element);
+  }
+
+  function followsAboutEyebrow(element) {
+    const top = element.getBoundingClientRect().top + window.scrollY;
+    return Array.from(document.querySelectorAll('[data-tangram-content-key="about.eyebrow"]')).some((eyebrow) => {
+      const eyebrowTop = eyebrow.getBoundingClientRect().top + window.scrollY;
+      return top > eyebrowTop && top - eyebrowTop < 420;
     });
   }
 
@@ -281,6 +308,8 @@
         link.target = '_blank';
         link.rel = 'noopener noreferrer';
         link.textContent = localize(event.ticketLabel) || [event.date, localize(event.place), localize(event.title)].filter(Boolean).join(' | ');
+        link.dataset.tangramContentKey = `agenda.events.${index}.ticketLabel`;
+        link.dataset.tangramLinkKey = `agenda.events.${index}.ticketUrl`;
         wrapper.appendChild(link);
       });
     });
@@ -290,6 +319,8 @@
       const event = events[events.length - 1] || events[0];
       fallback.href = event?.ticketUrl || content.links?.whatsappBio || fallback.href;
       fallback.textContent = localize(content.hero?.loading) || fallback.textContent;
+      fallback.dataset.tangramContentKey = 'hero.loading';
+      fallback.dataset.tangramLinkKey = 'agenda.events.ticketUrl';
     }
   }
 
@@ -299,6 +330,8 @@
         anchor.href = content.links.instagram;
         anchor.target = '_blank';
         anchor.rel = 'noopener noreferrer';
+        anchor.dataset.tangramContentKey = 'links.instagram';
+        anchor.dataset.tangramLinkKey = 'links.instagram';
       });
     }
 
@@ -306,6 +339,8 @@
       if (!content.links?.email) return;
       anchor.href = `mailto:${content.links.email}`;
       anchor.textContent = content.links.email;
+      anchor.dataset.tangramContentKey = 'links.email';
+      anchor.dataset.tangramLinkKey = 'links.email';
     });
 
     (content.founders || []).forEach((founder, index) => {
@@ -320,6 +355,8 @@
           presskit.target = '_blank';
           presskit.rel = 'noopener noreferrer';
         }
+        presskit.dataset.tangramContentKey = `founders.${index}.presskitLabel`;
+        presskit.dataset.tangramLinkKey = `founders.${index}.presskitUrl`;
       }
     });
   }
@@ -338,6 +375,8 @@
       anchor.href = url.toString();
       anchor.target = '_blank';
       anchor.rel = 'noopener noreferrer';
+      anchor.dataset.tangramLinkKey = `whatsappMessages.${context}`;
+      if (!anchor.dataset.tangramContentKey) anchor.dataset.tangramContentKey = `whatsappMessages.${context}`;
     });
   }
 
@@ -399,10 +438,214 @@
       applyWhatsapp();
       applyFormLabels();
       applyImageAlts();
+      applyPreviewLinkHints();
       document.documentElement.dataset.tangramContent = 'ready';
+      if (previewMode) {
+        document.documentElement.dataset.tangramPreviewMode = 'true';
+        if (activePreviewPath) window.setTimeout(() => highlightPreviewPath(activePreviewPath), 80);
+      }
     } finally {
       applying = false;
     }
+  }
+
+  function setupPreviewMode() {
+    previewMode = isPreviewRequest();
+    if (!previewMode) return;
+
+    document.documentElement.dataset.tangramPreviewMode = 'true';
+    injectPreviewStyles();
+
+    window.addEventListener('message', (event) => {
+      if (event.origin !== window.location.origin) return;
+      if (!event.data || event.data.type !== 'tangram:preview-content') return;
+      if (event.data.content && typeof event.data.content === 'object') {
+        content = event.data.content;
+        activePreviewPath = event.data.activePath || activePreviewPath;
+        applyAll();
+        highlightPreviewPath(activePreviewPath);
+      }
+    });
+
+    window.addEventListener('scroll', () => positionPreviewMarker(), { passive: true });
+    window.addEventListener('resize', () => positionPreviewMarker(), { passive: true });
+
+    window.parent.postMessage({ type: 'tangram:preview-ready' }, window.location.origin);
+    window.setTimeout(() => window.parent.postMessage({ type: 'tangram:preview-ready' }, window.location.origin), 800);
+  }
+
+  function injectPreviewStyles() {
+    if (document.getElementById('tangram-preview-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'tangram-preview-styles';
+    style.textContent = `
+      html[data-tangram-preview-mode="true"] [data-tangram-content-key] {
+        outline: 1px dashed rgba(157, 255, 188, 0.38);
+        outline-offset: 3px;
+      }
+
+      html[data-tangram-preview-mode="true"] a[data-tangram-preview-href] {
+        outline-color: rgba(120, 190, 255, 0.66);
+      }
+
+      html[data-tangram-preview-mode="true"] [data-tangram-preview-active="true"] {
+        background: rgba(157, 255, 188, 0.12) !important;
+        box-shadow: 0 0 0 2px rgba(157, 255, 188, 0.94), 0 0 24px rgba(157, 255, 188, 0.24) !important;
+        outline: 0 !important;
+      }
+
+      .tangram-preview-marker {
+        background: #9dffbc;
+        border-radius: 999px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.34);
+        color: #050505;
+        font: 700 11px/1 Inter, Arial, sans-serif;
+        left: 16px;
+        letter-spacing: 0.02em;
+        max-width: calc(100vw - 32px);
+        opacity: 0;
+        padding: 8px 10px;
+        pointer-events: none;
+        position: fixed;
+        text-transform: uppercase;
+        top: 16px;
+        transform: translateY(-8px);
+        transition: opacity 160ms ease, transform 160ms ease;
+        z-index: 2147483647;
+      }
+
+      .tangram-preview-marker.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .tangram-preview-marker span {
+        display: block;
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 1.25;
+        margin-top: 5px;
+        max-width: min(360px, calc(100vw - 40px));
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-transform: none;
+        white-space: nowrap;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function highlightPreviewPath(path) {
+    if (!previewMode) return;
+    activePreviewPath = path || activePreviewPath || '';
+    document.querySelectorAll('[data-tangram-preview-active]').forEach((element) => {
+      delete element.dataset.tangramPreviewActive;
+    });
+
+    if (!activePreviewPath) {
+      hidePreviewMarker();
+      return;
+    }
+
+    const target = findPreviewTarget(activePreviewPath);
+    if (!target) {
+      hidePreviewMarker();
+      return;
+    }
+
+    target.dataset.tangramPreviewActive = 'true';
+    target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+    window.setTimeout(() => showPreviewMarker(target, activePreviewPath), 250);
+  }
+
+  function findPreviewTarget(path) {
+    const candidates = Array.from(document.querySelectorAll('[data-tangram-content-key]'));
+    if (!candidates.length) return null;
+
+    const normalizedPath = String(path || '');
+    const section = normalizedPath.split('.')[0];
+    const exact = candidates.find((element) => element.dataset.tangramContentKey === normalizedPath);
+    if (exact) return exact;
+
+    const partial = candidates.find((element) => {
+      const key = element.dataset.tangramContentKey || '';
+      return normalizedPath && (key.startsWith(`${normalizedPath}.`) || normalizedPath.startsWith(`${key}.`));
+    });
+    if (partial) return partial;
+
+    return candidates.find((element) => (element.dataset.tangramContentKey || '').split('.')[0] === section) || candidates[0];
+  }
+
+  function ensurePreviewMarker() {
+    if (previewMarker) return previewMarker;
+    previewMarker = document.createElement('div');
+    previewMarker.className = 'tangram-preview-marker';
+    document.body.appendChild(previewMarker);
+    return previewMarker;
+  }
+
+  function showPreviewMarker(target, path) {
+    const marker = ensurePreviewMarker();
+    const href = previewLinkValue(target);
+    marker.textContent = previewLabel(path);
+    if (href) {
+      const link = document.createElement('span');
+      link.textContent = href;
+      marker.appendChild(link);
+    }
+    positionPreviewMarker(target);
+    marker.classList.add('is-visible');
+  }
+
+  function applyPreviewLinkHints() {
+    if (!previewMode) return;
+    document.querySelectorAll('a[href]').forEach((anchor) => {
+      const href = anchor.getAttribute('href') || '';
+      if (!href || href === '#') return;
+      anchor.dataset.tangramPreviewHref = href;
+      anchor.title = `Link editavel: ${href}`;
+    });
+  }
+
+  function previewLinkValue(target) {
+    const link = target && target.closest && target.closest('a[href]');
+    if (!link) return '';
+    return link.dataset.tangramPreviewHref || link.getAttribute('href') || '';
+  }
+
+  function positionPreviewMarker(target) {
+    if (!previewMarker) return;
+    const active = target || document.querySelector('[data-tangram-preview-active="true"]');
+    if (!active) return;
+    const rect = active.getBoundingClientRect();
+    previewMarker.style.top = `${Math.max(12, rect.top - 36)}px`;
+    previewMarker.style.left = `${Math.max(12, Math.min(rect.left, window.innerWidth - 180))}px`;
+  }
+
+  function hidePreviewMarker() {
+    if (previewMarker) previewMarker.classList.remove('is-visible');
+  }
+
+  function previewLabel(path) {
+    const section = String(path || '').split('.')[0];
+    const labels = {
+      seo: 'SEO',
+      links: 'Links globais',
+      menu: 'Menu',
+      hero: 'Hero',
+      agenda: 'Agenda',
+      highlights: 'Highlights',
+      about: 'Quem Somos',
+      experienceCards: 'Cards de experiencia',
+      founders: 'Fundadores',
+      movement: 'Movimento Vivo',
+      partners: 'Parceiros',
+      purpose: 'Proposito',
+      faq: 'FAQ',
+      footer: 'Rodape',
+      whatsappMessages: 'WhatsApp'
+    };
+    return `${labels[section] || 'Campo editavel'} em edicao`;
   }
 
   function scheduleApply() {
@@ -424,6 +667,7 @@
 
   async function init() {
     try {
+      setupPreviewMode();
       const response = await fetch(`${CONTENT_URL}?v=${Date.now()}`, { cache: 'no-store' });
       if (!response.ok) throw new Error(`Content load failed: ${response.status}`);
       content = await response.json();

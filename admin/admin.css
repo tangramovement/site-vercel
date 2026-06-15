@@ -2,99 +2,69 @@ body {
   background: #050505;
 }
 
-.tangram-preview {
-  min-height: 100vh;
+.tangram-live-preview {
   background: #050505;
   color: #f7f3ff;
-  font-family: Inter, Arial, sans-serif;
-  padding: 28px;
-}
-
-.tangram-preview__topbar {
-  align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
+  flex-direction: column;
+  font-family: Inter, Arial, sans-serif;
+  height: 100vh;
+  min-height: 680px;
+  overflow: hidden;
+}
+
+.tangram-live-preview__bar {
+  align-items: center;
+  background: rgba(5, 5, 5, 0.96);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  flex: 0 0 auto;
+  gap: 16px;
   justify-content: space-between;
-  margin-bottom: 28px;
-  padding-bottom: 18px;
+  padding: 12px 14px;
 }
 
-.tangram-preview__brand {
-  font-size: 18px;
-  font-weight: 700;
+.tangram-live-preview__bar strong,
+.tangram-live-preview__bar span {
+  display: block;
 }
 
-.tangram-preview__status {
-  color: #9dffbc;
-  font-size: 12px;
-  text-transform: uppercase;
+.tangram-live-preview__bar strong {
+  font-size: 13px;
+  line-height: 1.25;
 }
 
-.tangram-preview__grid {
-  display: grid;
-  gap: 18px;
-  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
-}
-
-.tangram-preview__card {
-  background: linear-gradient(180deg, rgba(22, 22, 26, 0.96), rgba(9, 9, 12, 0.96));
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
-  padding: 20px;
-}
-
-.tangram-preview__label {
-  color: #b5afbf;
+.tangram-live-preview__bar span {
+  color: rgba(247, 243, 255, 0.68);
   font-size: 11px;
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+.tangram-live-preview__status {
+  border: 1px solid rgba(157, 255, 188, 0.44);
+  border-radius: 999px;
+  color: #9dffbc;
+  flex: 0 0 auto;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 7px 9px;
   text-transform: uppercase;
 }
 
-.tangram-preview h1,
-.tangram-preview h2,
-.tangram-preview h3,
-.tangram-preview p {
-  margin: 0;
+.tangram-live-preview__frame {
+  background: #050505;
+  border: 0;
+  flex: 1 1 auto;
+  height: 100%;
+  width: 100%;
 }
 
-.tangram-preview h1 {
-  font-size: 48px;
-  line-height: 0.95;
-}
-
-.tangram-preview h2 {
-  font-size: 28px;
-  margin-bottom: 12px;
-}
-
-.tangram-preview p {
-  color: rgba(247, 243, 255, 0.76);
-  line-height: 1.55;
-}
-
-.tangram-preview__pill {
-  border: 1px solid rgba(170, 116, 255, 0.5);
-  border-radius: 999px;
-  color: #d9c5ff;
-  display: inline-flex;
-  font-size: 12px;
-  margin: 8px 8px 0 0;
-  padding: 7px 10px;
-}
-
-.tangram-preview__event {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 12px;
-  padding-top: 12px;
-}
-
-.tangram-preview__editable {
-  box-shadow: 0 0 0 1px rgba(123, 0, 255, 0.72), 0 0 0 4px rgba(123, 0, 255, 0.12);
-}
-
-@media (max-width: 900px) {
-  .tangram-preview__grid {
-    grid-template-columns: 1fr;
+@media (max-width: 760px) {
+  .tangram-live-preview__bar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
   }
 }
