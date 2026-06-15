@@ -12,12 +12,9 @@
     <script>
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on('init', function (user) {
-          if (!user && window.location.hash.includes('invite_token')) {
+          if (!user && /invite_token=|confirmation_token=|recovery_token=|email_change_token=/.test(window.location.hash || '')) {
             window.netlifyIdentity.open('signup');
           }
-        });
-        window.netlifyIdentity.on('login', function () {
-          document.location.href = '/admin/';
         });
       }
     </script>
