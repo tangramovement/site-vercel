@@ -1,55 +1,67 @@
 {
-  "seo": {
+  "founders": [
+    {
+      "name": {
+        "pt": "Ber Fontoura",
+        "en": "Ber Fontoura"
+      },
+      "bio": {
+        "pt": "Ber Fontoura é nascido em uma família imersa musicalmente, trazendo beats minimalistas e percussionados, guiados por uma bagagem musical que flui da música latina ao rnb, soul, rock e jazz, trazendo suas nuances de formas sutis misturadas a linhas de baixo envolventes, criando uma sonoridade única que conecta passado e presente de forma cativante e carregada de nostalgia. Suas tracks são tocadas por grandes nomes, sendo alguns deles o Seth Troxler e Paco Osuna. Ber já passou por grandes palcos e clubs internacionais, como: D.Edge SP e RJ, Casa Tisoc, Love Sessions, Deep Please, Bloco Ame e Mau-Festa.",
+        "en": "Ber Fontoura was born into a deeply musical family, bringing minimalist and percussive beats guided by a musical background that flows from Latin music to R&B, soul, rock and jazz. His subtle nuances blend with enveloping basslines, creating a unique sound that connects past and present with a captivating and nostalgic energy."
+      },
+      "presskitLabel": {
+        "pt": "Presskit",
+        "en": "Presskit"
+      },
+      "presskitUrl": "https://drive.google.com/drive/folders/1-026N1MXtp2RzfoYJgMWhPur3JTmGWNP"
+    },
+    {
+      "name": {
+        "pt": "Marian Flow",
+        "en": "Marian Flow"
+      },
+      "bio": {
+        "pt": "Formada em Marketing e com passagem pela School of Visual Arts, em Nova York, onde estudou Graphic Design. É fundadora da gravadora Music is Magic, voltada para música de cura e conexões ancestrais, e idealizadora do projeto Tangram. Marian Flow conta com mais de 20 anos de carreira e turnês pelos 4 cantos do globo.",
+        "en": "With a background in Marketing and studies in Graphic Design at the School of Visual Arts in New York, Marian Flow is the founder of Music is Magic, a label focused on healing music and ancestral connections, and the creator of the Tangram project."
+      },
+      "presskitLabel": {
+        "pt": "Presskit",
+        "en": "Presskit"
+      },
+      "presskitUrl": "https://drive.google.com/drive/folders/15F-EL6K-J7O3NcqZHYV7GNp6hIG8OEx_"
+    },
+    {
+      "name": {
+        "pt": "Clari Ann",
+        "en": "Clari Ann"
+      },
+      "bio": {
+        "pt": "Clari Ann já se apresentou em clubes e festivais prestigiados na Suíça, incluindo o Hive Club, Club Bellevue, Street Parade e Zurich Open Air. Sua energia eletrizante já alcançou palcos internacionais, passando pelo Brasil, Tailândia, Espanha, Austrália, Alemanha, Reino Unido, Holanda e Chile.",
+        "en": "Clari Ann has performed at renowned clubs and festivals in Switzerland, including Hive Club, Club Bellevue, Street Parade and Zurich Open Air. Her electrifying energy has reached international stages across Brazil, Thailand, Spain, Australia, Germany, the United Kingdom, the Netherlands and Chile."
+      },
+      "presskitLabel": {
+        "pt": "Presskit",
+        "en": "Presskit"
+      },
+      "presskitUrl": ""
+    }
+  ],
+  "partners": {
+    "eyebrow": {
+      "pt": "Reviews",
+      "en": "Reviews"
+    },
     "title": {
-      "pt": "Tangram Movement | Música, Arte, Moda e Movimento",
-      "en": "Tangram Movement | Music, Art, Fashion and Movement"
-    },
-    "description": {
-      "pt": "Experiências imersivas com música, arte e moda. Tangram cria atmosferas sensoriais únicas que vibram com o tempo, o corpo e o espaço.",
-      "en": "Immersive experiences with music, art and fashion. Tangram creates unique sensory atmospheres that vibrate with time, body and space."
-    },
-    "socialImage": "/__framer__/images/DDY3YSBvygUVOCUTQGvk0Lr1oY.png"
-  },
-  "links": {
-    "instagram": "https://www.instagram.com/tangramovement/",
-    "whatsappPhone": "5521975409180",
-    "whatsappBio": "https://wa.me/message/A2ZXZZRCLLZTP1",
-    "email": "tangramovement@gmail.com"
-  },
-  "menu": {
-    "about": {
-      "pt": "Quem Somos",
-      "en": "Who We Are"
-    },
-    "events": {
-      "pt": "Eventos",
-      "en": "Events"
-    },
-    "partners": {
       "pt": "Parceiros",
       "en": "Partners"
     },
-    "instagram": {
-      "pt": "Instagram",
-      "en": "Instagram"
+    "text": {
+      "pt": "Nossos parceiros são extensões vivas da experiência: artistas, coletivos e projetos que compartilham visão, presença e potência simbólica. Juntos, criamos atmosferas que não se fazem sozinhas.",
+      "en": "Our partners are living extensions of the experience: artists, collectives and projects that share vision, presence and symbolic power. Together, we create atmospheres that cannot exist alone."
     },
-    "contact": {
-      "pt": "Fale conosco",
-      "en": "Contact us"
-    }
-  },
-  "hero": {
-    "title": {
-      "pt": "NEXT MOVES 👾",
-      "en": "NEXT MOVES 👾"
-    },
-    "tickets": {
-      "pt": "Tickets",
-      "en": "Tickets"
-    },
-    "loading": {
-      "pt": "loading...",
-      "en": "loading..."
+    "cta": {
+      "pt": "Quero ser um parceiro",
+      "en": "I want to be a partner"
     }
   },
   "agenda": {
@@ -127,28 +139,6 @@
       }
     ]
   },
-  "highlights": {
-    "title": {
-      "pt": "HIGHLITS",
-      "en": "HIGHLIGHTS"
-    },
-    "images": [
-      {
-        "srcContains": "KX3LayS56OxCxW5L488YHxjsVmc",
-        "alt": {
-          "pt": "Instalação vermelha em evento Tangram",
-          "en": "Red installation at Tangram event"
-        }
-      },
-      {
-        "srcContains": "hKGmTW7lzWU7jeXME9dm6tICRlk",
-        "alt": {
-          "pt": "Pista com luzes azuis",
-          "en": "Dance floor with blue lights"
-        }
-      }
-    ]
-  },
   "about": {
     "eyebrow": {
       "pt": "Ativações",
@@ -163,137 +153,6 @@
       "en": "Inspired by the Chinese Tangram puzzle, Tangram was born from transformation, modularity and co-creation, producing unique sensory experiences that adapt to space and time while proposing living atmospheres of belonging and connection."
     }
   },
-  "experienceCards": [
-    {
-      "title": {
-        "pt": "Música",
-        "en": "Music"
-      },
-      "text": {
-        "pt": "O som é a peça principal do Tangram, é a partir dela que moldamos o espaço e movimentamos os corpos. Da escuta ao transe, a música conduz a experiência.",
-        "en": "Sound is Tangram's main piece. Through it, we shape the space and move bodies. From listening to trance, music leads the experience."
-      }
-    },
-    {
-      "title": {
-        "pt": "Moda",
-        "en": "Fashion"
-      },
-      "text": {
-        "pt": "No Tangram, o corpo é linguagem, e a roupa, um veículo de expressão. Vestir é ativar. Cada peça é gesto, manifesto e código. O estilo aqui é pulsação estética em movimento.",
-        "en": "At Tangram, the body is language, and clothing is a vehicle for expression. To dress is to activate. Each piece is gesture, manifesto and code. Style here is aesthetic pulse in motion."
-      }
-    },
-    {
-      "title": {
-        "pt": "Exposições Artísticas",
-        "en": "Art Exhibitions"
-      },
-      "text": {
-        "pt": "A arte no Tangram é presença viva. Instalações, pinturas, objetos e performance de dança emergem como extensões do espaço e da intenção. Cada peça propõe um diálogo entre forma e sentimento.",
-        "en": "Art at Tangram is a living presence. Installations, paintings, objects and dance performances emerge as extensions of space and intention. Each piece opens a dialogue between form and feeling."
-      }
-    },
-    {
-      "title": {
-        "pt": "Visual e Projeções",
-        "en": "Visuals and Projections"
-      },
-      "text": {
-        "pt": "Luz em movimento. As projeções no Tangram criam atmosferas imersivas por meio de narrativas visuais e experimentações geométricas, dissolvemos a arquitetura e revelamos portais.",
-        "en": "Light in motion. Tangram's projections create immersive atmospheres. Through visual narratives and geometric experimentation, we dissolve architecture and reveal portals."
-      }
-    }
-  ],
-  "tags": [
-    {
-      "pt": "Presença",
-      "en": "Presence"
-    },
-    {
-      "pt": "Mistério",
-      "en": "Mystery"
-    },
-    {
-      "pt": "Luz",
-      "en": "Light"
-    },
-    {
-      "pt": "Música",
-      "en": "Music"
-    },
-    {
-      "pt": "Moda",
-      "en": "Fashion"
-    },
-    {
-      "pt": "Experiência",
-      "en": "Experience"
-    },
-    {
-      "pt": "Corpo",
-      "en": "Body"
-    },
-    {
-      "pt": "House",
-      "en": "House"
-    },
-    {
-      "pt": "Fragmento",
-      "en": "Fragment"
-    },
-    {
-      "pt": "Frequência",
-      "en": "Frequency"
-    }
-  ],
-  "founders": [
-    {
-      "name": {
-        "pt": "Ber Fontoura",
-        "en": "Ber Fontoura"
-      },
-      "bio": {
-        "pt": "Ber Fontoura é nascido em uma família imersa musicalmente, trazendo beats minimalistas e percussionados, guiados por uma bagagem musical que flui da música latina ao rnb, soul, rock e jazz, trazendo suas nuances de formas sutis misturadas a linhas de baixo envolventes, criando uma sonoridade única que conecta passado e presente de forma cativante e carregada de nostalgia. Suas tracks são tocadas por grandes nomes, sendo alguns deles o Seth Troxler e Paco Osuna. Ber já passou por grandes palcos e clubs internacionais, como: D.Edge SP e RJ, Casa Tisoc, Love Sessions, Deep Please, Bloco Ame e Mau-Festa.",
-        "en": "Ber Fontoura was born into a deeply musical family, bringing minimalist and percussive beats guided by a musical background that flows from Latin music to R&B, soul, rock and jazz. His subtle nuances blend with enveloping basslines, creating a unique sound that connects past and present with a captivating and nostalgic energy."
-      },
-      "presskitLabel": {
-        "pt": "Presskit",
-        "en": "Presskit"
-      },
-      "presskitUrl": "https://drive.google.com/drive/folders/1-026N1MXtp2RzfoYJgMWhPur3JTmGWNP"
-    },
-    {
-      "name": {
-        "pt": "Marian Flow",
-        "en": "Marian Flow"
-      },
-      "bio": {
-        "pt": "Formada em Marketing e com passagem pela School of Visual Arts, em Nova York, onde estudou Graphic Design. É fundadora da gravadora Music is Magic, voltada para música de cura e conexões ancestrais, e idealizadora do projeto Tangram. Marian Flow conta com mais de 20 anos de carreira e turnês pelos 4 cantos do globo.",
-        "en": "With a background in Marketing and studies in Graphic Design at the School of Visual Arts in New York, Marian Flow is the founder of Music is Magic, a label focused on healing music and ancestral connections, and the creator of the Tangram project."
-      },
-      "presskitLabel": {
-        "pt": "Presskit",
-        "en": "Presskit"
-      },
-      "presskitUrl": "https://drive.google.com/drive/folders/15F-EL6K-J7O3NcqZHYV7GNp6hIG8OEx_"
-    },
-    {
-      "name": {
-        "pt": "Clari Ann",
-        "en": "Clari Ann"
-      },
-      "bio": {
-        "pt": "Clari Ann já se apresentou em clubes e festivais prestigiados na Suíça, incluindo o Hive Club, Club Bellevue, Street Parade e Zurich Open Air. Sua energia eletrizante já alcançou palcos internacionais, passando pelo Brasil, Tailândia, Espanha, Austrália, Alemanha, Reino Unido, Holanda e Chile.",
-        "en": "Clari Ann has performed at renowned clubs and festivals in Switzerland, including Hive Club, Club Bellevue, Street Parade and Zurich Open Air. Her electrifying energy has reached international stages across Brazil, Thailand, Spain, Australia, Germany, the United Kingdom, the Netherlands and Chile."
-      },
-      "presskitLabel": {
-        "pt": "Presskit",
-        "en": "Presskit"
-      },
-      "presskitUrl": ""
-    }
-  ],
   "movement": {
     "title": {
       "pt": "Movimento Vivo",
@@ -342,22 +201,249 @@
       }
     }
   },
-  "partners": {
+  "faq": {
     "eyebrow": {
-      "pt": "Reviews",
-      "en": "Reviews"
+      "pt": "Tire suas dúvidas",
+      "en": "Ask your questions"
     },
     "title": {
-      "pt": "Parceiros",
-      "en": "Partners"
+      "pt": "FAQ",
+      "en": "FAQ"
     },
-    "text": {
-      "pt": "Nossos parceiros são extensões vivas da experiência: artistas, coletivos e projetos que compartilham visão, presença e potência simbólica. Juntos, criamos atmosferas que não se fazem sozinhas.",
-      "en": "Our partners are living extensions of the experience: artists, collectives and projects that share vision, presence and symbolic power. Together, we create atmospheres that cannot exist alone."
+    "intro": {
+      "pt": "Tudo o que você precisa saber para viver, criar ou ativar junto com o Tangram.",
+      "en": "Everything you need to know to live, create or activate with Tangram."
+    },
+    "ctaLines": [
+      {
+        "pt": "Você é",
+        "en": "You are"
+      },
+      {
+        "pt": "a peça",
+        "en": "the piece"
+      },
+      {
+        "pt": "que faltava",
+        "en": "that was missing"
+      }
+    ],
+    "items": [
+      {
+        "question": {
+          "pt": "O que é o Tangram?",
+          "en": "What is Tangram?"
+        },
+        "answer": {
+          "pt": "Tangram é um movimento de experiências modulares e sensoriais. Cada projeto que criamos é único, vivo e adaptável, um encontro entre música, arte, moda e movimento.",
+          "en": "Tangram is a movement of modular and sensory experiences. Each project is unique, alive and adaptable, a meeting point between music, art, fashion and movement."
+        }
+      },
+      {
+        "question": {
+          "pt": "O Tangram tem um formato fixo?",
+          "en": "Does Tangram have a fixed format?"
+        },
+        "answer": {
+          "pt": "Não. Tangram é fluidez. Cada evento tem uma nova forma. Trabalhamos com peças modulares que podem ser combinadas de formas diferentes para criar atmosferas singulares.",
+          "en": "No. Tangram is fluidity. Each event takes a new form. We work with modular pieces that can be combined in different ways to create singular atmospheres."
+        }
+      },
+      {
+        "question": {
+          "pt": "Quem participa dos eventos do Tangram?",
+          "en": "Who takes part in Tangram events?"
+        },
+        "answer": {
+          "pt": "DJs, artistas, marcas e peças criativas, sensíveis e despertos. Pessoas que querem sentir, contemplar, se mover e pertencer a algo maior.",
+          "en": "DJs, artists, brands and creative, sensitive, awake pieces. People who want to feel, contemplate, move and belong to something greater."
+        }
+      },
+      {
+        "question": {
+          "pt": "Posso contratar o Tangram para um evento específico?",
+          "en": "Can I hire Tangram for a specific event?"
+        },
+        "answer": {
+          "pt": "Sim. Atuamos como criadores de experiências sob medida. Você nos conta o propósito, o espaço e o público, nós desenhamos a composição com base nas peças Tangram.",
+          "en": "Yes. We create tailor-made experiences. You tell us the purpose, the space and the audience, and we design the composition based on the Tangram pieces."
+        }
+      },
+      {
+        "question": {
+          "pt": "Quais são os elementos que vocês usam nas experiências?",
+          "en": "What elements do you use in the experiences?"
+        },
+        "answer": {
+          "pt": "Trabalhamos com música, projeções, instalações artísticas, performances de moda e ativações sensoriais.",
+          "en": "We work with music, projections, art installations, fashion performances and sensory activations."
+        }
+      },
+      {
+        "question": {
+          "pt": "Como posso participar ou colaborar com o Tangram?",
+          "en": "How can I participate or collaborate with Tangram?"
+        },
+        "answer": {
+          "pt": "Você pode vir como público, como artista, como espaço, como marca. Nos escreva, nos chame. Tangram acontece no encontro e você pode ser a peça que ativa o próximo.",
+          "en": "You can join as audience, artist, venue or brand. Write to us, call us. Tangram happens through encounter, and you can be the piece that activates the next one."
+        }
+      }
+    ]
+  },
+  "tags": [
+    {
+      "pt": "Presença",
+      "en": "Presence"
+    },
+    {
+      "pt": "Mistério",
+      "en": "Mystery"
+    },
+    {
+      "pt": "Luz",
+      "en": "Light"
+    },
+    {
+      "pt": "Música",
+      "en": "Music"
+    },
+    {
+      "pt": "Moda",
+      "en": "Fashion"
+    },
+    {
+      "pt": "Experiência",
+      "en": "Experience"
+    },
+    {
+      "pt": "Corpo",
+      "en": "Body"
+    },
+    {
+      "pt": "House",
+      "en": "House"
+    },
+    {
+      "pt": "Fragmento",
+      "en": "Fragment"
+    },
+    {
+      "pt": "Frequência",
+      "en": "Frequency"
+    }
+  ],
+  "experienceCards": [
+    {
+      "title": {
+        "pt": "Música",
+        "en": "Music"
+      },
+      "text": {
+        "pt": "O som é a peça principal do Tangram, é a partir dela que moldamos o espaço e movimentamos os corpos. Da escuta ao transe, a música conduz a experiência.",
+        "en": "Sound is Tangram's main piece. Through it, we shape the space and move bodies. From listening to trance, music leads the experience."
+      }
+    },
+    {
+      "title": {
+        "pt": "Moda",
+        "en": "Fashion"
+      },
+      "text": {
+        "pt": "No Tangram, o corpo é linguagem, e a roupa, um veículo de expressão. Vestir é ativar. Cada peça é gesto, manifesto e código. O estilo aqui é pulsação estética em movimento.",
+        "en": "At Tangram, the body is language, and clothing is a vehicle for expression. To dress is to activate. Each piece is gesture, manifesto and code. Style here is aesthetic pulse in motion."
+      }
+    },
+    {
+      "title": {
+        "pt": "Exposições Artísticas",
+        "en": "Art Exhibitions"
+      },
+      "text": {
+        "pt": "A arte no Tangram é presença viva. Instalações, pinturas, objetos e performance de dança emergem como extensões do espaço e da intenção. Cada peça propõe um diálogo entre forma e sentimento.",
+        "en": "Art at Tangram is a living presence. Installations, paintings, objects and dance performances emerge as extensions of space and intention. Each piece opens a dialogue between form and feeling."
+      }
+    },
+    {
+      "title": {
+        "pt": "Visual e Projeções",
+        "en": "Visuals and Projections"
+      },
+      "text": {
+        "pt": "Luz em movimento. As projeções no Tangram criam atmosferas imersivas por meio de narrativas visuais e experimentações geométricas, dissolvemos a arquitetura e revelamos portais.",
+        "en": "Light in motion. Tangram's projections create immersive atmospheres. Through visual narratives and geometric experimentation, we dissolve architecture and reveal portals."
+      }
+    }
+  ],
+  "links": {
+    "instagram": "https://www.instagram.com/tangramovement/",
+    "whatsappPhone": "5521975409180",
+    "whatsappBio": "https://wa.me/message/A2ZXZZRCLLZTP1",
+    "email": "tangramovement@gmail.com"
+  },
+  "hero": {
+    "title": {
+      "pt": "NEXT MOVES 👾",
+      "en": "NEXT MOVES 👾"
+    },
+    "tickets": {
+      "pt": "Tickets",
+      "en": "Tickets"
+    },
+    "loading": {
+      "pt": "loading...",
+      "en": "loading..."
+    }
+  },
+  "footer": {
+    "headline": {
+      "pt": "É no movimento que a forma encontra sentido.",
+      "en": "It is in movement that form finds meaning."
     },
     "cta": {
-      "pt": "Quero ser um parceiro",
-      "en": "I want to be a partner"
+      "pt": "Iniciar Movimento",
+      "en": "Start Movement"
+    },
+    "location": {
+      "pt": "RIO DE JANEIRO - BRAZIL",
+      "en": "RIO DE JANEIRO - BRAZIL"
+    },
+    "copyright": {
+      "pt": "All rights reserved, ©2025",
+      "en": "All rights reserved, ©2025"
+    }
+  },
+  "seo": {
+    "title": {
+      "pt": "Tangram Movement | Música, Arte, Moda e Movimento",
+      "en": "Tangram Movement | Music, Art, Fashion and Movement"
+    },
+    "description": {
+      "pt": "Experiências imersivas com música, arte e moda. Tangram cria atmosferas sensoriais únicas que vibram com o tempo, o corpo e o espaço.",
+      "en": "Immersive experiences with music, art and fashion. Tangram creates unique sensory atmospheres that vibrate with time, body and space."
+    },
+    "socialImage": "/__framer__/images/DDY3YSBvygUVOCUTQGvk0Lr1oY.png"
+  },
+  "whatsappMessages": {
+    "contact": {
+      "pt": "[Site Tangram | Fale conosco] Oi! Vim pelo site do Tangram e queria falar com vcs.",
+      "en": "[Tangram Website | Contact] Hi! I came from Tangram website and would like to talk to you."
+    },
+    "partner": {
+      "pt": "[Site Tangram | Parceiros] Oi! Vim pelo site do Tangram e queria conversar sobre parceria.",
+      "en": "[Tangram Website | Partners] Hi! I came from Tangram website and would like to talk about a partnership."
+    },
+    "start": {
+      "pt": "[Site Tangram | Iniciar Movimento] Oi! Vim pelo site do Tangram e queria iniciar um movimento com vcs.",
+      "en": "[Tangram Website | Start Movement] Hi! I came from Tangram website and would like to start a movement with you."
+    },
+    "lastNight": {
+      "pt": "[Site Tangram | Last Night RJ] Oi! Vim pelo site do Tangram e quero receber infos sobre o Last Night no Edifício Touring em 01.08.",
+      "en": "[Tangram Website | Last Night RJ] Hi! I came from Tangram website and would like to receive info about Last Night at Touring Building on 01.08."
+    },
+    "faq": {
+      "pt": "[Site Tangram | FAQ] Oi! Vim pelo site do Tangram e queria entender melhor como participar.",
+      "en": "[Tangram Website | FAQ] Hi! I came from Tangram website and would like to understand how to participate."
     }
   },
   "purpose": {
@@ -426,134 +512,48 @@
       }
     ]
   },
-  "faq": {
-    "eyebrow": {
-      "pt": "Tire suas dúvidas",
-      "en": "Ask your questions"
+  "menu": {
+    "about": {
+      "pt": "Quem Somos",
+      "en": "Who We Are"
     },
+    "events": {
+      "pt": "Eventos",
+      "en": "Events"
+    },
+    "partners": {
+      "pt": "Parceiros",
+      "en": "Partners"
+    },
+    "instagram": {
+      "pt": "Instagram",
+      "en": "Instagram"
+    },
+    "contact": {
+      "pt": "Fale conosco",
+      "en": "Contact us"
+    }
+  },
+  "highlights": {
     "title": {
-      "pt": "FAQ",
-      "en": "FAQ"
+      "pt": "HIGHLITS",
+      "en": "HIGHLIGHTS"
     },
-    "intro": {
-      "pt": "Tudo o que você precisa saber para viver, criar ou ativar junto com o Tangram.",
-      "en": "Everything you need to know to live, create or activate with Tangram."
-    },
-    "ctaLines": [
+    "images": [
       {
-        "pt": "Você é",
-        "en": "You are"
-      },
-      {
-        "pt": "a peça",
-        "en": "the piece"
-      },
-      {
-        "pt": "que faltava",
-        "en": "that was missing"
-      }
-    ],
-    "items": [
-      {
-        "question": {
-          "pt": "O que é o Tangram?",
-          "en": "What is Tangram?"
-        },
-        "answer": {
-          "pt": "Tangram é um movimento de experiências modulares e sensoriais. Cada projeto é único, vivo e adaptável, um encontro entre música, arte, moda e movimento.",
-          "en": "Tangram is a movement of modular and sensory experiences. Each project is unique, alive and adaptable, a meeting point between music, art, fashion and movement."
+        "srcContains": "KX3LayS56OxCxW5L488YHxjsVmc",
+        "alt": {
+          "pt": "Instalação vermelha em evento Tangram",
+          "en": "Red installation at Tangram event"
         }
       },
       {
-        "question": {
-          "pt": "O Tangram tem um formato fixo?",
-          "en": "Does Tangram have a fixed format?"
-        },
-        "answer": {
-          "pt": "Não. Tangram é fluidez. Cada evento tem uma nova forma. Trabalhamos com peças modulares que podem ser combinadas de formas diferentes para criar atmosferas singulares.",
-          "en": "No. Tangram is fluidity. Each event takes a new form. We work with modular pieces that can be combined in different ways to create singular atmospheres."
-        }
-      },
-      {
-        "question": {
-          "pt": "Quem participa dos eventos do Tangram?",
-          "en": "Who takes part in Tangram events?"
-        },
-        "answer": {
-          "pt": "DJs, artistas, marcas e peças criativas, sensíveis e despertos. Pessoas que querem sentir, contemplar, se mover e pertencer a algo maior.",
-          "en": "DJs, artists, brands and creative, sensitive, awake pieces. People who want to feel, contemplate, move and belong to something greater."
-        }
-      },
-      {
-        "question": {
-          "pt": "Posso contratar o Tangram para um evento específico?",
-          "en": "Can I hire Tangram for a specific event?"
-        },
-        "answer": {
-          "pt": "Sim. Atuamos como criadores de experiências sob medida. Você nos conta o propósito, o espaço e o público, nós desenhamos a composição com base nas peças Tangram.",
-          "en": "Yes. We create tailor-made experiences. You tell us the purpose, the space and the audience, and we design the composition based on the Tangram pieces."
-        }
-      },
-      {
-        "question": {
-          "pt": "Quais são os elementos que vocês usam nas experiências?",
-          "en": "What elements do you use in the experiences?"
-        },
-        "answer": {
-          "pt": "Trabalhamos com música, projeções, instalações artísticas, performances de moda e ativações sensoriais.",
-          "en": "We work with music, projections, art installations, fashion performances and sensory activations."
-        }
-      },
-      {
-        "question": {
-          "pt": "Como posso participar ou colaborar com o Tangram?",
-          "en": "How can I participate or collaborate with Tangram?"
-        },
-        "answer": {
-          "pt": "Você pode vir como público, como artista, como espaço, como marca. Nos escreva, nos chame. Tangram acontece no encontro e você pode ser a peça que ativa o próximo.",
-          "en": "You can join as audience, artist, venue or brand. Write to us, call us. Tangram happens through encounter, and you can be the piece that activates the next one."
+        "srcContains": "hKGmTW7lzWU7jeXME9dm6tICRlk",
+        "alt": {
+          "pt": "Pista com luzes azuis",
+          "en": "Dance floor with blue lights"
         }
       }
     ]
-  },
-  "footer": {
-    "headline": {
-      "pt": "É no movimento que a forma encontra sentido.",
-      "en": "It is in movement that form finds meaning."
-    },
-    "cta": {
-      "pt": "Iniciar Movimento",
-      "en": "Start Movement"
-    },
-    "location": {
-      "pt": "RIO DE JANEIRO - BRAZIL",
-      "en": "RIO DE JANEIRO - BRAZIL"
-    },
-    "copyright": {
-      "pt": "All rights reserved, ©2025",
-      "en": "All rights reserved, ©2025"
-    }
-  },
-  "whatsappMessages": {
-    "contact": {
-      "pt": "[Site Tangram | Fale conosco] Oi! Vim pelo site do Tangram e queria falar com vcs.",
-      "en": "[Tangram Website | Contact] Hi! I came from Tangram website and would like to talk to you."
-    },
-    "partner": {
-      "pt": "[Site Tangram | Parceiros] Oi! Vim pelo site do Tangram e queria conversar sobre parceria.",
-      "en": "[Tangram Website | Partners] Hi! I came from Tangram website and would like to talk about a partnership."
-    },
-    "start": {
-      "pt": "[Site Tangram | Iniciar Movimento] Oi! Vim pelo site do Tangram e queria iniciar um movimento com vcs.",
-      "en": "[Tangram Website | Start Movement] Hi! I came from Tangram website and would like to start a movement with you."
-    },
-    "lastNight": {
-      "pt": "[Site Tangram | Last Night RJ] Oi! Vim pelo site do Tangram e quero receber infos sobre o Last Night no Edifício Touring em 01.08.",
-      "en": "[Tangram Website | Last Night RJ] Hi! I came from Tangram website and would like to receive info about Last Night at Touring Building on 01.08."
-    },
-    "faq": {
-      "pt": "[Site Tangram | FAQ] Oi! Vim pelo site do Tangram e queria entender melhor como participar.",
-      "en": "[Tangram Website | FAQ] Hi! I came from Tangram website and would like to understand how to participate."
-    }
   }
 }
