@@ -3,36 +3,106 @@
   if (!window.CMS || !h) return;
 
   const PREVIEW_URL = '/?tangram-preview=1';
-  const FIELD_PATHS = [
-    { path: 'seo.title', labels: ['SEO', 'Titulo'] },
-    { path: 'seo.description', labels: ['SEO', 'Descricao'] },
-    { path: 'seo.socialImage', labels: ['SEO', 'Imagem social'] },
-    { path: 'links.instagram', labels: ['Links globais', 'Instagram'], matchAll: true },
-    { path: 'links.whatsappPhone', labels: ['Telefone WhatsApp'] },
-    { path: 'links.whatsappBio', labels: ['Link WhatsApp bio'] },
-    { path: 'links.email', labels: ['Links globais', 'Email'], matchAll: true },
-    { path: 'agenda.events', labels: ['Link do ingresso'] },
-    { path: 'founders.presskitUrl', labels: ['Link presskit'] },
-    { path: 'founders.presskitLabel', labels: ['Botao Presskit'] },
-    { path: 'whatsappMessages', labels: ['Mensagens WhatsApp'] },
-    { path: 'links', labels: ['Links globais'] },
-    { path: 'menu', labels: ['Menu'] },
-    { path: 'hero', labels: ['Hero'] },
-    { path: 'agenda', labels: ['Agenda'] },
-    { path: 'highlights', labels: ['Highlights'] },
-    { path: 'about', labels: ['Quem Somos'] },
-    { path: 'experienceCards', labels: ['Cards de experiencia'] },
-    { path: 'founders', labels: ['Fundadores'] },
-    { path: 'movement', labels: ['Movimento Vivo'] },
-    { path: 'partners', labels: ['Parceiros'] },
-    { path: 'purpose', labels: ['Proposito'] },
-    { path: 'faq', labels: ['FAQ'] },
-    { path: 'footer', labels: ['Rodape'] }
+
+  const FIELD_RULES = [
+    rule('menu.about', 'Menu', ['Quem Somos']),
+    rule('menu.events', 'Menu', ['Eventos']),
+    rule('menu.partners', 'Menu', ['Parceiros']),
+    rule('menu.instagram', 'Menu', ['Instagram']),
+    rule('menu.contact', 'Menu', ['Fale conosco']),
+
+    rule('hero.title', 'Hero', ['Titulo']),
+    rule('hero.tickets', 'Hero', ['Tickets']),
+    rule('hero.loading', 'Hero', ['Loading']),
+
+    rule('agenda.introLabel', 'Agenda', ['Chamada']),
+    rule('agenda.introTitle', 'Agenda', ['Titulo']),
+    rule('agenda.events', 'Agenda', ['Eventos', 'Local', 'Headliner', 'Lineup', 'Label do ingresso', 'Link do ingresso']),
+
+    rule('highlights.title', 'Highlights', ['Titulo']),
+    rule('highlights.images', 'Highlights', ['Textos alternativos das imagens', 'Alt']),
+
+    rule('about.eyebrow', 'Quem Somos', ['Eyebrow']),
+    rule('about.title', 'Quem Somos', ['Titulo']),
+    rule('about.text', 'Quem Somos', ['Texto']),
+
+    rule('experienceCards', 'Cards de experiencia', ['Titulo', 'Texto']),
+    rule('tags', 'Tags', ['Tags']),
+    rule('founders', 'Fundadores', ['Nome', 'Bio', 'Botao', 'Link presskit']),
+
+    rule('movement.title', 'Movimento Vivo', ['Titulo']),
+    rule('movement.text', 'Movimento Vivo', ['Texto']),
+    rule('movement.contactTitle', 'Movimento Vivo', ['Titulo contato']),
+    rule('movement.contactText', 'Movimento Vivo', ['Texto contato']),
+    rule('movement.supportText', 'Movimento Vivo', ['Texto apoio']),
+    rule('movement.form', 'Movimento Vivo', ['Formulario', 'Nome', 'Email', 'Telefone', 'Local', 'Selecione', 'Botao']),
+
+    rule('partners.eyebrow', 'Parceiros', ['Eyebrow']),
+    rule('partners.title', 'Parceiros', ['Titulo']),
+    rule('partners.text', 'Parceiros', ['Texto']),
+    rule('partners.cta', 'Parceiros', ['CTA']),
+
+    rule('purpose.eyebrow', 'Proposito', ['Eyebrow']),
+    rule('purpose.title', 'Proposito', ['Titulo']),
+    rule('purpose.text', 'Proposito', ['Texto']),
+    rule('purpose.pillars', 'Proposito', ['Pilares', 'Titulo', 'Texto']),
+
+    rule('faq.eyebrow', 'FAQ', ['Eyebrow']),
+    rule('faq.title', 'FAQ', ['Titulo']),
+    rule('faq.intro', 'FAQ', ['Intro']),
+    rule('faq.ctaLines', 'FAQ', ['CTA']),
+    rule('faq.items', 'FAQ', ['Perguntas', 'Pergunta', 'Resposta']),
+
+    rule('footer.headline', 'Rodape', ['Frase']),
+    rule('footer.cta', 'Rodape', ['CTA']),
+    rule('footer.location', 'Rodape', ['Local']),
+    rule('footer.copyright', 'Rodape', ['Copyright']),
+
+    rule('links.instagram', 'Links globais', ['Instagram']),
+    rule('links.whatsappPhone', 'Links globais', ['Telefone WhatsApp']),
+    rule('links.whatsappBio', 'Links globais', ['Link WhatsApp bio']),
+    rule('links.email', 'Links globais', ['Email']),
+    rule('whatsappMessages', 'Mensagens WhatsApp', ['Fale conosco', 'Parceiros', 'Iniciar Movimento', 'Last Night', 'FAQ']),
+
+    rule('seo.title', 'SEO', ['Titulo']),
+    rule('seo.description', 'SEO', ['Descricao']),
+    rule('seo.socialImage', 'SEO', ['Imagem social'])
+  ];
+
+  const KNOWN_PATHS = FIELD_RULES.map((item) => item.path);
+  const SECTION_ORDER = [
+    'menu',
+    'hero',
+    'agenda',
+    'highlights',
+    'about',
+    'experienceCards',
+    'tags',
+    'founders',
+    'movement',
+    'partners',
+    'purpose',
+    'faq',
+    'footer',
+    'links',
+    'whatsappMessages',
+    'seo'
   ];
 
   let latestContent = null;
   let activePath = '';
   let syncTimer = 0;
+  let scrollTimer = 0;
+  let scrollSyncReady = false;
+
+  function rule(path, section, labels) {
+    return {
+      path,
+      section,
+      sectionText: normalize(section),
+      labels: labels.map(normalize)
+    };
+  }
 
   function entryToContent(entry) {
     const data = entry && entry.get && entry.get('data');
@@ -49,42 +119,102 @@
       .toLowerCase();
   }
 
-  function getTextNearTarget(target) {
-    const parts = [
-      target.getAttribute && target.getAttribute('name'),
-      target.getAttribute && target.getAttribute('id'),
-      target.getAttribute && target.getAttribute('aria-label'),
-      target.getAttribute && target.getAttribute('placeholder')
-    ];
+  function compact(value) {
+    return normalize(value).replace(/[^a-z0-9]+/g, '.').replace(/^\.+|\.+$/g, '');
+  }
 
+  function pathVariants(path) {
+    const dot = path.toLowerCase();
+    return [
+      dot,
+      dot.replace(/\./g, '-'),
+      dot.replace(/\./g, '_'),
+      dot.replace(/\./g, ' ')
+    ];
+  }
+
+  function getTargetAttributes(target) {
+    const attrs = [];
+    if (!target || !target.getAttribute) return '';
+    ['name', 'id', 'for', 'aria-label', 'placeholder', 'data-testid', 'data-field-name'].forEach((attr) => {
+      const value = target.getAttribute(attr);
+      if (value) attrs.push(value);
+    });
+    return attrs.join(' ');
+  }
+
+  function pathFromAttributes(target) {
     let node = target;
+    const attrs = [];
     for (let depth = 0; node && depth < 6; depth += 1) {
-      if (node.innerText) parts.push(node.innerText.slice(0, 900));
-      if (node.previousElementSibling && node.previousElementSibling.innerText) {
-        parts.push(node.previousElementSibling.innerText.slice(0, 400));
-      }
+      attrs.push(getTargetAttributes(node));
       node = node.parentElement;
     }
 
+    const raw = attrs.join(' ');
+    const normalized = normalize(raw);
+    const compacted = compact(raw);
+
+    const direct = KNOWN_PATHS
+      .slice()
+      .sort((a, b) => b.length - a.length)
+      .find((path) => pathVariants(path).some((variant) => normalized.includes(variant) || compacted.includes(variant)));
+
+    return direct || '';
+  }
+
+  function getTextNearTarget(target) {
+    const parts = [getTargetAttributes(target)];
+    let node = target;
+    for (let depth = 0; node && depth < 8; depth += 1) {
+      if (node.innerText) parts.push(node.innerText.slice(0, depth < 3 ? 800 : 1600));
+      if (node.previousElementSibling && node.previousElementSibling.innerText) {
+        parts.push(node.previousElementSibling.innerText.slice(0, 500));
+      }
+      node = node.parentElement;
+    }
     return normalize(parts.filter(Boolean).join(' '));
   }
 
-  function pathFromTarget(target) {
-    const text = getTextNearTarget(target);
-    if (!text) return activePath;
-
-    const direct = FIELD_PATHS.find((item) => {
-      const labels = item.labels.map(normalize);
-      return item.matchAll
-        ? labels.every((label) => text.includes(label))
-        : labels.some((label) => text.includes(label));
+  function scoreRule(ruleItem, text) {
+    if (!text) return 0;
+    let score = 0;
+    if (text.includes(ruleItem.sectionText)) score += 80;
+    ruleItem.labels.forEach((label) => {
+      if (text.includes(label)) score += 28;
     });
-    return direct ? direct.path : activePath;
+    if (text.includes(compact(ruleItem.path).replace(/\./g, ' '))) score += 120;
+    if (score && SECTION_ORDER.includes(ruleItem.path.split('.')[0])) {
+      score += SECTION_ORDER.length - SECTION_ORDER.indexOf(ruleItem.path.split('.')[0]);
+    }
+    return score;
+  }
+
+  function pathFromText(target) {
+    const text = getTextNearTarget(target);
+    const scored = FIELD_RULES
+      .map((item) => ({ item, score: scoreRule(item, text) }))
+      .filter((entry) => entry.score > 0)
+      .sort((a, b) => b.score - a.score);
+    return scored[0]?.item.path || '';
+  }
+
+  function pathFromTarget(target) {
+    return pathFromAttributes(target) || pathFromText(target) || activePath;
   }
 
   function scheduleSync() {
     window.clearTimeout(syncTimer);
     syncTimer = window.setTimeout(sendPreviewState, 80);
+  }
+
+  function setActivePath(path) {
+    if (!path || path === activePath) {
+      scheduleSync();
+      return;
+    }
+    activePath = path;
+    scheduleSync();
   }
 
   function sendPreviewState() {
@@ -101,17 +231,55 @@
 
   function handleEditorFocus(event) {
     const target = event.target;
-    if (!target || !/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(target.tagName)) return;
-    activePath = pathFromTarget(target);
-    scheduleSync();
+    if (!target || !/^(INPUT|TEXTAREA|SELECT|BUTTON|LABEL|SUMMARY)$/.test(target.tagName)) return;
+    setActivePath(pathFromTarget(target));
   }
 
   function handleEditorInput(event) {
     const target = event.target;
     if (target && /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) {
-      activePath = pathFromTarget(target);
-      scheduleSync();
+      setActivePath(pathFromTarget(target));
     }
+  }
+
+  function handleEditorScroll() {
+    window.clearTimeout(scrollTimer);
+    scrollTimer = window.setTimeout(() => {
+      const pane = findEditorPane();
+      if (!pane) return;
+      const rect = pane.getBoundingClientRect();
+      const x = Math.max(24, rect.left + Math.min(180, rect.width * 0.35));
+      const y = rect.top + rect.height * 0.42;
+      const target = document.elementFromPoint(x, y);
+      const path = pathFromTarget(target);
+      if (path) setActivePath(path);
+    }, 120);
+  }
+
+  function findEditorPane() {
+    const preview = document.querySelector('.tangram-live-preview');
+    const previewRect = preview?.getBoundingClientRect();
+    const maxRight = previewRect ? previewRect.left + 12 : window.innerWidth * 0.62;
+
+    const candidates = Array.from(document.querySelectorAll('body *')).filter((element) => {
+      const rect = element.getBoundingClientRect();
+      return element.scrollHeight > element.clientHeight + 120
+        && rect.width > 280
+        && rect.height > 300
+        && rect.left < maxRight
+        && rect.right <= maxRight + 80;
+    });
+
+    return candidates.sort((a, b) => (b.clientHeight * b.clientWidth) - (a.clientHeight * a.clientWidth))[0] || null;
+  }
+
+  function setupScrollSync() {
+    if (scrollSyncReady) return;
+    const pane = findEditorPane();
+    if (!pane) return;
+    scrollSyncReady = true;
+    pane.addEventListener('scroll', handleEditorScroll, { passive: true });
+    window.addEventListener('scroll', handleEditorScroll, { passive: true });
   }
 
   function setupEditorBridge() {
@@ -125,18 +293,21 @@
       if (event.origin !== window.location.origin) return;
       if (event.data && event.data.type === 'tangram:preview-ready') sendPreviewState();
     });
+    window.setTimeout(setupScrollSync, 700);
+    window.setTimeout(setupScrollSync, 1800);
   }
 
   function SitePreview({ entry }) {
     latestContent = entryToContent(entry);
     setupEditorBridge();
     window.setTimeout(sendPreviewState, 0);
+    window.setTimeout(setupScrollSync, 0);
 
     return h('div', { className: 'tangram-live-preview' },
       h('div', { className: 'tangram-live-preview__bar' },
         h('div', null,
           h('strong', null, 'Preview do site real'),
-          h('span', null, 'Rascunho aplicado somente nesta visualizacao')
+          h('span', null, activePath ? `Campo ativo: ${activePath}` : 'Selecione um campo para destacar no site')
         ),
         h('div', { className: 'tangram-live-preview__status' }, 'Estrutura travada')
       ),

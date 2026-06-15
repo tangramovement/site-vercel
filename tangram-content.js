@@ -13,6 +13,18 @@
   let activePreviewPath = '';
   let previewMarker = null;
 
+  const previewTargetSelectors = {
+    'links.instagram': 'a[href*="instagram.com"]',
+    'links.whatsappPhone': 'a[href*="api.whatsapp.com"], a[href*="wa.me"]',
+    'links.whatsappBio': '[data-tangram-link-key^="agenda.events"], a[href*="wa.me"]',
+    'links.email': 'a[href^="mailto:"]',
+    whatsappMessages: 'a[href*="api.whatsapp.com"], a[href*="wa.me"]',
+    seo: 'html',
+    'seo.title': 'html',
+    'seo.description': 'html',
+    'seo.socialImage': 'html'
+  };
+
   const textBindings = [
     ['menu.about', ['Quem Somos', 'Who We Are']],
     ['menu.events', ['Eventos', 'Events']],
@@ -32,7 +44,7 @@
     ['movement.contactText', ['Preencha o formulário ao lado e vamos co-criar juntos o próximo movimento', 'Fill out the form and let’s co-create the next movement together']],
     ['movement.supportText', ['Tangram se molda, se encaixa, se transforma', 'Tangram molds itself, fits together and transforms']],
     ['partners.eyebrow', ['Reviews']],
-    ['partners.title', ['Parceiros', 'Partners']],
+    ['partners.title', ['Parceiros', 'Partners', 'NEXT MOVES']],
     ['partners.text', ['Nossos parceiros são extensões vivas da experiência', 'Our partners are living extensions of the experience']],
     ['partners.cta', ['Quero ser um parceiro', 'I want to be a partner']],
     ['purpose.eyebrow', ['Ativações', 'Ativacoes', 'Activations']],
@@ -187,7 +199,8 @@
       const text = fold(element.textContent);
       if (!text) return false;
       for (const alias of foldedAliases) {
-        if (text === alias || text.startsWith(alias) || alias.startsWith(text)) return true;
+        if (text === alias) return true;
+        if (alias.length > 8 && (text.startsWith(alias) || alias.startsWith(text))) return true;
       }
       return false;
     });
@@ -197,12 +210,14 @@
     const currentKey = element.dataset.tangramContentKey || '';
     if (!/^(H1|H2|H3)$/.test(element.tagName)) return false;
     if (currentKey.startsWith('menu.') && !key.startsWith('menu.')) return true;
-    return currentKey === 'hero.title' && key === 'about.title' && followsAboutEyebrow(element);
+    return currentKey === 'hero.title'
+      && ((key === 'about.title' && followsSectionEyebrow(element, 'about.eyebrow'))
+        || (key === 'partners.title' && followsSectionEyebrow(element, 'partners.eyebrow')));
   }
 
-  function followsAboutEyebrow(element) {
+  function followsSectionEyebrow(element, eyebrowKey) {
     const top = element.getBoundingClientRect().top + window.scrollY;
-    return Array.from(document.querySelectorAll('[data-tangram-content-key="about.eyebrow"]')).some((eyebrow) => {
+    return Array.from(document.querySelectorAll(`[data-tangram-content-key="${eyebrowKey}"]`)).some((eyebrow) => {
       const eyebrowTop = eyebrow.getBoundingClientRect().top + window.scrollY;
       return top > eyebrowTop && top - eyebrowTop < 420;
     });
@@ -560,20 +575,49 @@
 
   function findPreviewTarget(path) {
     const candidates = Array.from(document.querySelectorAll('[data-tangram-content-key]'));
-    if (!candidates.length) return null;
-
     const normalizedPath = String(path || '');
     const section = normalizedPath.split('.')[0];
-    const exact = candidates.find((element) => element.dataset.tangramContentKey === normalizedPath);
+    const exact = choosePreviewCandidate(candidates.filter((element) => element.dataset.tangramContentKey === normalizedPath), normalizedPath);
     if (exact) return exact;
 
-    const partial = candidates.find((element) => {
+    const partial = choosePreviewCandidate(candidates.filter((element) => {
       const key = element.dataset.tangramContentKey || '';
       return normalizedPath && (key.startsWith(`${normalizedPath}.`) || normalizedPath.startsWith(`${key}.`));
-    });
+    }), normalizedPath);
     if (partial) return partial;
 
-    return candidates.find((element) => (element.dataset.tangramContentKey || '').split('.')[0] === section) || candidates[0];
+    const selectorTarget = findPreviewSelectorTarget(normalizedPath);
+    if (selectorTarget) return selectorTarget;
+
+    return choosePreviewCandidate(candidates.filter((element) => (element.dataset.tangramContentKey || '').split('.')[0] === section), normalizedPath)
+      || candidates[0]
+      || null;
+  }
+
+  function findPreviewSelectorTarget(path) {
+    const section = path.split('.')[0];
+    const selector = previewTargetSelectors[path] || previewTargetSelectors[section];
+    if (!selector) return null;
+    return choosePreviewCandidate(Array.from(document.querySelectorAll(selector)), path);
+  }
+
+  function choosePreviewCandidate(candidates, path) {
+    if (!candidates.length) return null;
+    return candidates
+      .map((element) => ({ element, score: scorePreviewCandidate(element, path) }))
+      .sort((a, b) => b.score - a.score)[0].element;
+  }
+
+  function scorePreviewCandidate(element, path) {
+    const rect = element.getBoundingClientRect();
+    const top = rect.top + window.scrollY;
+    let score = Math.max(0, 100000 - top);
+    if (/\.title$|\.headline$/.test(path) && /^(H1|H2|H3|H4)$/.test(element.tagName)) score += 500000;
+    if (/links|Url|whatsappMessages/.test(path) && element.tagName === 'A') score += 500000;
+    if (path.startsWith('menu.') && top < 500) score += 250000;
+    if (path.startsWith('footer.') && top > document.body.scrollHeight * 0.7) score += 250000;
+    if (element.offsetParent === null && element !== document.documentElement) score -= 1000000;
+    return score;
   }
 
   function ensurePreviewMarker() {
@@ -630,7 +674,14 @@
     const section = String(path || '').split('.')[0];
     const labels = {
       seo: 'SEO',
+      'seo.title': 'SEO titulo',
+      'seo.description': 'SEO descricao',
+      'seo.socialImage': 'Imagem social',
       links: 'Links globais',
+      'links.instagram': 'Instagram',
+      'links.whatsappPhone': 'Telefone WhatsApp',
+      'links.whatsappBio': 'Link WhatsApp bio',
+      'links.email': 'Email',
       menu: 'Menu',
       hero: 'Hero',
       agenda: 'Agenda',
@@ -645,7 +696,7 @@
       footer: 'Rodape',
       whatsappMessages: 'WhatsApp'
     };
-    return `${labels[section] || 'Campo editavel'} em edicao`;
+    return `${labels[path] || labels[section] || 'Campo editavel'} em edicao`;
   }
 
   function scheduleApply() {
