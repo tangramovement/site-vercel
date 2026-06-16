@@ -22,6 +22,16 @@
     Cache-Control = "no-store"
 
 [[headers]]
+  for = "/tangram-*.js"
+  [headers.values]
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/tangram-*.css"
+  [headers.values]
+    Cache-Control = "no-store"
+
+[[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"

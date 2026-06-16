@@ -94,6 +94,7 @@
   let syncTimer = 0;
   let scrollTimer = 0;
   let scrollSyncReady = false;
+  let latestValueIndex = [];
 
   function rule(path, section, labels) {
     return {
@@ -108,6 +109,54 @@
     const data = entry && entry.get && entry.get('data');
     if (!data) return {};
     return typeof data.toJS === 'function' ? data.toJS() : data;
+  }
+
+  function indexContentValues(source) {
+    const rows = [];
+
+    function add(path, value) {
+      if (value === undefined || value === null || value === '') return;
+      rows.push({
+        path: normalizeContentPath(path),
+        raw: String(value),
+        normalized: normalize(value),
+        compacted: compact(value)
+      });
+    }
+
+    function walk(value, path) {
+      if (value === undefined || value === null) return;
+
+      if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+        add(path, value);
+        return;
+      }
+
+      if (Array.isArray(value)) {
+        value.forEach((item, index) => walk(item, `${path}.${index}`));
+        return;
+      }
+
+      if (typeof value === 'object') {
+        const keys = Object.keys(value);
+        const localizedKeys = keys.filter((key) => key === 'pt' || key === 'en');
+        if (localizedKeys.length) {
+          localizedKeys.forEach((key) => add(path, value[key]));
+        }
+        keys.forEach((key) => {
+          if (key !== 'pt' && key !== 'en') walk(value[key], path ? `${path}.${key}` : key);
+        });
+      }
+    }
+
+    walk(source, '');
+    return rows.filter((row) => row.path);
+  }
+
+  function normalizeContentPath(path) {
+    return String(path || '')
+      .replace(/\.(pt|en)$/i, '')
+      .replace(/^\./, '');
   }
 
   function normalize(value) {
@@ -131,6 +180,51 @@
       dot.replace(/\./g, '_'),
       dot.replace(/\./g, ' ')
     ];
+  }
+
+  function pathFromValue(target) {
+    if (!target || !latestValueIndex.length) return '';
+    if (!/^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)) return '';
+    if (target.type === 'checkbox' || target.type === 'radio') return '';
+
+    const rawValue = target.value || target.getAttribute('value') || '';
+    const normalizedValue = normalize(rawValue);
+    const compactedValue = compact(rawValue);
+    if (!normalizedValue && !compactedValue) return '';
+
+    const nearbyText = getTextNearTarget(target);
+    const matches = latestValueIndex
+      .filter((row) => {
+        if (!row.normalized && !row.compacted) return false;
+        if (row.normalized && row.normalized === normalizedValue) return true;
+        if (row.compacted && row.compacted === compactedValue) return true;
+        return normalizedValue.length > 10 && row.normalized.length > 10
+          && (row.normalized.includes(normalizedValue) || normalizedValue.includes(row.normalized));
+      })
+      .map((row) => ({ row, score: scoreValuePath(row.path, nearbyText, normalizedValue) }))
+      .sort((a, b) => b.score - a.score);
+
+    return matches[0]?.row.path || '';
+  }
+
+  function scoreValuePath(path, nearbyText, normalizedValue) {
+    let score = 0;
+    const section = path.split('.')[0];
+    const leaf = path.split('.').filter((part) => Number.isNaN(Number(part))).pop() || '';
+    const baseRule = FIELD_RULES.find((item) => path === item.path || path.startsWith(`${item.path}.`) || item.path.startsWith(`${path}.`));
+
+    if (baseRule) score += scoreRule(baseRule, nearbyText) + 100;
+    if (section && nearbyText.includes(normalize(section))) score += 40;
+    if (leaf && nearbyText.includes(normalize(leaf))) score += 30;
+    if (/^https?:|^mailto:/.test(normalizedValue) && /url|link|instagram|whatsapp|email|presskit|ingresso/.test(nearbyText)) score += 80;
+    if (path.includes('.ticketUrl') && /ingresso|ticket|link/.test(nearbyText)) score += 80;
+    if (path.includes('.presskitUrl') && /presskit|link/.test(nearbyText)) score += 80;
+    if (path.startsWith('links.') && /links globais|instagram|whatsapp|email/.test(nearbyText)) score += 60;
+    if (path.startsWith('seo.') && /seo|titulo|descricao|imagem social/.test(nearbyText)) score += 60;
+
+    const orderIndex = SECTION_ORDER.indexOf(section);
+    if (orderIndex >= 0) score += SECTION_ORDER.length - orderIndex;
+    return score;
   }
 
   function getTargetAttributes(target) {
@@ -200,7 +294,7 @@
   }
 
   function pathFromTarget(target) {
-    return pathFromAttributes(target) || pathFromText(target) || activePath;
+    return pathFromValue(target) || pathFromAttributes(target) || pathFromText(target) || activePath;
   }
 
   function scheduleSync() {
@@ -247,13 +341,31 @@
     scrollTimer = window.setTimeout(() => {
       const pane = findEditorPane();
       if (!pane) return;
-      const rect = pane.getBoundingClientRect();
-      const x = Math.max(24, rect.left + Math.min(180, rect.width * 0.35));
-      const y = rect.top + rect.height * 0.42;
-      const target = document.elementFromPoint(x, y);
+      const target = findNearestEditableField(pane);
       const path = pathFromTarget(target);
       if (path) setActivePath(path);
     }, 120);
+  }
+
+  function findNearestEditableField(pane) {
+    const paneRect = pane.getBoundingClientRect();
+    const centerY = paneRect.top + paneRect.height * 0.42;
+    const fields = Array.from(pane.querySelectorAll('input, textarea, select, button, label, summary')).filter((element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.width > 8
+        && rect.height > 8
+        && rect.bottom >= paneRect.top
+        && rect.top <= paneRect.bottom
+        && rect.left >= paneRect.left - 20
+        && rect.right <= paneRect.right + 20;
+    });
+
+    return fields
+      .map((element) => {
+        const rect = element.getBoundingClientRect();
+        return { element, distance: Math.abs((rect.top + rect.bottom) / 2 - centerY) };
+      })
+      .sort((a, b) => a.distance - b.distance)[0]?.element || pane;
   }
 
   function findEditorPane() {
@@ -289,16 +401,19 @@
     document.addEventListener('input', handleEditorInput, true);
     document.addEventListener('change', handleEditorInput, true);
     document.addEventListener('click', handleEditorFocus, true);
+    document.addEventListener('scroll', handleEditorScroll, true);
     window.addEventListener('message', (event) => {
       if (event.origin !== window.location.origin) return;
       if (event.data && event.data.type === 'tangram:preview-ready') sendPreviewState();
     });
     window.setTimeout(setupScrollSync, 700);
     window.setTimeout(setupScrollSync, 1800);
+    window.setTimeout(setupScrollSync, 3200);
   }
 
   function SitePreview({ entry }) {
     latestContent = entryToContent(entry);
+    latestValueIndex = indexContentValues(latestContent);
     setupEditorBridge();
     window.setTimeout(sendPreviewState, 0);
     window.setTimeout(setupScrollSync, 0);

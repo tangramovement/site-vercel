@@ -12,6 +12,7 @@
   let previewMode = false;
   let activePreviewPath = '';
   let previewMarker = null;
+  let previewKeepAliveTimer = 0;
 
   const previewTargetSelectors = {
     'links.instagram': 'a[href*="instagram.com"]',
@@ -178,6 +179,7 @@
 
   function isLeafTextElement(element) {
     if (!element || ['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA', 'INPUT', 'SELECT'].includes(element.tagName)) return false;
+    if (element.closest('.tangram-preview-marker')) return false;
     if (element.children.length === 0) return true;
     return element.matches('a,button,label,summary') && element.querySelectorAll('p,h1,h2,h3,h4,h5,h6,span,div').length === 0;
   }
@@ -185,6 +187,15 @@
   function setText(element, value) {
     if (!value || !element) return;
     if (element.textContent !== value) element.textContent = value;
+  }
+
+  function addPreviewKeys(element, keys) {
+    if (!element) return;
+    const current = (element.dataset.tangramPreviewKeys || '').split(/\s+/).filter(Boolean);
+    keys.filter(Boolean).forEach((key) => {
+      if (!current.includes(key)) current.push(key);
+    });
+    if (current.length) element.dataset.tangramPreviewKeys = current.join(' ');
   }
 
   function findTextElements(key, aliases) {
@@ -325,9 +336,19 @@
         link.textContent = localize(event.ticketLabel) || [event.date, localize(event.place), localize(event.title)].filter(Boolean).join(' | ');
         link.dataset.tangramContentKey = `agenda.events.${index}.ticketLabel`;
         link.dataset.tangramLinkKey = `agenda.events.${index}.ticketUrl`;
+        addPreviewKeys(link, [
+          `agenda.events.${index}.active`,
+          `agenda.events.${index}.date`,
+          `agenda.events.${index}.place`,
+          `agenda.events.${index}.title`,
+          `agenda.events.${index}.lineup`,
+          `agenda.events.${index}.ticketLabel`,
+          `agenda.events.${index}.ticketUrl`
+        ]);
         wrapper.appendChild(link);
       });
     });
+    annotateAgendaLinks(events);
 
     const fallback = document.querySelector('.tangram-tablet-next-moves__loading');
     if (fallback) {
@@ -336,7 +357,26 @@
       fallback.textContent = localize(content.hero?.loading) || fallback.textContent;
       fallback.dataset.tangramContentKey = 'hero.loading';
       fallback.dataset.tangramLinkKey = 'agenda.events.ticketUrl';
+      addPreviewKeys(fallback, ['hero.loading', 'agenda.events', 'agenda.events.ticketUrl']);
     }
+  }
+
+  function annotateAgendaLinks(events = (content.agenda?.events || []).filter((event) => event.active !== false)) {
+    document.querySelectorAll('.tangram-ticket-link').forEach((link, index) => {
+      const event = events[index];
+      if (!event) return;
+      link.dataset.tangramContentKey = `agenda.events.${index}.ticketLabel`;
+      link.dataset.tangramLinkKey = `agenda.events.${index}.ticketUrl`;
+      addPreviewKeys(link, [
+        `agenda.events.${index}.active`,
+        `agenda.events.${index}.date`,
+        `agenda.events.${index}.place`,
+        `agenda.events.${index}.title`,
+        `agenda.events.${index}.lineup`,
+        `agenda.events.${index}.ticketLabel`,
+        `agenda.events.${index}.ticketUrl`
+      ]);
+    });
   }
 
   function applyLinks() {
@@ -347,6 +387,7 @@
         anchor.rel = 'noopener noreferrer';
         anchor.dataset.tangramContentKey = 'links.instagram';
         anchor.dataset.tangramLinkKey = 'links.instagram';
+        addPreviewKeys(anchor, ['links.instagram', 'menu.instagram']);
       });
     }
 
@@ -356,6 +397,7 @@
       anchor.textContent = content.links.email;
       anchor.dataset.tangramContentKey = 'links.email';
       anchor.dataset.tangramLinkKey = 'links.email';
+      addPreviewKeys(anchor, ['links.email']);
     });
 
     (content.founders || []).forEach((founder, index) => {
@@ -372,6 +414,7 @@
         }
         presskit.dataset.tangramContentKey = `founders.${index}.presskitLabel`;
         presskit.dataset.tangramLinkKey = `founders.${index}.presskitUrl`;
+        addPreviewKeys(presskit, [`founders.${index}.presskitLabel`, `founders.${index}.presskitUrl`]);
       }
     });
   }
@@ -392,6 +435,7 @@
       anchor.rel = 'noopener noreferrer';
       anchor.dataset.tangramLinkKey = `whatsappMessages.${context}`;
       if (!anchor.dataset.tangramContentKey) anchor.dataset.tangramContentKey = `whatsappMessages.${context}`;
+      addPreviewKeys(anchor, [`whatsappMessages.${context}`, 'links.whatsappPhone']);
     });
   }
 
@@ -428,7 +472,11 @@
       if (!value) return;
       document.querySelectorAll('input[placeholder],textarea[placeholder]').forEach((field) => {
         const current = fold(field.getAttribute('placeholder'));
-        if (aliases.some((alias) => current.includes(alias))) field.setAttribute('placeholder', value);
+        if (aliases.some((alias) => current.includes(alias))) {
+          field.setAttribute('placeholder', value);
+          field.dataset.tangramFormKey = `movement.form.${key}`;
+          addPreviewKeys(field, [`movement.form.${key}`]);
+        }
       });
     });
   }
@@ -457,7 +505,10 @@
       document.documentElement.dataset.tangramContent = 'ready';
       if (previewMode) {
         document.documentElement.dataset.tangramPreviewMode = 'true';
-        if (activePreviewPath) window.setTimeout(() => highlightPreviewPath(activePreviewPath), 80);
+        if (activePreviewPath) {
+          window.setTimeout(() => highlightPreviewPath(activePreviewPath), 80);
+          window.setTimeout(() => highlightPreviewPath(activePreviewPath), 650);
+        }
       }
     } finally {
       applying = false;
@@ -484,6 +535,9 @@
 
     window.addEventListener('scroll', () => positionPreviewMarker(), { passive: true });
     window.addEventListener('resize', () => positionPreviewMarker(), { passive: true });
+    previewKeepAliveTimer = window.setInterval(() => {
+      if (activePreviewPath) refreshPreviewActiveTarget(activePreviewPath);
+    }, 700);
 
     window.parent.postMessage({ type: 'tangram:preview-ready' }, window.location.origin);
     window.setTimeout(() => window.parent.postMessage({ type: 'tangram:preview-ready' }, window.location.origin), 800);
@@ -569,29 +623,81 @@
     }
 
     target.dataset.tangramPreviewActive = 'true';
+    showPreviewMarker(target, activePreviewPath);
     target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
     window.setTimeout(() => showPreviewMarker(target, activePreviewPath), 250);
+    window.setTimeout(() => refreshPreviewActiveTarget(activePreviewPath), 900);
+  }
+
+  function refreshPreviewActiveTarget(path) {
+    if (!previewMode || !path) return;
+    const freshTarget = findPreviewTarget(path);
+    if (!freshTarget) return;
+    document.querySelectorAll('[data-tangram-preview-active]').forEach((element) => {
+      delete element.dataset.tangramPreviewActive;
+    });
+    freshTarget.dataset.tangramPreviewActive = 'true';
+    showPreviewMarker(freshTarget, path);
   }
 
   function findPreviewTarget(path) {
-    const candidates = Array.from(document.querySelectorAll('[data-tangram-content-key]'));
+    const agendaTarget = findAgendaPreviewTarget(path);
+    if (agendaTarget) return agendaTarget;
+
+    const candidates = Array.from(document.querySelectorAll('[data-tangram-content-key], [data-tangram-link-key], [data-tangram-form-key], [data-tangram-preview-keys]'));
     const normalizedPath = String(path || '');
     const section = normalizedPath.split('.')[0];
-    const exact = choosePreviewCandidate(candidates.filter((element) => element.dataset.tangramContentKey === normalizedPath), normalizedPath);
+    const exact = choosePreviewCandidate(candidates.filter((element) => elementHasPreviewKey(element, normalizedPath, true)), normalizedPath);
     if (exact) return exact;
 
     const partial = choosePreviewCandidate(candidates.filter((element) => {
-      const key = element.dataset.tangramContentKey || '';
-      return normalizedPath && (key.startsWith(`${normalizedPath}.`) || normalizedPath.startsWith(`${key}.`));
+      return normalizedPath && getPreviewKeys(element).some((key) => key.startsWith(`${normalizedPath}.`) || normalizedPath.startsWith(`${key}.`));
     }), normalizedPath);
     if (partial) return partial;
 
     const selectorTarget = findPreviewSelectorTarget(normalizedPath);
     if (selectorTarget) return selectorTarget;
 
-    return choosePreviewCandidate(candidates.filter((element) => (element.dataset.tangramContentKey || '').split('.')[0] === section), normalizedPath)
+    return choosePreviewCandidate(candidates.filter((element) => getPreviewKeys(element).some((key) => key.split('.')[0] === section)), normalizedPath)
       || candidates[0]
       || null;
+  }
+
+  function findAgendaPreviewTarget(path) {
+    const match = String(path || '').match(/^agenda\.events\.(\d+)(?:\.|$)/);
+    if (!match) return null;
+    const index = Number(match[1]);
+    const links = Array.from(document.querySelectorAll('.tangram-ticket-link'));
+    const target = links[index];
+    if (!target) return null;
+    target.dataset.tangramContentKey = `agenda.events.${index}.ticketLabel`;
+    target.dataset.tangramLinkKey = `agenda.events.${index}.ticketUrl`;
+    addPreviewKeys(target, [
+      `agenda.events.${index}.active`,
+      `agenda.events.${index}.date`,
+      `agenda.events.${index}.place`,
+      `agenda.events.${index}.title`,
+      `agenda.events.${index}.lineup`,
+      `agenda.events.${index}.ticketLabel`,
+      `agenda.events.${index}.ticketUrl`
+    ]);
+    return target;
+  }
+
+  function getPreviewKeys(element) {
+    return [
+      element.dataset.tangramContentKey,
+      element.dataset.tangramLinkKey,
+      element.dataset.tangramFormKey,
+      ...(element.dataset.tangramPreviewKeys || '').split(/\s+/)
+    ].filter(Boolean);
+  }
+
+  function elementHasPreviewKey(element, path, exact) {
+    return getPreviewKeys(element).some((key) => {
+      if (exact) return key === path;
+      return key.startsWith(`${path}.`) || path.startsWith(`${key}.`);
+    });
   }
 
   function findPreviewSelectorTarget(path) {
@@ -613,8 +719,10 @@
     const top = rect.top + window.scrollY;
     let score = Math.max(0, 100000 - top);
     if (/\.title$|\.headline$/.test(path) && /^(H1|H2|H3|H4)$/.test(element.tagName)) score += 500000;
-    if (/links|Url|whatsappMessages/.test(path) && element.tagName === 'A') score += 500000;
+    if (/links|Url|url|whatsappMessages/.test(path) && element.tagName === 'A') score += 500000;
+    if (path.startsWith('movement.form.') && /^(INPUT|TEXTAREA|SELECT|BUTTON|LABEL)$/.test(element.tagName)) score += 500000;
     if (path.startsWith('menu.') && top < 500) score += 250000;
+    if (path.startsWith('agenda.') && element.classList.contains('tangram-ticket-link')) score += 250000;
     if (path.startsWith('footer.') && top > document.body.scrollHeight * 0.7) score += 250000;
     if (element.offsetParent === null && element !== document.documentElement) score -= 1000000;
     return score;
@@ -624,12 +732,17 @@
     if (previewMarker) return previewMarker;
     previewMarker = document.createElement('div');
     previewMarker.className = 'tangram-preview-marker';
+    previewMarker.dataset.tangramPreviewUi = 'true';
     document.body.appendChild(previewMarker);
     return previewMarker;
   }
 
   function showPreviewMarker(target, path) {
     const marker = ensurePreviewMarker();
+    delete marker.dataset.tangramContentKey;
+    delete marker.dataset.tangramLinkKey;
+    delete marker.dataset.tangramFormKey;
+    delete marker.dataset.tangramPreviewKeys;
     const href = previewLinkValue(target);
     marker.textContent = previewLabel(path);
     if (href) {
@@ -643,6 +756,7 @@
 
   function applyPreviewLinkHints() {
     if (!previewMode) return;
+    annotateAgendaLinks();
     document.querySelectorAll('a[href]').forEach((anchor) => {
       const href = anchor.getAttribute('href') || '';
       if (!href || href === '#') return;
