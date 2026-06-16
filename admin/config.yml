@@ -134,17 +134,6 @@ collections:
                 fields:
                   - { label: PT, name: pt, widget: string }
                   - { label: EN, name: en, widget: string }
-              - label: Textos alternativos das imagens
-                name: images
-                widget: list
-                fields:
-                  - { label: Identificador da imagem, name: srcContains, widget: string }
-                  - label: Alt
-                    name: alt
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: string }
-                      - { label: EN, name: en, widget: string }
           - label: Quem Somos
             name: about
             widget: object
@@ -167,53 +156,12 @@ collections:
                 fields:
                   - { label: PT, name: pt, widget: text }
                   - { label: EN, name: en, widget: text }
-          - label: Cards de experiencia
-            name: experienceCards
-            widget: list
-            summary: "{{fields.title.pt}}"
-            fields:
-              - label: Titulo
-                name: title
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Texto
-                name: text
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
           - label: Tags
             name: tags
             widget: list
             fields:
               - { label: PT, name: pt, widget: string }
               - { label: EN, name: en, widget: string }
-          - label: Fundadores
-            name: founders
-            widget: list
-            summary: "{{fields.name.pt}}"
-            fields:
-              - label: Nome
-                name: name
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Bio
-                name: bio
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
-              - label: Botao
-                name: presskitLabel
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - { label: Link presskit, name: presskitUrl, widget: string, required: false }
           - label: Movimento Vivo
             name: movement
             widget: object
@@ -433,57 +381,6 @@ collections:
             widget: object
             fields:
               - { label: Instagram, name: instagram, widget: string }
-              - { label: Telefone WhatsApp, name: whatsappPhone, widget: string }
-              - { label: Link WhatsApp bio, name: whatsappBio, widget: string }
+              - { label: Telefone WhatsApp, name: whatsappPhone, widget: hidden, default: "5521975409180" }
+              - { label: Link WhatsApp bio, name: whatsappBio, widget: hidden, default: "https://wa.me/message/A2ZXZZRCLLZTP1" }
               - { label: Email, name: email, widget: string }
-          - label: Mensagens WhatsApp
-            name: whatsappMessages
-            widget: object
-            fields:
-              - label: Fale conosco
-                name: contact
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
-              - label: Parceiros
-                name: partner
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
-              - label: Iniciar Movimento
-                name: start
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
-              - label: Last Night
-                name: lastNight
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
-              - label: FAQ
-                name: faq
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
-          - label: SEO
-            name: seo
-            widget: object
-            fields:
-              - label: Titulo
-                name: title
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Descricao
-                name: description
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
-              - { label: Imagem social, name: socialImage, widget: image, required: false }

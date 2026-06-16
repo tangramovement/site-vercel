@@ -2,7 +2,7 @@
   const h = window.h || (window.React && window.React.createElement);
   if (!window.CMS || !h) return;
 
-  const PREVIEW_URL = '/?tangram-preview=1';
+  const PREVIEW_URL = '/';
 
   const FIELD_RULES = [
     rule('menu.about', 'Menu', ['Quem Somos']),
@@ -20,15 +20,11 @@
     rule('agenda.events', 'Agenda', ['Eventos', 'Local', 'Headliner', 'Lineup', 'Label do ingresso', 'Link do ingresso']),
 
     rule('highlights.title', 'Highlights', ['Titulo']),
-    rule('highlights.images', 'Highlights', ['Textos alternativos das imagens', 'Alt']),
-
     rule('about.eyebrow', 'Quem Somos', ['Eyebrow']),
     rule('about.title', 'Quem Somos', ['Titulo']),
     rule('about.text', 'Quem Somos', ['Texto']),
 
-    rule('experienceCards', 'Cards de experiencia', ['Titulo', 'Texto']),
     rule('tags', 'Tags', ['Tags']),
-    rule('founders', 'Fundadores', ['Nome', 'Bio', 'Botao', 'Link presskit']),
 
     rule('movement.title', 'Movimento Vivo', ['Titulo']),
     rule('movement.text', 'Movimento Vivo', ['Texto']),
@@ -61,12 +57,7 @@
     rule('links.instagram', 'Links globais', ['Instagram']),
     rule('links.whatsappPhone', 'Links globais', ['Telefone WhatsApp']),
     rule('links.whatsappBio', 'Links globais', ['Link WhatsApp bio']),
-    rule('links.email', 'Links globais', ['Email']),
-    rule('whatsappMessages', 'Mensagens WhatsApp', ['Fale conosco', 'Parceiros', 'Iniciar Movimento', 'Last Night', 'FAQ']),
-
-    rule('seo.title', 'SEO', ['Titulo']),
-    rule('seo.description', 'SEO', ['Descricao']),
-    rule('seo.socialImage', 'SEO', ['Imagem social'])
+    rule('links.email', 'Links globais', ['Email'])
   ];
 
   const KNOWN_PATHS = FIELD_RULES.map((item) => item.path);
@@ -76,17 +67,13 @@
     'agenda',
     'highlights',
     'about',
-    'experienceCards',
     'tags',
-    'founders',
     'movement',
     'partners',
     'purpose',
     'faq',
     'footer',
-    'links',
-    'whatsappMessages',
-    'seo'
+    'links'
   ];
 
   let latestContent = null;
@@ -314,13 +301,245 @@
   function sendPreviewState() {
     if (!latestContent) return;
     document.querySelectorAll('.tangram-live-preview__frame').forEach((frame) => {
-      if (!frame.contentWindow) return;
-      frame.contentWindow.postMessage({
-        type: 'tangram:preview-content',
-        content: latestContent,
-        activePath
-      }, window.location.origin);
+      highlightFramePath(frame, activePath);
     });
+  }
+
+  function highlightFramePath(frame, path) {
+    const doc = frame && frame.contentDocument;
+    if (!doc || !path) return;
+    ensureFrameHighlightUi(doc);
+    clearFrameHighlight(doc);
+
+    const target = findFrameTarget(doc, path);
+    const marker = doc.getElementById('tangram-admin-preview-marker');
+    if (!target || !marker) {
+      if (marker) marker.classList.remove('is-visible');
+      return;
+    }
+
+    target.setAttribute('data-tangram-admin-preview-active', 'true');
+    target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+    window.setTimeout(() => positionFrameMarker(doc, target, path), 220);
+    window.setTimeout(() => positionFrameMarker(doc, target, path), 720);
+  }
+
+  function ensureFrameHighlightUi(doc) {
+    if (!doc.getElementById('tangram-admin-preview-style')) {
+      const style = doc.createElement('style');
+      style.id = 'tangram-admin-preview-style';
+      style.textContent = `
+        [data-tangram-admin-preview-active="true"] {
+          outline: 3px solid #a970ff !important;
+          outline-offset: 6px !important;
+          box-shadow: 0 0 0 9999px rgba(0, 0, 0, .18), 0 0 28px rgba(169, 112, 255, .9) !important;
+          position: relative !important;
+          z-index: 2147483000 !important;
+        }
+        #tangram-admin-preview-marker {
+          position: fixed;
+          z-index: 2147483647;
+          display: none;
+          max-width: 360px;
+          padding: 8px 10px;
+          border-radius: 10px;
+          background: #a970ff;
+          color: #080808;
+          font: 700 12px/1.25 Arial, sans-serif;
+          box-shadow: 0 14px 40px rgba(0, 0, 0, .35);
+          pointer-events: none;
+        }
+        #tangram-admin-preview-marker.is-visible {
+          display: block;
+        }
+        #tangram-admin-preview-marker span {
+          display: block;
+          margin-top: 3px;
+          max-width: 340px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-weight: 500;
+          opacity: .82;
+        }
+      `;
+      doc.head.appendChild(style);
+    }
+
+    if (!doc.getElementById('tangram-admin-preview-marker')) {
+      const marker = doc.createElement('div');
+      marker.id = 'tangram-admin-preview-marker';
+      doc.body.appendChild(marker);
+    }
+
+    if (!doc.defaultView.__tangramAdminPreviewScrollReady) {
+      doc.defaultView.__tangramAdminPreviewScrollReady = true;
+      doc.defaultView.addEventListener('scroll', () => {
+        const active = doc.querySelector('[data-tangram-admin-preview-active="true"]');
+        if (active && active.__tangramAdminPreviewPath) {
+          positionFrameMarker(doc, active, active.__tangramAdminPreviewPath);
+        }
+      }, { passive: true });
+    }
+  }
+
+  function clearFrameHighlight(doc) {
+    doc.querySelectorAll('[data-tangram-admin-preview-active]').forEach((element) => {
+      element.removeAttribute('data-tangram-admin-preview-active');
+    });
+  }
+
+  function positionFrameMarker(doc, target, path) {
+    const marker = doc.getElementById('tangram-admin-preview-marker');
+    if (!marker || !target) return;
+    target.__tangramAdminPreviewPath = path;
+    const rect = target.getBoundingClientRect();
+    const href = target.closest && target.closest('a[href]')?.getAttribute('href');
+    marker.textContent = labelForPath(path);
+    if (href) {
+      const link = doc.createElement('span');
+      link.textContent = href;
+      marker.appendChild(link);
+    }
+    marker.style.top = `${Math.max(12, rect.top - 38)}px`;
+    marker.style.left = `${Math.max(12, Math.min(rect.left, doc.defaultView.innerWidth - 380))}px`;
+    marker.classList.add('is-visible');
+  }
+
+  function labelForPath(path) {
+    const ruleItem = FIELD_RULES.find((item) => path === item.path || path.startsWith(`${item.path}.`) || item.path.startsWith(`${path}.`));
+    return ruleItem ? `${ruleItem.section}: ${path}` : `Campo editavel: ${path}`;
+  }
+
+  function findFrameTarget(doc, path) {
+    const value = valueForPath(path);
+    const normalizedValue = normalize(value);
+    const stringValue = String(value || '').trim();
+
+    if (path.startsWith('agenda.events.')) {
+      const index = Number(path.split('.')[2]);
+      const links = Array.from(doc.querySelectorAll('.tangram-ticket-link, a[href*="ingresse"], a[href*="wa.me"]'));
+      if (links[index]) return links[index];
+    }
+
+    if (path === 'links.instagram') {
+      return doc.querySelector('a[href*="instagram.com"]');
+    }
+
+    if (path === 'links.email') {
+      return doc.querySelector('a[href^="mailto:"]') || findTextTarget(doc, normalizedValue);
+    }
+
+    if (path.startsWith('movement.form.')) {
+      return findFormTarget(doc, stringValue, normalizedValue);
+    }
+
+    if (/Url$|url$|links\.whatsapp|links\.instagram/.test(path) && stringValue) {
+      const byHref = Array.from(doc.querySelectorAll('a[href]')).find((anchor) => anchor.getAttribute('href') === stringValue);
+      if (byHref) return byHref;
+    }
+
+    return findTextTarget(doc, normalizedValue) || findSectionFallback(doc, path);
+  }
+
+  function valueForPath(path) {
+    const direct = getPath(latestContent, path);
+    if (direct !== undefined && direct !== null && direct !== '') return pick(direct);
+    const parts = path.split('.');
+    while (parts.length > 1) {
+      parts.pop();
+      const parent = getPath(latestContent, parts.join('.'));
+      const value = firstTextValue(parent);
+      if (value) return value;
+    }
+    return '';
+  }
+
+  function getPath(source, path) {
+    return String(path || '').split('.').reduce((acc, key) => {
+      if (acc === undefined || acc === null) return undefined;
+      return acc[key];
+    }, source);
+  }
+
+  function pick(value) {
+    if (value === undefined || value === null) return '';
+    if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') return String(value);
+    if (value.pt || value.en) return value.pt || value.en || '';
+    return firstTextValue(value);
+  }
+
+  function firstTextValue(value) {
+    if (value === undefined || value === null) return '';
+    if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') return String(value);
+    if (Array.isArray(value)) {
+      for (const item of value) {
+        const found = firstTextValue(item);
+        if (found) return found;
+      }
+      return '';
+    }
+    if (typeof value === 'object') {
+      if (value.pt || value.en) return value.pt || value.en || '';
+      for (const key of Object.keys(value)) {
+        const found = firstTextValue(value[key]);
+        if (found) return found;
+      }
+    }
+    return '';
+  }
+
+  function findFormTarget(doc, stringValue, normalizedValue) {
+    const fields = Array.from(doc.querySelectorAll('input, textarea, select, button, label'));
+    return fields.find((field) => {
+      const text = normalize([
+        field.getAttribute('placeholder'),
+        field.getAttribute('aria-label'),
+        field.textContent,
+        field.value
+      ].filter(Boolean).join(' '));
+      return normalizedValue && text.includes(normalizedValue);
+    }) || fields[0] || null;
+  }
+
+  function findTextTarget(doc, normalizedValue) {
+    if (!normalizedValue) return null;
+    const candidates = Array.from(doc.querySelectorAll('p,h1,h2,h3,h4,h5,h6,span,a,button,label,summary')).filter((element) => {
+      if (['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(element.tagName)) return false;
+      if (element.children.length > 0 && !element.matches('a,button,label,summary')) return false;
+      const text = normalize(element.textContent);
+      return text && (text === normalizedValue || text.includes(normalizedValue) || normalizedValue.includes(text));
+    });
+    return candidates
+      .map((element) => ({ element, score: scoreFrameCandidate(element, normalizedValue) }))
+      .sort((a, b) => b.score - a.score)[0]?.element || null;
+  }
+
+  function scoreFrameCandidate(element, normalizedValue) {
+    const text = normalize(element.textContent);
+    const rect = element.getBoundingClientRect();
+    let score = text === normalizedValue ? 1000 : 200;
+    if (element.offsetParent === null && element !== element.ownerDocument.documentElement) score -= 1000;
+    if (/^(H1|H2|H3)$/.test(element.tagName)) score += 100;
+    score -= Math.max(0, rect.top) / 10;
+    return score;
+  }
+
+  function findSectionFallback(doc, path) {
+    const section = String(path || '').split('.')[0];
+    const selectorMap = {
+      menu: 'nav, header',
+      hero: '#hero, [id*="hero"]',
+      agenda: '#eventos, .tangram-next-moves-links',
+      highlights: 'section',
+      about: '#quem-somos',
+      movement: 'form, input, textarea',
+      partners: '#parceiros',
+      purpose: 'section',
+      faq: 'details, summary',
+      footer: 'footer'
+    };
+    return doc.querySelector(selectorMap[section] || 'body');
   }
 
   function handleEditorFocus(event) {

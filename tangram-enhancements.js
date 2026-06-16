@@ -438,6 +438,7 @@
   }
 
   function setupFounderCardOrdering() {
+    return;
     const cards = Array.from(document.querySelectorAll('div'))
       .filter((element) => {
         const text = normalize(element.textContent);
@@ -483,6 +484,7 @@
     const highlightsTitle = Array.from(document.querySelectorAll('div, p, h1, h2, h3'))
       .find((element) => normalize(element.textContent) === 'HIGHLIGHTS');
     if (highlightsTitle) highlightsTitle.classList.add('tangram-highlights-title');
+    return;
 
     const visualCard = Array.from(document.querySelectorAll('div'))
       .find((element) => {
@@ -823,9 +825,9 @@
       const links = document.createElement('div');
       links.className = 'tangram-next-moves-links';
       links.innerHTML = `
-        <a class="tangram-ticket-link" data-tangram-content-key="agenda.events.0.ticketLabel" data-tangram-link-key="agenda.events.0.ticketUrl" data-tangram-preview-keys="agenda.events.0.active agenda.events.0.date agenda.events.0.place agenda.events.0.title agenda.events.0.lineup agenda.events.0.ticketLabel agenda.events.0.ticketUrl" href="https://ingresse.com/freak120626/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleASQCrRleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadhGybMkmfb1PFA7sPk8_ZNEUTN1rGp8FLxC5rv9fLGIuxFBRX3zVBT6T_9iA_aem_41Prp33zzC5zUI4SnerfPQ&utm_id=97760_v0_s00_e0_tv3" target="_blank" rel="noopener noreferrer">D-EDGE SP | 12.06</a>
-        <a class="tangram-ticket-link" data-tangram-content-key="agenda.events.1.ticketLabel" data-tangram-link-key="agenda.events.1.ticketUrl" data-tangram-preview-keys="agenda.events.1.active agenda.events.1.date agenda.events.1.place agenda.events.1.title agenda.events.1.lineup agenda.events.1.ticketLabel agenda.events.1.ticketUrl" href="https://www.ingresse.com/d-edge-rio-apresenta-tangram/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleASQCqFleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadIM9mr9KYjuuO-l1trr9WfxTr3rZKg76wkEkW835XFWcEfAX4juRE61-ZksQ_aem_vkUHPKYt2CzGSpCdKwGqDg&utm_id=97760_v0_s00_e0_tv3" target="_blank" rel="noopener noreferrer">D-EDGE RJ | 19.06</a>
-        <a class="tangram-ticket-link tangram-ticket-link--loading" data-tangram-content-key="agenda.events.2.ticketLabel" data-tangram-link-key="agenda.events.2.ticketUrl" data-tangram-preview-keys="agenda.events.2.active agenda.events.2.date agenda.events.2.place agenda.events.2.title agenda.events.2.lineup agenda.events.2.ticketLabel agenda.events.2.ticketUrl" href="${fallbackHref}" target="_blank" rel="noopener noreferrer">Edifício Touring RJ | Last Night | 01.08 | Loading...</a>
+        <a class="tangram-ticket-link" href="https://ingresse.com/freak120626/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleASQCrRleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadhGybMkmfb1PFA7sPk8_ZNEUTN1rGp8FLxC5rv9fLGIuxFBRX3zVBT6T_9iA_aem_41Prp33zzC5zUI4SnerfPQ&utm_id=97760_v0_s00_e0_tv3" target="_blank" rel="noopener noreferrer">D-EDGE SP | 12.06</a>
+        <a class="tangram-ticket-link" href="https://www.ingresse.com/d-edge-rio-apresenta-tangram/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleASQCqFleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadIM9mr9KYjuuO-l1trr9WfxTr3rZKg76wkEkW835XFWcEfAX4juRE61-ZksQ_aem_vkUHPKYt2CzGSpCdKwGqDg&utm_id=97760_v0_s00_e0_tv3" target="_blank" rel="noopener noreferrer">D-EDGE RJ | 19.06</a>
+        <a class="tangram-ticket-link tangram-ticket-link--loading" href="${fallbackHref}" target="_blank" rel="noopener noreferrer">Edifício Touring RJ | Last Night | 01.08 | Loading...</a>
       `;
 
       const ticketLabels = [
@@ -923,9 +925,9 @@
     const links = document.createElement('div');
     links.className = 'tangram-next-moves-links';
     links.innerHTML = `
-      <a class="tangram-ticket-link" data-tangram-content-key="agenda.events.0.ticketLabel" data-tangram-link-key="agenda.events.0.ticketUrl" data-tangram-preview-keys="agenda.events.0.active agenda.events.0.date agenda.events.0.place agenda.events.0.title agenda.events.0.lineup agenda.events.0.ticketLabel agenda.events.0.ticketUrl" href="https://ingresse.com/freak120626/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleASQCrRleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadhGybMkmfb1PFA7sPk8_ZNEUTN1rGp8FLxC5rv9fLGIuxFBRX3zVBT6T_9iA_aem_41Prp33zzC5zUI4SnerfPQ&utm_id=97760_v0_s00_e0_tv3" target="_blank" rel="noopener noreferrer">D-EDGE SP | 12.06</a>
-      <a class="tangram-ticket-link" data-tangram-content-key="agenda.events.1.ticketLabel" data-tangram-link-key="agenda.events.1.ticketUrl" data-tangram-preview-keys="agenda.events.1.active agenda.events.1.date agenda.events.1.place agenda.events.1.title agenda.events.1.lineup agenda.events.1.ticketLabel agenda.events.1.ticketUrl" href="https://www.ingresse.com/d-edge-rio-apresenta-tangram/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleASQCqFleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadIM9mr9KYjuuO-l1trr9WfxTr3rZKg76wkEkW835XFWcEfAX4juRE61-ZksQ_aem_vkUHPKYt2CzGSpCdKwGqDg&utm_id=97760_v0_s00_e0_tv3" target="_blank" rel="noopener noreferrer">D-EDGE RJ | 19.06</a>
-      <a class="tangram-ticket-link tangram-ticket-link--loading" data-tangram-content-key="agenda.events.2.ticketLabel" data-tangram-link-key="agenda.events.2.ticketUrl" data-tangram-preview-keys="agenda.events.2.active agenda.events.2.date agenda.events.2.place agenda.events.2.title agenda.events.2.lineup agenda.events.2.ticketLabel agenda.events.2.ticketUrl" href="${fallbackHref}" target="_blank" rel="noopener noreferrer">Edifício Touring RJ | Last Night | 01.08 | Loading...</a>
+      <a class="tangram-ticket-link" href="https://ingresse.com/freak120626/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleASQCrRleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadhGybMkmfb1PFA7sPk8_ZNEUTN1rGp8FLxC5rv9fLGIuxFBRX3zVBT6T_9iA_aem_41Prp33zzC5zUI4SnerfPQ&utm_id=97760_v0_s00_e0_tv3" target="_blank" rel="noopener noreferrer">D-EDGE SP | 12.06</a>
+      <a class="tangram-ticket-link" href="https://www.ingresse.com/d-edge-rio-apresenta-tangram/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleASQCqFleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadIM9mr9KYjuuO-l1trr9WfxTr3rZKg76wkEkW835XFWcEfAX4juRE61-ZksQ_aem_vkUHPKYt2CzGSpCdKwGqDg&utm_id=97760_v0_s00_e0_tv3" target="_blank" rel="noopener noreferrer">D-EDGE RJ | 19.06</a>
+      <a class="tangram-ticket-link tangram-ticket-link--loading" href="${fallbackHref}" target="_blank" rel="noopener noreferrer">Edifício Touring RJ | Last Night | 01.08 | Loading...</a>
     `;
 
     if (ticketButtonNode) {
