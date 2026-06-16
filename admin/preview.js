@@ -9,6 +9,7 @@
   let activePath = '';
   let latestFrame = null;
   let syncTimer = 0;
+  let previewResizeReady = false;
 
   function entryToContent(entry) {
     const data = entry && entry.get && entry.get('data');
@@ -29,10 +30,15 @@
     scheduleSync();
   }
 
+  function previewDocument() {
+    return latestFrame?.ownerDocument || document;
+  }
+
   function updateHeader() {
-    const label = document.getElementById('tangram-preview-active-label');
+    const doc = previewDocument();
+    const label = doc.getElementById('tangram-preview-active-label');
     if (label) label.textContent = activePath ? `Campo ativo: ${activePath}` : 'Selecione um campo para destacar no site';
-    const title = document.getElementById('tangram-preview-active-title');
+    const title = doc.getElementById('tangram-preview-active-title');
     if (title) title.textContent = activePath ? bindingLabel(activePath) : 'Preview do site real';
   }
 
@@ -45,9 +51,42 @@
     const frame = latestFrame || document.querySelector('.tangram-live-preview__frame');
     if (!frame || !frame.contentDocument) return;
     const doc = frame.contentDocument;
+    updateHeader();
+    updatePreviewScale();
     ensurePreviewUi(doc);
-    Tangram.applyAll(doc, latestContent);
+    Tangram.applyAll(doc, latestContent, { mode: 'preview' });
     highlightPath(doc, activePath);
+
+    // Smart deferred retry: only when we have an active path and the first
+    // attempt didn't find a target (e.g. agenda ticket links not yet created).
+    // Runs once after the iframe's internal applyAll finishes (~120ms delay).
+    window.clearTimeout(window.__tangramHighlightRetry);
+    if (activePath && !doc.defaultView?.__tangramPreviewActiveTarget) {
+      const snapshotPath = activePath;
+      window.__tangramHighlightRetry = window.setTimeout(() => {
+        if (activePath === snapshotPath && !doc.defaultView?.__tangramPreviewActiveTarget) {
+          highlightPath(doc, snapshotPath);
+        }
+      }, 400);
+    }
+  }
+
+  function updatePreviewScale() {
+    const frame = latestFrame || document.querySelector('.tangram-live-preview__frame');
+    const doc = frame?.ownerDocument || document;
+    const viewport = doc.querySelector('.tangram-live-preview__viewport');
+    if (!viewport || !frame) return;
+
+    const desktopWidth = 1440;
+    const scale = Math.min(1, Math.max(0.55, viewport.clientWidth / desktopWidth));
+    viewport.style.setProperty('--tangram-preview-scale', String(scale));
+    frame.style.width = `${desktopWidth}px`;
+    frame.style.height = `${Math.ceil(Math.max(900, viewport.clientHeight / scale))}px`;
+
+    if (!previewResizeReady) {
+      previewResizeReady = true;
+      window.addEventListener('resize', () => window.requestAnimationFrame(updatePreviewScale), { passive: true });
+    }
   }
 
   function ensurePreviewUi(doc) {
@@ -61,6 +100,20 @@
           box-shadow: 0 0 0 9999px rgba(0, 0, 0, .16), 0 0 34px rgba(169, 112, 255, .88) !important;
           position: relative !important;
           z-index: 2147483000 !important;
+        }
+        #tangram-admin-preview-outline {
+          border: 3px solid #a970ff;
+          border-radius: 8px;
+          box-shadow: 0 0 0 9999px rgba(0, 0, 0, .16), 0 0 34px rgba(169, 112, 255, .88);
+          display: none;
+          left: 0;
+          pointer-events: none;
+          position: fixed;
+          top: 0;
+          z-index: 2147483000;
+        }
+        #tangram-admin-preview-outline.is-visible {
+          display: block;
         }
         #tangram-admin-preview-marker {
           background: #a970ff;
@@ -100,11 +153,18 @@
       doc.body.appendChild(marker);
     }
 
+    if (!doc.getElementById('tangram-admin-preview-outline')) {
+      const outline = doc.createElement('div');
+      outline.id = 'tangram-admin-preview-outline';
+      doc.body.appendChild(outline);
+    }
+
     if (!doc.defaultView.__tangramPreviewRepositionReady) {
       doc.defaultView.__tangramPreviewRepositionReady = true;
       doc.defaultView.addEventListener('scroll', () => {
-        const active = doc.querySelector('[data-tangram-admin-preview-active="true"]');
-        if (active && active.__tangramPreviewPath) positionMarker(doc, active, active.__tangramPreviewPath);
+        const active = doc.defaultView.__tangramPreviewActiveTarget;
+        const path = doc.defaultView.__tangramPreviewActivePath;
+        if (active && path) positionMarker(doc, active, path);
       }, { passive: true });
     }
   }
@@ -114,6 +174,12 @@
       element.removeAttribute('data-tangram-admin-preview-active');
       delete element.__tangramPreviewPath;
     });
+    const outline = doc.getElementById('tangram-admin-preview-outline');
+    if (outline) outline.classList.remove('is-visible');
+    if (doc.defaultView) {
+      doc.defaultView.__tangramPreviewActiveTarget = null;
+      doc.defaultView.__tangramPreviewActivePath = '';
+    }
   }
 
   function highlightPath(doc, path) {
@@ -124,36 +190,46 @@
       return;
     }
 
-    const target = Tangram.findTarget(doc, path, latestContent, { mode: 'preview' });
+    const previewContent = doc.defaultView?.__tangramContent || latestContent;
+    const target = Tangram.findTarget(doc, path, previewContent, { mode: 'preview' });
     if (!target) {
-      if (marker) {
-        marker.textContent = `Campo sem alvo visual: ${path}`;
-        marker.style.top = '12px';
-        marker.style.left = '12px';
-        marker.classList.add('is-visible');
-      }
+      if (marker) marker.classList.remove('is-visible');
       return;
     }
 
     target.__tangramPreviewPath = path;
+    doc.defaultView.__tangramPreviewActiveTarget = target;
+    doc.defaultView.__tangramPreviewActivePath = path;
     target.setAttribute('data-tangram-admin-preview-active', 'true');
     target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
     window.setTimeout(() => positionMarker(doc, target, path), 120);
     window.setTimeout(() => positionMarker(doc, target, path), 520);
   }
 
+  function positionOutline(doc, target) {
+    const outline = doc.getElementById('tangram-admin-preview-outline');
+    if (!outline || !target) return;
+    const rect = target.getBoundingClientRect();
+    const margin = 7;
+    outline.style.left = `${Math.max(0, rect.left - margin)}px`;
+    outline.style.top = `${Math.max(0, rect.top - margin)}px`;
+    outline.style.width = `${Math.max(0, rect.width + margin * 2)}px`;
+    outline.style.height = `${Math.max(0, rect.height + margin * 2)}px`;
+    outline.classList.add('is-visible');
+  }
+
   function positionMarker(doc, target, path) {
     const marker = doc.getElementById('tangram-admin-preview-marker');
     if (!marker || !target) return;
+    positionOutline(doc, target);
     const rect = target.getBoundingClientRect();
-    const href = target.closest && target.closest('a[href]')?.getAttribute('href');
     marker.textContent = bindingLabel(path);
-    if (href) {
-      const span = doc.createElement('span');
-      span.textContent = href;
-      marker.appendChild(span);
+    
+    let top = rect.top - 42;
+    if (top < 12) {
+      top = rect.bottom + 12;
     }
-    marker.style.top = `${Math.max(12, rect.top - 42)}px`;
+    marker.style.top = `${Math.max(12, top)}px`;
     marker.style.left = `${Math.max(12, Math.min(rect.left, doc.defaultView.innerWidth - 390))}px`;
     marker.classList.add('is-visible');
   }
@@ -164,6 +240,11 @@
 
     window.addEventListener('tangram:field-active', (event) => {
       setActivePath(event.detail && event.detail.path);
+    });
+
+    window.addEventListener('message', (event) => {
+      const data = event.data || {};
+      if (data.type === 'tangram:field-active') setActivePath(data.path);
     });
 
     document.addEventListener('focusin', (event) => {
@@ -190,15 +271,18 @@
         ),
         h('div', { className: 'tangram-live-preview__status' }, 'Estrutura travada')
       ),
-      h('iframe', {
-        className: 'tangram-live-preview__frame',
-        title: 'Preview visual do site Tangram',
-        src: PREVIEW_URL,
-        onLoad: (event) => {
-          latestFrame = event.currentTarget;
-          scheduleSync();
-        }
-      })
+      h('div', { className: 'tangram-live-preview__viewport' },
+        h('iframe', {
+          className: 'tangram-live-preview__frame',
+          title: 'Preview visual do site Tangram',
+          src: PREVIEW_URL,
+          onLoad: (event) => {
+            latestFrame = event.currentTarget;
+            updatePreviewScale();
+            scheduleSync();
+          }
+        })
+      )
     );
   }
 

@@ -139,9 +139,20 @@ textarea.tangram-widget__input {
 .tangram-live-preview__frame {
   background: #050505;
   border: 0;
+  display: block;
+  flex: 0 0 auto;
+  min-width: 1440px;
+  transform: scale(var(--tangram-preview-scale, 0.66));
+  transform-origin: 0 0;
+  width: 1440px;
+}
+
+.tangram-live-preview__viewport {
+  background: #050505;
   flex: 1 1 auto;
-  height: 100%;
-  width: 100%;
+  min-height: 0;
+  overflow: auto;
+  position: relative;
 }
 
 @media (max-width: 760px) {

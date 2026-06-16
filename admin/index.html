@@ -18,11 +18,38 @@
           }
         });
       }
+      (function () {
+        var configVersion = '20260616-editor11';
+        function versionConfigUrl(url) {
+          if (!url || !/(^|\/)(admin\/)?config\.yml(?:$|\?)/.test(url)) return url;
+          return url.split('?')[0] + '?v=' + configVersion;
+        }
+        if (window.fetch) {
+          var originalFetch = window.fetch.bind(window);
+          window.fetch = function (input, init) {
+            var requestUrl = typeof input === 'string' ? input : input && input.url;
+            var nextUrl = versionConfigUrl(requestUrl);
+            if (nextUrl !== requestUrl) {
+              init = Object.assign({}, init || {}, { cache: 'no-store' });
+              if (typeof input === 'string') return originalFetch(nextUrl, init);
+              input = new Request(nextUrl, input);
+            }
+            return originalFetch(input, init);
+          };
+        }
+        if (window.XMLHttpRequest) {
+          var originalOpen = window.XMLHttpRequest.prototype.open;
+          window.XMLHttpRequest.prototype.open = function (method, url) {
+            arguments[1] = versionConfigUrl(url);
+            return originalOpen.apply(this, arguments);
+          };
+        }
+      })();
     </script>
-    <script src="/admin/tangram-bindings.js"></script>
+    <script src="/admin/tangram-bindings.js?v=20260616-editor11"></script>
     <script src="https://unpkg.com/decap-cms@^3.8.0/dist/decap-cms.js"></script>
-    <script src="/admin/widgets.js"></script>
-    <script src="/admin/preview.js"></script>
+    <script src="/admin/widgets.js?v=20260616-editor11"></script>
+    <script src="/admin/preview.js?v=20260616-editor11"></script>
     <script>
       window.CMS.init();
     </script>

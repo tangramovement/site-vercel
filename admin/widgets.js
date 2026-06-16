@@ -1,9 +1,10 @@
 (function () {
   const CMS = window.CMS;
-  const React = window.React;
-  const h = window.h || (React && React.createElement);
+  const h = window.h;
   const bindings = window.TangramBindings;
-  if (!CMS || !React || !h || !bindings) return;
+  if (!CMS || !h || !bindings) return;
+
+  let lastExplicitAnnounce = 0;
 
   function asJs(value, fallback) {
     if (value === undefined || value === null) return fallback;
@@ -16,17 +17,30 @@
     return field[key] ?? fallback;
   }
 
-  function announce(path) {
+  function announce(path, options) {
     if (!path) return;
+    if (options?.fromScroll) {
+      const focusedPath = document.activeElement?.closest?.('[data-tangram-editor-path]')?.getAttribute('data-tangram-editor-path');
+      if (focusedPath) return;
+      if (Date.now() - lastExplicitAnnounce < 6000) return;
+    }
+    if (!options?.fromScroll) lastExplicitAnnounce = Date.now();
+    const message = { type: 'tangram:field-active', path };
     window.dispatchEvent(new CustomEvent('tangram:field-active', { detail: { path } }));
+    window.postMessage(message, window.location.origin);
+    Array.from(document.querySelectorAll('iframe')).forEach((frame) => {
+      try {
+        frame.contentWindow?.postMessage(message, window.location.origin);
+      } catch (_error) {
+        // Cross-frame preview delivery is best-effort inside Decap.
+      }
+    });
   }
 
   function eventProps(path) {
     return {
       onFocus: () => announce(path),
-      onMouseDown: () => announce(path),
-      onInput: () => announce(path),
-      onChange: () => announce(path)
+      onMouseDown: () => announce(path)
     };
   }
 
@@ -67,6 +81,7 @@
     const multiline = options && options.multiline;
     const props = Object.assign({
       className: 'tangram-widget__input',
+      'data-tangram-editor-path': path,
       value: value || '',
       placeholder: options?.placeholder || '',
       onChange: (event) => {
@@ -116,10 +131,11 @@
       className: 'tangram-widget tangram-widget__toggle',
       'data-tangram-editor-path': path
     }, eventProps(path)),
-      h('input', {
-        type: 'checkbox',
-        checked: value,
-        onChange: (event) => {
+          h('input', {
+            'data-tangram-editor-path': path,
+            type: 'checkbox',
+            checked: value,
+            onChange: (event) => {
           announce(path);
           props.onChange(event.target.checked);
         }
@@ -136,7 +152,11 @@
     return h('div', {
       className: 'tangram-list-card',
       'data-tangram-editor-path': path,
-      onMouseDown: () => announce(path)
+      onMouseDown: (event) => {
+        const childPath = event.target?.closest?.('[data-tangram-editor-path]')?.getAttribute('data-tangram-editor-path');
+        if (childPath && childPath !== path) return;
+        if (!bindings.getBinding || bindings.getBinding(path)) announce(path);
+      }
     },
       h('div', { className: 'tangram-list-card__title' }, title),
       children
@@ -168,25 +188,10 @@
     return fixedList(props.value, props.onChange, (items, update) => items.map((item, index) => {
       const base = `agenda.events.${index}`;
       const set = (keys, next) => update(index, keys, next);
-      return card(`Evento ${index + 1}`, [
-        h('div', { className: 'tangram-widget__field', key: 'active' },
-          label('Ativo no site', `${base}.active`),
-          h('input', Object.assign({
-            type: 'checkbox',
-            checked: item?.active !== false,
-            onChange: (event) => {
-              announce(`${base}.active`);
-              set(['active'], event.target.checked);
-            }
-          }, eventProps(`${base}.active`)))
-        ),
-        plainRow(item, set, `${base}.date`, 'Data', 'date', { type: 'text' }),
-        i18nRow(item, set, `${base}.place`, 'Local', 'place'),
-        i18nRow(item, set, `${base}.title`, 'Artista', 'title'),
-        i18nRow(item, set, `${base}.lineup`, 'Lineup', 'lineup'),
+      return card(`Botao ${index + 1}`, [
         i18nRow(item, set, `${base}.ticketLabel`, 'Texto do botao', 'ticketLabel'),
         plainRow(item, set, `${base}.ticketUrl`, 'Link do ingresso', 'ticketUrl', { type: 'url' })
-      ], base);
+      ], `${base}.ticketLabel`);
     }));
   }
 
@@ -197,7 +202,7 @@
       return card(`Card ${index + 1}`, [
         i18nRow(item, set, `${base}.title`, 'Titulo', 'title'),
         i18nRow(item, set, `${base}.text`, 'Texto', 'text', true)
-      ], base);
+      ], `${base}.title`);
     }));
   }
 
@@ -212,7 +217,7 @@
         index === 2
           ? null
           : plainRow(item, set, `${base}.presskitUrl`, 'Link do Presskit', 'presskitUrl', { type: 'url' })
-      ], base);
+      ], `${base}.name`);
     }));
   }
 
@@ -232,7 +237,7 @@
       return card(`Pilar ${index + 1}`, [
         i18nRow(item, set, `${base}.title`, 'Titulo', 'title'),
         i18nRow(item, set, `${base}.text`, 'Texto', 'text', true)
-      ], base);
+      ], `${base}.title`);
     }));
   }
 
@@ -252,7 +257,7 @@
       return card(`Pergunta ${index + 1}`, [
         i18nRow(item, set, `${base}.question`, 'Pergunta', 'question'),
         i18nRow(item, set, `${base}.answer`, 'Resposta', 'answer', true)
-      ], base);
+      ], `${base}.question`);
     }));
   }
 
@@ -272,7 +277,7 @@
           .filter((item) => item.rect.bottom > 64 && item.rect.top < window.innerHeight && item.rect.width > 10 && item.rect.height > 10)
           .sort((a, b) => a.distance - b.distance)[0];
         const path = visible?.element?.getAttribute('data-tangram-editor-path');
-        if (path) announce(path);
+        if (path) announce(path, { fromScroll: true });
       }, 120);
     }, true);
   }

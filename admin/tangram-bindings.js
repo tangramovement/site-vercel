@@ -1,7 +1,7 @@
 (function (root) {
   const LANGUAGE_STORAGE_KEY = 'tangram-language';
   const TARGET_LANGUAGE = 'en';
-  const TEXT_SELECTOR = 'p,h1,h2,h3,h4,h5,h6,span,a,button,label,summary,option,div';
+  const TEXT_SELECTOR = 'p,h1,h2,h3,h4,h5,h6,span,a,button,label,summary,option';
 
   const bindings = [];
 
@@ -67,9 +67,9 @@
     ['menu.partners', 'Parceiros'],
     ['menu.instagram', 'Instagram'],
     ['menu.contact', 'Fale conosco']
-  ].forEach(([path, label]) => addI18n(path, label));
+  ].forEach(([path, label]) => addI18n(path, label, { locator: { kind: 'menu' } }));
 
-  addI18n('hero.title', 'Titulo');
+  addI18n('hero.title', 'Titulo', { locator: { kind: 'selector', selector: '.tangram-next-moves-title, .tangram-tablet-next-moves__title' } });
   addI18n('hero.tickets', 'Texto Tickets');
   addI18n('hero.loading', 'Texto loading', {
     apply: 'none',
@@ -82,25 +82,29 @@
     add(`agenda.events.${index}.active`, `Evento ${index + 1}: ativo`, {
       type: 'boolean',
       apply: 'none',
-      preview: true,
-      locator: { kind: 'agenda-event', index }
+      preview: false,
+      locator: { kind: 'none' }
     });
     add(`agenda.events.${index}.date`, `Evento ${index + 1}: data`, {
       type: 'string',
-      apply: 'agenda',
-      locator: { kind: 'agenda-event', index }
+      apply: 'none',
+      preview: false,
+      locator: { kind: 'none' }
     });
     addI18n(`agenda.events.${index}.place`, `Evento ${index + 1}: local`, {
-      apply: 'agenda',
-      locator: { kind: 'agenda-event', index }
+      apply: 'none',
+      preview: false,
+      locator: { kind: 'none' }
     });
     addI18n(`agenda.events.${index}.title`, `Evento ${index + 1}: artista`, {
-      apply: 'agenda',
-      locator: { kind: 'agenda-event', index }
+      apply: 'none',
+      preview: false,
+      locator: { kind: 'none' }
     });
     addI18n(`agenda.events.${index}.lineup`, `Evento ${index + 1}: lineup`, {
-      apply: 'agenda',
-      locator: { kind: 'agenda-event', index }
+      apply: 'none',
+      preview: false,
+      locator: { kind: 'none' }
     });
     addI18n(`agenda.events.${index}.ticketLabel`, `Evento ${index + 1}: texto do botao`, {
       apply: 'agenda',
@@ -146,7 +150,6 @@
   addPlaceholder('movement.form.phone', 'Formulario: telefone', 'input[name="phone"], input[placeholder*="Telefone"], input[placeholder*="Phone"]');
   addPlaceholder('movement.form.location', 'Formulario: local', 'input[name="location"], input[placeholder*="Local"], input[placeholder*="Location"]');
   addI18n('movement.form.select', 'Formulario: select', {
-    preview: false,
     apply: 'form-select',
     locator: { kind: 'selector', selector: 'select, .framer-form-select-wrapper select' }
   });
@@ -303,18 +306,33 @@
     if (!wantedValues.length) return null;
 
     const exactKey = doc.querySelector(`[data-tangram-content-key="${cssEscape(path)}"]`);
-    if (exactKey && (options?.allowHidden || visible(exactKey))) return exactKey;
+    if (exactKey && (options?.allowHidden || visible(exactKey))) {
+      const current = normalize(exactKey.textContent);
+      const stillMatches = wantedValues.some((wanted) => current === wanted || (wanted.length >= 14 && current.includes(wanted)));
+      if (stillMatches) return exactKey;
+    }
 
     const candidates = Array.from(doc.querySelectorAll(TEXT_SELECTOR)).filter((element) => {
       if (!isLeafTextElement(element)) return false;
       if (!options?.allowHidden && !visible(element)) return false;
+      if (options?.multiline && /^(H1|H2|H3|H4|H5|H6)$/.test(element.tagName)) return false;
       const text = normalize(element.textContent);
       if (!text) return false;
-      if (!path.startsWith('menu.') && !path.startsWith('footer.') && element.closest('a[href^="#"], a[href^="./#"]')) return false;
-      if (element.matches('a[href]') && !path.startsWith('menu.') && !path.includes('cta') && !path.includes('presskitLabel') && !path.includes('ticketLabel') && !path.startsWith('footer.')) {
+      const linkAncestor = element.closest('a[href]');
+      const linkAllowed = path.startsWith('menu.')
+        || path.startsWith('footer.')
+        || path.includes('cta')
+        || path.includes('ctaLines')
+        || path.includes('presskitLabel')
+        || path.includes('ticketLabel');
+      if (linkAncestor && !linkAllowed) return false;
+      if (wantedValues.some((wanted) => wanted.length < 14)) {
         return wantedValues.some((wanted) => text === wanted);
       }
-      return wantedValues.some((wanted) => text === wanted || text.includes(wanted) || wanted.includes(text));
+      if (element.matches('a[href]') && !path.startsWith('menu.') && !path.includes('cta') && !path.includes('ctaLines') && !path.includes('presskitLabel') && !path.includes('ticketLabel') && !path.startsWith('footer.')) {
+        return wantedValues.some((wanted) => text === wanted);
+      }
+      return wantedValues.some((wanted) => text === wanted || (wanted.length >= 14 && text.includes(wanted)));
     });
 
     return candidates
@@ -330,10 +348,41 @@
       .sort((a, b) => b.score - a.score)[0]?.element || null;
   }
 
+  function findMenuTarget(doc, value) {
+    const wanted = normalize(value);
+    if (!wanted) return null;
+
+    const selectors = [
+      '.framer-11n6lfm-container a',
+      '.framer-11n6lfm-container button',
+      'header a',
+      'header button',
+      'nav a',
+      'nav button'
+    ];
+
+    return Array.from(doc.querySelectorAll(selectors.join(',')))
+      .filter((element) => visible(element) && normalize(element.textContent) === wanted)
+      .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top)[0] || null;
+  }
+
   function findAgendaTarget(doc, index) {
-    const links = Array.from(doc.querySelectorAll('.tangram-ticket-link, a[href*="ingresse"], a[href*="wa.me/message"], a[href*="whatsapp"]'))
+    // 1st priority: ticket links stamped by applyAgenda with data attribute
+    const byKey = Array.from(doc.querySelectorAll(`[data-tangram-content-key="agenda.events.${index}.ticketLabel"]`))
       .filter(visible);
-    return links[index] || links[0] || null;
+    if (byKey.length) return byKey[0];
+
+    // 2nd priority: ticket links inside the generated wrapper
+    const directLinks = Array.from(doc.querySelectorAll('.tangram-next-moves-links .tangram-ticket-link, .tangram-next-moves-links a'))
+      .filter(visible);
+    if (directLinks.length) return directLinks[index] || directLinks[0] || null;
+
+    // 3rd priority: standalone ticket links outside nav/header
+    const standaloneLinks = Array.from(doc.querySelectorAll('.tangram-ticket-link'))
+      .filter((anchor) => visible(anchor) && !anchor.closest('header, nav, .framer-11n6lfm-container'));
+    if (standaloneLinks.length) return standaloneLinks[index] || standaloneLinks[0] || null;
+
+    return null;
   }
 
   function findFounderLink(doc, index) {
@@ -363,6 +412,7 @@
     const contentValue = content ? valueFor(content, binding.path, language) : '';
 
     if (locator?.kind === 'none') return null;
+    if (locator?.kind === 'menu') return findMenuTarget(doc, contentValue);
     if (locator?.kind === 'agenda-event') return findAgendaTarget(doc, locator.index);
     if (locator?.kind === 'founder-link') return findFounderLink(doc, locator.index);
     if (locator?.kind === 'faq-item') return findFaqItem(doc, locator.index);
@@ -389,7 +439,8 @@
     }
 
     return findTextTarget(doc, contentValue, binding.path, binding.aliases, {
-      allowHidden: options?.mode === 'apply'
+      allowHidden: options?.mode === 'apply',
+      multiline: binding.type === 'i18n_text'
     });
   }
 
@@ -537,11 +588,22 @@
     return true;
   }
 
-  function applyAll(doc, content) {
+  function applyAll(doc, content, options) {
     if (!doc || !content) return { applied: 0, missing: [] };
     root.__tangramContent = content;
+    if (doc && doc.defaultView) {
+      doc.defaultView.__tangramContent = content;
+      if (typeof doc.defaultView.__tangramTriggerApply === 'function') {
+        doc.defaultView.__tangramTriggerApply();
+      }
+    }
     let applied = 0;
     const missing = [];
+
+    if (options?.mode === 'preview') {
+      doc.documentElement.dataset.tangramContent = 'ready';
+      return { applied, missing };
+    }
 
     applySeo(doc, content);
     applyAgenda(doc, content);

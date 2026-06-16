@@ -7,11 +7,14 @@
   let applying = false;
   let applyTimer = 0;
 
+  window.__tangramTriggerApply = scheduleApply;
+
   function applyAll() {
-    if (!content || applying || !window.TangramBindings) return;
+    const activeContent = window.__tangramContent || content;
+    if (!activeContent || applying || !window.TangramBindings) return;
     applying = true;
     try {
-      const result = window.TangramBindings.applyAll(document, content);
+      const result = window.TangramBindings.applyAll(document, activeContent, { mode: 'public' });
       document.documentElement.dataset.tangramContent = 'ready';
       if (result.missing && result.missing.length) {
         console.info('[Tangram content] bindings without visual target', result.missing);

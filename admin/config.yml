@@ -40,15 +40,12 @@ collections:
             fields:
               - { label: Titulo, name: title, widget: tangram_i18n_string, tangram_path: hero.title }
               - { label: Texto Tickets, name: tickets, widget: tangram_i18n_string, tangram_path: hero.tickets }
-              - { label: Loading tecnico, name: loading, widget: tangram_preserve, required: false }
 
           - label: Agenda
             name: agenda
             widget: object
             collapsed: false
             fields:
-              - { label: Chamada tecnica, name: introLabel, widget: tangram_preserve, required: false }
-              - { label: Titulo tecnico, name: introTitle, widget: tangram_preserve, required: false }
               - { label: Eventos, name: events, widget: tangram_events, tangram_path: agenda.events }
 
           - label: Highlights
@@ -57,10 +54,6 @@ collections:
             collapsed: false
             fields:
               - { label: Titulo, name: title, widget: tangram_i18n_string, tangram_path: highlights.title }
-              - label: Imagens
-                name: images
-                widget: tangram_preserve
-                required: false
 
           - label: Quem Somos
             name: about
@@ -105,7 +98,7 @@ collections:
                   - { label: Email, name: email, widget: tangram_i18n_string, tangram_path: movement.form.email }
                   - { label: Telefone, name: phone, widget: tangram_i18n_string, tangram_path: movement.form.phone }
                   - { label: Local, name: location, widget: tangram_i18n_string, tangram_path: movement.form.location }
-                  - { label: Select tecnico, name: select, widget: tangram_preserve, required: false }
+                  - { label: Select, name: select, widget: tangram_i18n_string, tangram_path: movement.form.select }
                   - { label: Botao, name: submit, widget: tangram_i18n_string, tangram_path: movement.form.submit }
 
           - label: Parceiros

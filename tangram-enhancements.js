@@ -179,6 +179,13 @@
     return String(value || '').replace(/\s+/g, ' ').trim();
   }
 
+  function comparableText(value) {
+    return normalize(value)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+  }
+
   function safeGetLanguage() {
     try {
       return localStorage.getItem(LANGUAGE_STORAGE_KEY) === TARGET_LANGUAGE ? TARGET_LANGUAGE : SOURCE_LANGUAGE;
@@ -438,33 +445,33 @@
   }
 
   function setupFounderCardOrdering() {
-    return;
     const cards = Array.from(document.querySelectorAll('div'))
       .filter((element) => {
-        const text = normalize(element.textContent);
+        const text = comparableText(element.textContent);
         const children = Array.from(element.children);
-        return (text.startsWith('Marian FlowFormada em Marketing')
-          || text.startsWith('Ber FontouraBer Fontoura')
-          || text.startsWith('Ber Fontoura é nascido')
-          || text.startsWith('Ber Fontoura was born'))
+        return (text.startsWith('marian flowformada em marketing')
+          || text.startsWith('marian flowwith a background')
+          || text.startsWith('ber fontouraber fontoura')
+          || text.startsWith('ber fontoura e nascido')
+          || text.startsWith('ber fontoura was born'))
           && children.some((child) => child.querySelector('img'))
           && children.some((child) => {
-            const childText = normalize(child.textContent);
-            return childText.startsWith('Marian Flow') || childText.startsWith('Ber Fontoura');
+            const childText = comparableText(child.textContent);
+            return childText.startsWith('marian flow') || childText.startsWith('ber fontoura');
           });
       });
 
     cards.forEach((card) => {
-      const text = normalize(card.textContent);
-      const isMarian = text.startsWith('Marian Flow');
-      const isBer = text.startsWith('Ber Fontoura');
+      const text = comparableText(card.textContent);
+      const isMarian = text.startsWith('marian flow');
+      const isBer = text.startsWith('ber fontoura');
       if (!isMarian && !isBer) return;
 
       const imageChild = Array.from(card.children).find((child) => child.querySelector('img'));
       const contentChild = Array.from(card.children)
         .find((child) => {
-          const childText = normalize(child.textContent);
-          return isMarian ? childText.startsWith('Marian Flow') : childText.startsWith('Ber Fontoura');
+          const childText = comparableText(child.textContent);
+          return isMarian ? childText.startsWith('marian flow') : childText.startsWith('ber fontoura');
         });
       if (!imageChild || !contentChild) return;
 
@@ -484,13 +491,12 @@
     const highlightsTitle = Array.from(document.querySelectorAll('div, p, h1, h2, h3'))
       .find((element) => normalize(element.textContent) === 'HIGHLIGHTS');
     if (highlightsTitle) highlightsTitle.classList.add('tangram-highlights-title');
-    return;
 
     const visualCard = Array.from(document.querySelectorAll('div'))
       .find((element) => {
-        const text = normalize(element.textContent);
-        return text.startsWith('Visual e ProjeçõesLuz em movimento.')
-          || text.startsWith('Visuals and ProjectionsLight in motion.');
+        const text = comparableText(element.textContent);
+        return text.startsWith('visual e projecoesluz em movimento.')
+          || text.startsWith('visuals and projectionslight in motion.');
       });
     if (visualCard) {
 
@@ -498,10 +504,11 @@
     cardShell?.classList.add('tangram-visual-projections-card');
     visualCard.classList.add('tangram-visual-projections-card__inner');
     Array.from(visualCard.querySelectorAll('div')).forEach((child) => {
-      if (normalize(child.textContent).startsWith('Visual e Projeções')
-        || normalize(child.textContent).startsWith('Visuals and Projections')
-        || normalize(child.textContent).startsWith('Luz em movimento.')
-        || normalize(child.textContent).startsWith('Light in motion.')) {
+      const text = comparableText(child.textContent);
+      if (text.startsWith('visual e projecoes')
+        || text.startsWith('visuals and projections')
+        || text.startsWith('luz em movimento.')
+        || text.startsWith('light in motion.')) {
         child.classList.add('tangram-visual-projections-card__content');
       }
     });
@@ -509,8 +516,8 @@
 
     Array.from(document.querySelectorAll('div, p, h1, h2, h3'))
       .filter((element) => {
-        const text = normalize(element.textContent);
-        return text === 'Propósito' || text === 'Purpose' || text === 'PropÃ³sito';
+        const text = comparableText(element.textContent);
+        return text === 'proposito' || text === 'purpose';
       })
       .forEach((element) => {
         element.classList.add('tangram-purpose-title');
@@ -520,15 +527,15 @@
 
     Array.from(document.querySelectorAll('a, button'))
       .filter((element) => {
-        const text = normalize(element.textContent).toLowerCase();
+        const text = comparableText(element.textContent);
         return text.includes('quero ser um parceiro') || text.includes('i want to be a partner');
       })
       .forEach((element) => element.classList.add('tangram-partner-cta'));
 
     Array.from(document.querySelectorAll('div, p, h1, h2, h3'))
       .filter((element) => {
-        const text = normalize(element.textContent);
-        return text === 'Movimento Vivo' || text === 'Living Movement';
+        const text = comparableText(element.textContent);
+        return text === 'movimento vivo' || text === 'living movement';
       })
       .forEach((element) => {
         element.classList.add('tangram-movement-title');
@@ -537,8 +544,8 @@
 
     const faqPieces = Array.from(document.querySelectorAll('a, button'))
       .filter((element) => {
-        const text = normalize(element.textContent).toLowerCase();
-        return ['você é', 'vocÃª Ã©', 'voce e', 'a peça', 'a peÃ§a', 'a peca', 'que faltava', 'you are', 'the piece', 'that was missing'].includes(text);
+        const text = comparableText(element.textContent);
+        return ['voce e', 'a peca', 'que faltava', 'you are', 'the piece', 'that was missing'].includes(text);
       });
     faqPieces.forEach((element) => element.classList.add('tangram-faq-piece'));
     const faqRow = faqPieces[0]?.parentElement;
@@ -707,6 +714,15 @@
       </span>`;
   }
 
+  function getHeroTitle() {
+    if (window.TangramBindings && window.__tangramContent) {
+      const lang = window.TangramBindings.currentLanguage(document);
+      const val = window.TangramBindings.valueFor(window.__tangramContent, 'hero.title', lang);
+      if (val) return val;
+    }
+    return 'NEXT MOVES 👾';
+  }
+
   function hideLegacyEventSections() {
     Array.from(document.querySelectorAll('section, [id*="evento"], [id*="about-me"], h2, h3, p, div')).forEach((element) => {
       const text = normalize(element.textContent);
@@ -724,7 +740,7 @@
           target.dataset.tangramLegacyNextMoves = 'true';
           target.innerHTML = `
             <div class="tangram-tablet-next-moves">
-              <div class="tangram-tablet-next-moves__title">NEXT MOVES 👾</div>
+              <div class="tangram-tablet-next-moves__title">${getHeroTitle()}</div>
               <div class="tangram-tablet-next-moves__tickets">Tickets ${ticketDownIconMarkup()}</div>
               <a class="tangram-tablet-next-moves__loading" href="https://wa.me/message/A2ZXZZRCLLZTP1">loading...</a>
             </div>
@@ -757,7 +773,7 @@
     fallback.className = 'tangram-tablet-next-moves-fallback';
     fallback.innerHTML = `
       <div class="tangram-tablet-next-moves">
-        <div class="tangram-tablet-next-moves__title">NEXT MOVES 👾</div>
+        <div class="tangram-tablet-next-moves__title">${getHeroTitle()}</div>
         <div class="tangram-tablet-next-moves__tickets">Tickets ${ticketDownIconMarkup()}</div>
         <a class="tangram-tablet-next-moves__loading" href="https://wa.me/message/A2ZXZZRCLLZTP1">loading...</a>
       </div>
@@ -770,7 +786,7 @@
     return Array.from(document.querySelectorAll('p, div'))
       .filter((element) => {
         const text = normalize(element.textContent);
-        return text === 'NEXT MOVES' || text === 'NEXT MOVES 👾';
+        return text === 'NEXT MOVES' || text === 'NEXT MOVES 👾' || text === getHeroTitle().toLowerCase();
       });
   }
 
@@ -818,9 +834,12 @@
       `;
       nextMovesNode.style.overflow = 'visible';
       info.remove();
-      nextMovesLabel.textContent = 'NEXT MOVES 👾';
+      
+      const titleVal = getHeroTitle();
+      if (nextMovesLabel.textContent !== titleVal) {
+        nextMovesLabel.textContent = titleVal;
+      }
       nextMovesNode.classList.add('tangram-next-moves-title');
-      nextMovesLabel.textContent = 'NEXT MOVES \u{1F47E}';
 
       const links = document.createElement('div');
       links.className = 'tangram-next-moves-links';
