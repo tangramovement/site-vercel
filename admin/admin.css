@@ -2,6 +2,89 @@ body {
   background: #050505;
 }
 
+.tangram-widget {
+  background: #ffffff;
+  border: 1px solid #d9dee7;
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.tangram-widget--i18n {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tangram-widget__field {
+  display: grid;
+  gap: 7px;
+}
+
+.tangram-widget__label {
+  color: #4b5563;
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.tangram-widget__input {
+  background: #ffffff;
+  border: 1px solid #cfd6e0;
+  border-radius: 6px;
+  color: #111827;
+  font: 14px/1.45 Inter, Arial, sans-serif;
+  min-height: 42px;
+  padding: 10px 12px;
+  width: 100%;
+}
+
+textarea.tangram-widget__input {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.tangram-widget__input:focus {
+  border-color: #7b00ff;
+  box-shadow: 0 0 0 2px rgba(123, 0, 255, 0.18);
+  outline: none;
+}
+
+.tangram-widget__toggle {
+  align-items: center;
+  display: inline-flex;
+  gap: 9px;
+}
+
+.tangram-list-widget {
+  display: grid;
+  gap: 14px;
+}
+
+.tangram-list-card {
+  background: #ffffff;
+  border: 1px solid #d9dee7;
+  border-radius: 8px;
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+}
+
+.tangram-list-card:focus-within,
+.tangram-list-card:hover {
+  border-color: #7b00ff;
+  box-shadow: 0 0 0 2px rgba(123, 0, 255, 0.10);
+}
+
+.tangram-list-card__title {
+  border-bottom: 1px solid #eef1f5;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 800;
+  padding-bottom: 10px;
+}
+
 .tangram-live-preview {
   background: #050505;
   color: #f7f3ff;

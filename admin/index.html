@@ -10,6 +10,7 @@
   </head>
   <body>
     <script>
+      window.CMS_MANUAL_INIT = true;
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on('init', function (user) {
           if (!user && /invite_token=|confirmation_token=|recovery_token=|email_change_token=/.test(window.location.hash || '')) {
@@ -18,7 +19,12 @@
         });
       }
     </script>
+    <script src="/admin/tangram-bindings.js"></script>
     <script src="https://unpkg.com/decap-cms@^3.8.0/dist/decap-cms.js"></script>
+    <script src="/admin/widgets.js"></script>
     <script src="/admin/preview.js"></script>
+    <script>
+      window.CMS.init();
+    </script>
   </body>
 </html>

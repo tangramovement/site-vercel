@@ -2,6 +2,8 @@ backend:
   name: git-gateway
   branch: main
 
+local_backend: true
+
 media_folder: uploads
 public_folder: /uploads
 site_url: https://www.tangramovement.com
@@ -23,364 +25,156 @@ collections:
           - label: Menu
             name: menu
             widget: object
+            collapsed: false
             fields:
-              - label: Quem Somos
-                name: about
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Eventos
-                name: events
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Parceiros
-                name: partners
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Instagram
-                name: instagram
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Fale conosco
-                name: contact
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
+              - { label: Quem Somos, name: about, widget: tangram_i18n_string, tangram_path: menu.about }
+              - { label: Eventos, name: events, widget: tangram_i18n_string, tangram_path: menu.events }
+              - { label: Parceiros, name: partners, widget: tangram_i18n_string, tangram_path: menu.partners }
+              - { label: Instagram, name: instagram, widget: tangram_i18n_string, tangram_path: menu.instagram }
+              - { label: Fale conosco, name: contact, widget: tangram_i18n_string, tangram_path: menu.contact }
+
           - label: Hero
             name: hero
             widget: object
+            collapsed: false
             fields:
-              - label: Titulo
-                name: title
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Tickets
-                name: tickets
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Loading
-                name: loading
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
+              - { label: Titulo, name: title, widget: tangram_i18n_string, tangram_path: hero.title }
+              - { label: Texto Tickets, name: tickets, widget: tangram_i18n_string, tangram_path: hero.tickets }
+              - { label: Loading tecnico, name: loading, widget: tangram_preserve, required: false }
+
           - label: Agenda
             name: agenda
             widget: object
+            collapsed: false
             fields:
-              - label: Chamada
-                name: introLabel
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Titulo
-                name: introTitle
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Eventos
-                name: events
-                widget: list
-                summary: "{{fields.date}}"
-                fields:
-                  - { label: Ativo, name: active, widget: boolean, default: true }
-                  - { label: Data, name: date, widget: string }
-                  - label: Local
-                    name: place
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: string }
-                      - { label: EN, name: en, widget: string }
-                  - label: Headliner
-                    name: title
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: string }
-                      - { label: EN, name: en, widget: string }
-                  - label: Lineup
-                    name: lineup
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: string, required: false }
-                      - { label: EN, name: en, widget: string, required: false }
-                  - label: Label do ingresso
-                    name: ticketLabel
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: string }
-                      - { label: EN, name: en, widget: string }
-                  - { label: Link do ingresso, name: ticketUrl, widget: string }
+              - { label: Chamada tecnica, name: introLabel, widget: tangram_preserve, required: false }
+              - { label: Titulo tecnico, name: introTitle, widget: tangram_preserve, required: false }
+              - { label: Eventos, name: events, widget: tangram_events, tangram_path: agenda.events }
+
           - label: Highlights
             name: highlights
             widget: object
+            collapsed: false
             fields:
-              - label: Titulo
-                name: title
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
+              - { label: Titulo, name: title, widget: tangram_i18n_string, tangram_path: highlights.title }
+              - label: Imagens
+                name: images
+                widget: tangram_preserve
+                required: false
+
           - label: Quem Somos
             name: about
             widget: object
+            collapsed: false
             fields:
-              - label: Eyebrow
-                name: eyebrow
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Titulo
-                name: title
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Texto
-                name: text
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
+              - { label: Eyebrow, name: eyebrow, widget: tangram_i18n_string, tangram_path: about.eyebrow }
+              - { label: Titulo, name: title, widget: tangram_i18n_string, tangram_path: about.title }
+              - { label: Texto, name: text, widget: tangram_i18n_text, tangram_path: about.text }
+
+          - label: Cards de experiencia
+            name: experienceCards
+            widget: tangram_experience_cards
+            tangram_path: experienceCards
+
           - label: Tags
             name: tags
-            widget: list
-            fields:
-              - { label: PT, name: pt, widget: string }
-              - { label: EN, name: en, widget: string }
+            widget: tangram_tags
+            tangram_path: tags
+
+          - label: Fundadores
+            name: founders
+            widget: tangram_founders
+            tangram_path: founders
+
           - label: Movimento Vivo
             name: movement
             widget: object
+            collapsed: false
             fields:
-              - label: Titulo
-                name: title
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Texto
-                name: text
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
-              - label: Titulo contato
-                name: contactTitle
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Texto contato
-                name: contactText
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
-              - label: Texto apoio
-                name: supportText
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
+              - { label: Titulo, name: title, widget: tangram_i18n_string, tangram_path: movement.title }
+              - { label: Texto, name: text, widget: tangram_i18n_text, tangram_path: movement.text }
+              - { label: Titulo contato, name: contactTitle, widget: tangram_i18n_string, tangram_path: movement.contactTitle }
+              - { label: Texto contato, name: contactText, widget: tangram_i18n_text, tangram_path: movement.contactText }
+              - { label: Texto apoio, name: supportText, widget: tangram_i18n_text, tangram_path: movement.supportText }
               - label: Formulario
                 name: form
                 widget: object
+                collapsed: false
                 fields:
-                  - label: Nome
-                    name: name
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: string }
-                      - { label: EN, name: en, widget: string }
-                  - label: Email
-                    name: email
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: string }
-                      - { label: EN, name: en, widget: string }
-                  - label: Telefone
-                    name: phone
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: string }
-                      - { label: EN, name: en, widget: string }
-                  - label: Local
-                    name: location
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: string }
-                      - { label: EN, name: en, widget: string }
-                  - label: Selecione
-                    name: select
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: string }
-                      - { label: EN, name: en, widget: string }
-                  - label: Botao
-                    name: submit
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: string }
-                      - { label: EN, name: en, widget: string }
+                  - { label: Nome, name: name, widget: tangram_i18n_string, tangram_path: movement.form.name }
+                  - { label: Email, name: email, widget: tangram_i18n_string, tangram_path: movement.form.email }
+                  - { label: Telefone, name: phone, widget: tangram_i18n_string, tangram_path: movement.form.phone }
+                  - { label: Local, name: location, widget: tangram_i18n_string, tangram_path: movement.form.location }
+                  - { label: Select tecnico, name: select, widget: tangram_preserve, required: false }
+                  - { label: Botao, name: submit, widget: tangram_i18n_string, tangram_path: movement.form.submit }
+
           - label: Parceiros
             name: partners
             widget: object
+            collapsed: false
             fields:
-              - label: Eyebrow
-                name: eyebrow
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Titulo
-                name: title
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Texto
-                name: text
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
-              - label: CTA
-                name: cta
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
+              - { label: Eyebrow, name: eyebrow, widget: tangram_i18n_string, tangram_path: partners.eyebrow }
+              - { label: Titulo, name: title, widget: tangram_i18n_string, tangram_path: partners.title }
+              - { label: Texto, name: text, widget: tangram_i18n_text, tangram_path: partners.text }
+              - { label: Botao, name: cta, widget: tangram_i18n_string, tangram_path: partners.cta }
+
           - label: Proposito
             name: purpose
             widget: object
+            collapsed: false
             fields:
-              - label: Eyebrow
-                name: eyebrow
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Titulo
-                name: title
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Texto
-                name: text
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
-              - label: Pilares
-                name: pillars
-                widget: list
-                summary: "{{fields.title.pt}}"
-                fields:
-                  - label: Titulo
-                    name: title
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: string }
-                      - { label: EN, name: en, widget: string }
-                  - label: Texto
-                    name: text
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: text }
-                      - { label: EN, name: en, widget: text }
+              - { label: Eyebrow, name: eyebrow, widget: tangram_i18n_string, tangram_path: purpose.eyebrow }
+              - { label: Titulo, name: title, widget: tangram_i18n_string, tangram_path: purpose.title }
+              - { label: Texto, name: text, widget: tangram_i18n_text, tangram_path: purpose.text }
+              - { label: Pilares, name: pillars, widget: tangram_pillars, tangram_path: purpose.pillars }
+
           - label: FAQ
             name: faq
             widget: object
+            collapsed: false
             fields:
-              - label: Eyebrow
-                name: eyebrow
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Titulo
-                name: title
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Intro
-                name: intro
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: text }
-                  - { label: EN, name: en, widget: text }
-              - label: CTA
-                name: ctaLines
-                widget: list
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Perguntas
-                name: items
-                widget: list
-                summary: "{{fields.question.pt}}"
-                fields:
-                  - label: Pergunta
-                    name: question
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: string }
-                      - { label: EN, name: en, widget: string }
-                  - label: Resposta
-                    name: answer
-                    widget: object
-                    fields:
-                      - { label: PT, name: pt, widget: text }
-                      - { label: EN, name: en, widget: text }
+              - { label: Eyebrow, name: eyebrow, widget: tangram_i18n_string, tangram_path: faq.eyebrow }
+              - { label: Titulo, name: title, widget: tangram_i18n_string, tangram_path: faq.title }
+              - { label: Intro, name: intro, widget: tangram_i18n_text, tangram_path: faq.intro }
+              - { label: CTA, name: ctaLines, widget: tangram_faq_cta, tangram_path: faq.ctaLines }
+              - { label: Perguntas, name: items, widget: tangram_faq_items, tangram_path: faq.items }
+
           - label: Rodape
             name: footer
             widget: object
+            collapsed: false
             fields:
-              - label: Frase
-                name: headline
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: CTA
-                name: cta
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Local
-                name: location
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
-              - label: Copyright
-                name: copyright
-                widget: object
-                fields:
-                  - { label: PT, name: pt, widget: string }
-                  - { label: EN, name: en, widget: string }
+              - { label: Frase, name: headline, widget: tangram_i18n_string, tangram_path: footer.headline }
+              - { label: Botao, name: cta, widget: tangram_i18n_string, tangram_path: footer.cta }
+              - { label: Local, name: location, widget: tangram_i18n_string, tangram_path: footer.location }
+              - { label: Copyright, name: copyright, widget: tangram_i18n_string, tangram_path: footer.copyright }
+
           - label: Links globais
             name: links
             widget: object
+            collapsed: false
             fields:
-              - { label: Instagram, name: instagram, widget: string }
-              - { label: Telefone WhatsApp, name: whatsappPhone, widget: hidden, default: "5521975409180" }
-              - { label: Link WhatsApp bio, name: whatsappBio, widget: hidden, default: "https://wa.me/message/A2ZXZZRCLLZTP1" }
-              - { label: Email, name: email, widget: string }
+              - { label: Instagram, name: instagram, widget: tangram_url, tangram_path: links.instagram }
+              - { label: Telefone WhatsApp, name: whatsappPhone, widget: tangram_phone, tangram_path: links.whatsappPhone }
+              - { label: Link WhatsApp bio, name: whatsappBio, widget: tangram_url, tangram_path: links.whatsappBio }
+              - { label: Email, name: email, widget: tangram_email, tangram_path: links.email }
+
+          - label: Configuracoes tecnicas - SEO
+            name: seo
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Titulo SEO, name: title, widget: tangram_i18n_string, tangram_path: seo.title }
+              - { label: Descricao SEO, name: description, widget: tangram_i18n_text, tangram_path: seo.description }
+              - { label: Imagem social, name: socialImage, widget: tangram_url, tangram_path: seo.socialImage }
+
+          - label: Configuracoes tecnicas - mensagens WhatsApp
+            name: whatsappMessages
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Fale conosco, name: contact, widget: tangram_i18n_text, tangram_path: whatsappMessages.contact }
+              - { label: Parceiros, name: partner, widget: tangram_i18n_text, tangram_path: whatsappMessages.partner }
+              - { label: Iniciar movimento, name: start, widget: tangram_i18n_text, tangram_path: whatsappMessages.start }
+              - { label: Last Night, name: lastNight, widget: tangram_i18n_text, tangram_path: whatsappMessages.lastNight }
+              - { label: FAQ, name: faq, widget: tangram_i18n_text, tangram_path: whatsappMessages.faq }
