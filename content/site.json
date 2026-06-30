@@ -2,11 +2,11 @@
   "founders": [
     {
       "name": {
-        "pt": "Ber Fontoura",
-        "en": "Ber Fontoura"
+        "pt": "Bhhaer",
+        "en": "Bhhaer"
       },
       "bio": {
-        "pt": "Ber Fontoura é nascido em uma família imersa musicalmente, trazendo beats minimalistas e percussionados, guiados por uma bagagem musical que flui da música latina ao rnb, soul, rock e jazz, trazendo suas nuances de formas sutis misturadas a linhas de baixo envolventes, criando uma sonoridade única que conecta passado e presente de forma cativante e carregada de nostalgia. Suas tracks são tocadas por grandes nomes, sendo alguns deles o Seth Troxler e Paco Osuna. Ber já passou por grandes palcos e clubs internacionais, como: D.Edge SP e RJ, Casa Tisoc, Love Sessions, Deep Please, Bloco Ame e Mau-Festa.",
+        "pt": "Bhhaer é nascido em uma família imersa musicalmente, trazendo beats minimalistas e percussionados, guiados por uma bagagem musical que flui da música latina ao rnb, soul, rock e jazz, trazendo suas nuances de formas sutis misturadas a linhas de baixo envolventes, criando uma sonoridade única que conecta passado e presente de forma cativante e carregada de nostalgia. Suas tracks são tocadas por grandes nomes, sendo alguns deles o Seth Troxler e Paco Osuna. Ber já passou por grandes palcos e clubs internacionais, como: D.Edge SP e RJ, Casa Tisoc, Love Sessions, Deep Please, Bloco Ame e Mau-Festa.",
         "en": "Ber Fontoura was born into a deeply musical family, bringing minimalist and percussive beats guided by a musical background that flows from Latin music to R&B, soul, rock and jazz. His subtle nuances blend with enveloping basslines, creating a unique sound that connects past and present with a captivating and nostalgic energy."
       },
       "presskitLabel": {
@@ -89,10 +89,10 @@
           "en": "Bhaskar + Marian Flow"
         },
         "ticketLabel": {
-          "pt": "12.06 | D-EDGE SP | NICK CURLY + BHASKAR",
-          "en": "12.06 | D-EDGE SP | NICK CURLY + BHASKAR"
+          "pt": "30.07 | BRASILIA | LOOFY 🇺🇸 ( vendas em breve )",
+          "en": "30.07 | BRASILIA | LOOFY 🇺🇸 ( tickets soon )"
         },
-        "ticketUrl": "https://ingresse.com/freak120626/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleASQCrRleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadhGybMkmfb1PFA7sPk8_ZNEUTN1rGp8FLxC5rv9fLGIuxFBRX3zVBT6T_9iA_aem_41Prp33zzC5zUI4SnerfPQ&utm_id=97760_v0_s00_e0_tv3",
+        "ticketUrl": "",
         "active": true
       },
       {
@@ -110,10 +110,10 @@
           "en": "Marian Flow + Rod B + Ber Fontoura + Ryferr e Gadas"
         },
         "ticketLabel": {
-          "pt": "19.06 | D-EDGE RJ | MAGDALENA",
-          "en": "19.06 | D-EDGE RJ | MAGDALENA"
+          "pt": "31.07 | EPHIGENIA SP | LOOFY🇺🇸 ( vendas em breve )",
+          "en": "31.07 | EPHIGENIA SP | LOOFY🇺🇸 ( tickets soon )"
         },
-        "ticketUrl": "https://www.ingresse.com/d-edge-rio-apresenta-tangram/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleASQCqFleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadIM9mr9KYjuuO-l1trr9WfxTr3rZKg76wkEkW835XFWcEfAX4juRE61-ZksQ_aem_vkUHPKYt2CzGSpCdKwGqDg&utm_id=97760_v0_s00_e0_tv3",
+        "ticketUrl": "https://www.instagram.com/ephigeniasp/?hl=pt",
         "active": true
       },
       {
@@ -134,7 +134,7 @@
           "pt": "01.08 | LAST NIGHT | LOOFY",
           "en": "01.08 | LAST NIGHT | LOOFY"
         },
-        "ticketUrl": "https://wa.me/message/A2ZXZZRCLLZTP1",
+        "ticketUrl": "https://shotgun.live/pt-br/events/tangram-w-loofy-1-ago-ed-touring",
         "active": true
       }
     ]
@@ -149,8 +149,8 @@
       "en": "WHO WE ARE"
     },
     "text": {
-      "pt": "A partir do conceito do Puzzle chinês o Tangram nasce com a proposta transformação, modularidade e co-criação produzindo diversos tipos de experiências sensoriais únicas que se adaptam ao espaço e ao tempo, propondo atmosferas vivas de pertencimento e conexão.",
-      "en": "Inspired by the Chinese Tangram puzzle, Tangram was born from transformation, modularity and co-creation, producing unique sensory experiences that adapt to space and time while proposing living atmospheres of belonging and connection."
+      "pt": "Somos uma plataforma colaborativa de eventos, criamos experiências únicas e imersivas onde a arte se manifestar em todas as suas formas\nA partir do conceito do Puzzle chinês o Tangram nasce com a proposta de co-criação - cada peça e essencial para o todo e essas mesmas peças podem formar infinitas figuras. ",
+      "en": "We are a collaborative event platform that creates unique, immersive experiences where art manifests in all its forms. Inspired by the Chinese puzzle Tangram, we operate on a co-creation model: every piece is essential to the whole, yet those same pieces can form infinite figures."
     }
   },
   "movement": {
@@ -340,8 +340,8 @@
         "en": "Music"
       },
       "text": {
-        "pt": "O som é a peça principal do Tangram, é a partir dela que moldamos o espaço e movimentamos os corpos. Da escuta ao transe, a música conduz a experiência.",
-        "en": "Sound is Tangram's main piece. Through it, we shape the space and move bodies. From listening to trance, music leads the experience."
+        "pt": "O som é a nossa peça central, escutamos cada ambiente e nos transformamos com ele, sem barreiras de gênero ou estilos, criando uma jornada fluida, orgânica e atemporal.",
+        "en": "Sound is our centerpiece; we listen to every environment and transform along with it—unconstrained by genre or style—creating a fluid, organic, and timeless journey."
       }
     },
     {
