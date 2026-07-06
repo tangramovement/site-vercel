@@ -24,8 +24,78 @@
     whatsappMessages: 'Configuracoes tecnicas'
   };
 
+  const legacyAliases = {
+    'about.text': [
+      'A partir do conceito do Puzzle chines o Tangram nasce com a proposta transformacao, modularidade',
+      'Somos uma plataforma colaborativa de eventos, criamos experiencias unicas e imersivas'
+    ],
+    'experienceCards.0.text': [
+      'O som e a peca principal do Tangram',
+      'O som e a nossa peca central'
+    ],
+    'experienceCards.1.text': [
+      'No Tangram, o corpo e linguagem',
+      'Vestir e ativar. Cada peca e gesto'
+    ],
+    'experienceCards.2.text': [
+      'A arte no Tangram e presenca viva',
+      'Cada peca propoe um dialogo entre forma e sentimento'
+    ],
+    'experienceCards.3.text': [
+      'Luz em movimento. As projecoes no Tangram criam atmosferas imersivas',
+      'dissolvemos a arquitetura e revelamos portais'
+    ],
+    'founders.0.name': ['Ber Fontoura'],
+    'founders.0.bio': [
+      'Ber Fontoura e nascido em uma familia imersa musicalmente',
+      'Bhhaer e nascido em uma familia imersa musicalmente'
+    ],
+    'founders.1.bio': [
+      'Formada em Marketing e com passagem pela School of Visual Arts',
+      'Marian Flow conta com mais de 20 anos de carreira'
+    ],
+    'founders.2.bio': [
+      'Clari Ann ja se apresentou em clubes e festivais prestigiados',
+      'Sua energia eletrizante ja alcancou palcos internacionais'
+    ],
+    'movement.supportText': [
+      'Tangram se molda, se encaixa, se transforma',
+      'criando experiencias unicas onde cada pessoa'
+    ],
+    'purpose.pillars.1.text': [
+      'evento, pessoa, imagem ou som',
+      'Tudo pode se reconfigurar'
+    ],
+    'faq.items.1.answer': [
+      'Nao. Tangram e fluidez. Cada evento tem uma nova forma',
+      'Trabalhamos com pecas modulares que podem ser combinadas'
+    ],
+    'faq.items.2.answer': [
+      'Pessoas que querem sentir, contemplar, se mover',
+      'Djs, Artistas, Marcas e pecas criativas'
+    ],
+    'faq.items.3.answer': [
+      'Voce nos conta o proposito, o espaco e o publico',
+      'nos desenhamos a composicao com base nas pecas Tangram'
+    ],
+    'faq.items.4.answer': [
+      'Trabalhamos com musica, projecoes, instalacoes artisticas',
+      'performances de moda e ativacoes sensoriais'
+    ],
+    'faq.items.5.answer': [
+      'Voce pode vir como publico, como artista, como espaco, como marca',
+      'Tangram acontece no encontro'
+    ]
+  };
+
   function add(path, label, options) {
     const rootKey = path.split('.')[0];
+    const mergedOptions = Object.assign({}, options || {});
+    const aliases = []
+      .concat(mergedOptions.aliases || [])
+      .concat(legacyAliases[path] || []);
+    if (aliases.length) mergedOptions.aliases = Array.from(new Set(aliases));
+
     bindings.push(Object.assign({
       path,
       label,
@@ -34,7 +104,7 @@
       apply: 'text',
       preview: true,
       locator: { kind: 'text' }
-    }, options || {}));
+    }, mergedOptions));
   }
 
   function addI18n(path, label, options) {
@@ -307,9 +377,7 @@
 
     const exactKey = doc.querySelector(`[data-tangram-content-key="${cssEscape(path)}"]`);
     if (exactKey && (options?.allowHidden || visible(exactKey))) {
-      const current = normalize(exactKey.textContent);
-      const stillMatches = wantedValues.some((wanted) => current === wanted || (wanted.length >= 14 && current.includes(wanted)));
-      if (stillMatches) return exactKey;
+      return exactKey;
     }
 
     const candidates = Array.from(doc.querySelectorAll(TEXT_SELECTOR)).filter((element) => {
@@ -453,24 +521,61 @@
   function applyAgenda(doc, content) {
     const language = currentLanguage(doc);
     const events = (getPath(content, 'agenda.events') || []).filter((event) => event && event.active !== false);
+    const ticketItems = events.map((event, index) => {
+      const href = String(event.ticketUrl || '').trim();
+      return {
+        href,
+        disabled: !href,
+        text: localize(event.ticketLabel, language) || [event.date, localize(event.place, language), localize(event.title, language)].filter(Boolean).join(' | '),
+        loading: index === events.length - 1
+      };
+    });
+    const signature = JSON.stringify(ticketItems);
+
     doc.querySelectorAll('.tangram-next-moves-links').forEach((wrapper) => {
+      if (wrapper.dataset.tangramAgendaSignature === signature) return;
       wrapper.innerHTML = '';
-      events.forEach((event, index) => {
+      ticketItems.forEach((item, index) => {
         const link = doc.createElement('a');
-        link.className = `tangram-ticket-link${index === events.length - 1 ? ' tangram-ticket-link--loading' : ''}`;
-        link.href = event.ticketUrl || getPath(content, 'links.whatsappBio') || '#';
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
+        link.className = `tangram-ticket-link${item.loading ? ' tangram-ticket-link--loading' : ''}${item.disabled ? ' tangram-ticket-link--disabled' : ''}`;
+        if (item.disabled) {
+          link.removeAttribute('href');
+          link.setAttribute('aria-disabled', 'true');
+          link.setAttribute('role', 'button');
+          link.tabIndex = -1;
+        } else {
+          link.href = item.href;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+        }
         link.dataset.tangramContentKey = `agenda.events.${index}.ticketLabel`;
-        link.textContent = localize(event.ticketLabel, language) || [event.date, localize(event.place, language), localize(event.title, language)].filter(Boolean).join(' | ');
+        link.textContent = item.text;
         wrapper.appendChild(link);
       });
+      wrapper.dataset.tangramAgendaSignature = signature;
     });
 
     const fallback = doc.querySelector('.tangram-tablet-next-moves__loading');
     if (fallback) {
       const event = events[events.length - 1] || events[0];
-      fallback.href = event?.ticketUrl || getPath(content, 'links.whatsappBio') || fallback.href;
+      const href = String(event?.ticketUrl || '').trim();
+      if (href) {
+        fallback.href = href;
+        fallback.target = '_blank';
+        fallback.rel = 'noopener noreferrer';
+        fallback.removeAttribute('aria-disabled');
+        fallback.removeAttribute('role');
+        fallback.removeAttribute('tabindex');
+        fallback.classList.remove('tangram-ticket-link--disabled');
+      } else {
+        fallback.removeAttribute('href');
+        fallback.removeAttribute('target');
+        fallback.removeAttribute('rel');
+        fallback.setAttribute('aria-disabled', 'true');
+        fallback.setAttribute('role', 'button');
+        fallback.tabIndex = -1;
+        fallback.classList.add('tangram-ticket-link--disabled');
+      }
       fallback.textContent = localize(getPath(content, 'hero.loading'), language) || fallback.textContent;
       fallback.dataset.tangramContentKey = 'hero.loading';
     }
