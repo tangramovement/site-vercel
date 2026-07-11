@@ -1,6 +1,10 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: tangramovement/site-vercel
   branch: main
+  base_url: https://www.tangramovement.com/api
+  auth_endpoint: auth
+  auth_scope: repo
 
 local_backend: true
 

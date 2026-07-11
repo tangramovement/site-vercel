@@ -606,14 +606,12 @@
     });
   }
 
-  function setupNetlifyForm() {
+  function setupContactForm() {
     const forms = Array.from(document.querySelectorAll('form[name="tangram-contact"], form.framer-ud8hvz'));
     forms.forEach((form) => {
       form.classList.add('tangram-contact-form');
       form.setAttribute('name', 'tangram-contact');
       form.setAttribute('method', 'POST');
-      form.setAttribute('data-netlify', 'true');
-      form.setAttribute('netlify-honeypot', 'bot-field');
 
       const fields = Array.from(form.querySelectorAll('input, select, textarea'));
       const visibleFields = fields.filter((field) => field.type !== 'hidden' && field.name !== 'bot-field');
@@ -671,19 +669,19 @@
 
           if (isLocalPreview) {
             if (status) status.textContent = currentLanguage === TARGET_LANGUAGE
-              ? 'Form ready. Submissions will be captured after Netlify deploy.'
-              : 'Formulário pronto. Os envios serão capturados após o deploy na Netlify.';
+              ? 'Form ready. Test submissions are available after deployment.'
+              : 'Formulário pronto. Os envios de teste ficam disponíveis depois do deploy.';
             if (submitButton) submitButton.removeAttribute('disabled');
             return;
           }
 
           try {
-            const response = await fetch('/', {
+            const response = await fetch('/api/contact', {
               method: 'POST',
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-              body: new URLSearchParams(formData).toString()
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(Object.fromEntries(formData.entries()))
             });
-            if (!response.ok) throw new Error('Netlify form submission failed');
+            if (!response.ok) throw new Error('Contact form submission failed');
             form.reset();
             if (status) status.textContent = currentLanguage === TARGET_LANGUAGE
               ? 'Sent. We will get back to you soon.'
@@ -1209,7 +1207,7 @@
     setupMarianPresskit();
     setupFounderCardOrdering();
     setupContentLayoutTweaks();
-    setupNetlifyForm();
+    setupContactForm();
     setupWhatsappMessages();
     setupTangramMotionDetails();
     setupHeroSymbolMotion();
