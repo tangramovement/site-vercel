@@ -1767,7 +1767,7 @@ button[title*="Edit"],
    Framer layout uses fixed-height crop frames, which cuts portrait images and
    leaves the ticket links in a zero-sized absolute container. */
 @media (min-width: 1101px) {
-  #about-me .framer-1ftkrmm.tangram-highlights-title {
+  #about-me .framer-1ftkrmm {
     transform: none !important;
     translate: none !important;
   }
@@ -1911,7 +1911,7 @@ button[title*="Edit"],
   #about-me .framer-o78s6p img,
   #about-me .framer-1rop2vb img {
     height: 100% !important;
-    object-fit: contain !important;
+    object-fit: fill !important;
     background: #000 !important;
   }
 }
@@ -1953,7 +1953,7 @@ button[title*="Edit"],
   #about-me .framer-o78s6p img,
   #about-me .framer-1rop2vb img {
     height: 100% !important;
-    object-fit: contain !important;
+    object-fit: fill !important;
     background: #000 !important;
   }
 }
