@@ -48,6 +48,8 @@
       const response = await fetch(`${CONTENT_URL}?v=${Date.now()}`, { cache: 'no-store' });
       if (!response.ok) throw new Error(`Content load failed: ${response.status}`);
       content = await response.json();
+      window.__tangramContent = content;
+      window.dispatchEvent(new CustomEvent('tangram:content-ready', { detail: content }));
       applyAll();
       setupObservers();
       window.setTimeout(applyAll, 500);

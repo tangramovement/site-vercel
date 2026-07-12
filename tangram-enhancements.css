@@ -435,6 +435,21 @@ button[title*="Edit"],
   color: rgba(0, 0, 0, 0.74);
 }
 
+.tangram-ticket-link--disabled {
+  cursor: default;
+  opacity: 0.72;
+}
+
+.tangram-ticket-link--disabled:hover {
+  filter: none;
+  transform: none;
+}
+
+.tangram-ticket-main,
+.tangram-ticket-status {
+  display: block;
+}
+
 .tangram-next-events {
   position: relative;
   width: min(1280px, calc(100vw - 160px));
@@ -1581,5 +1596,98 @@ button[title*="Edit"],
   .tangram-movement-title,
   .tangram-movement-title * {
     font-size: clamp(29px, 8.4vw, 32px) !important;
+  }
+}
+
+/* Agenda buttons stay in normal flow on compact layouts, preventing title and gallery overlap. */
+@media (max-width: 1100px) {
+  .tangram-tablet-next-moves-fallback {
+    min-height: 0 !important;
+    padding-bottom: 88px !important;
+  }
+
+  .tangram-tablet-next-moves__tickets {
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 10px;
+    row-gap: 0;
+  }
+
+  .tangram-tablet-next-moves__tickets > svg,
+  .tangram-tablet-next-moves__tickets > span {
+    flex: 0 0 auto;
+  }
+
+  .tangram-tablet-next-moves__tickets .tangram-next-moves-links {
+    position: static !important;
+    z-index: auto;
+    flex: 1 0 100%;
+    width: 100% !important;
+    margin-top: 22px;
+    gap: 10px;
+    translate: none !important;
+  }
+}
+
+@media (min-width: 1101px) {
+  .tangram-next-moves-spacer-target {
+    position: relative !important;
+    top: 224px !important;
+    translate: none !important;
+  }
+
+  .tangram-highlights-title .framer-1ftkrmm,
+  img[src*="vRxTMjYbP3ypjaZeV6BCgvHz9xc"],
+  img[src*="QVERUMsyClsAIz0SLq1G6v1kPA"],
+  img[src*="hKGmTW7lzWU7jeXME9dm6tICRlk"],
+  img[src*="KX3LayS56OxCxW5L488YHxjsVmc"] {
+    transform: translateY(224px) !important;
+  }
+}
+
+@media (max-width: 809px) {
+  .tangram-tablet-next-moves-fallback {
+    display: flex !important;
+    justify-content: center !important;
+    padding: 64px 0 88px !important;
+  }
+
+  .tangram-tablet-next-moves {
+    width: min(320px, calc(100vw - 84px)) !important;
+  }
+
+  .tangram-tablet-next-moves__title {
+    font-size: clamp(31px, 9vw, 38px) !important;
+  }
+
+  .tangram-tablet-next-moves__tickets {
+    margin-top: 38px !important;
+    font-size: clamp(25px, 7vw, 29px) !important;
+  }
+
+  .tangram-tablet-next-moves__tickets .tangram-next-moves-links {
+    margin-top: 18px;
+    gap: 9px;
+  }
+
+  .tangram-tablet-next-moves__tickets .tangram-ticket-link {
+    box-sizing: border-box;
+    width: 100%;
+    flex-direction: column;
+    min-height: 56px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: clamp(12px, 3.15vw, 13.5px);
+    line-height: 1.18;
+  }
+
+  .tangram-ticket-main {
+    white-space: nowrap;
+  }
+
+  .tangram-ticket-status {
+    margin-top: 2px;
+    font-size: 0.92em;
   }
 }

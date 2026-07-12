@@ -752,7 +752,6 @@
   }
 
   function cleanupNextMovesEnhancements() {
-    document.querySelectorAll('.tangram-next-moves-links').forEach((element) => element.remove());
     document.querySelectorAll('.tangram-next-moves-spacer-target').forEach((element) => {
       element.classList.remove('tangram-next-moves-spacer-target');
     });
@@ -839,8 +838,10 @@
       }
       nextMovesNode.classList.add('tangram-next-moves-title');
 
-      const links = document.createElement('div');
+      const links = ticketsNode.querySelector(':scope > .tangram-next-moves-links') || document.createElement('div');
+      const isNewLinks = !links.isConnected;
       links.className = 'tangram-next-moves-links';
+      if (isNewLinks) {
       links.innerHTML = `
         <a class="tangram-ticket-link" href="https://ingresse.com/freak120626/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleASQCrRleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadhGybMkmfb1PFA7sPk8_ZNEUTN1rGp8FLxC5rv9fLGIuxFBRX3zVBT6T_9iA_aem_41Prp33zzC5zUI4SnerfPQ&utm_id=97760_v0_s00_e0_tv3" target="_blank" rel="noopener noreferrer">D-EDGE SP | 12.06</a>
         <a class="tangram-ticket-link" href="https://www.ingresse.com/d-edge-rio-apresenta-tangram/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleASQCqFleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAadIM9mr9KYjuuO-l1trr9WfxTr3rZKg76wkEkW835XFWcEfAX4juRE61-ZksQ_aem_vkUHPKYt2CzGSpCdKwGqDg&utm_id=97760_v0_s00_e0_tv3" target="_blank" rel="noopener noreferrer">D-EDGE RJ | 19.06</a>
@@ -855,6 +856,9 @@
       links.querySelectorAll('.tangram-ticket-link').forEach((link, index) => {
         link.textContent = ticketLabels[index] || link.textContent;
       });
+      // Ticket content is owned by content/site.json and populated by TangramBindings.
+      links.replaceChildren();
+      }
 
       ticketsNode.style.overflow = 'visible';
       ticketsNode.classList.add('tangram-next-moves-ticket-anchor');
@@ -878,6 +882,7 @@
       }
     });
     reconcileResponsiveNextMovesTitles();
+    window.__tangramTriggerApply?.();
   }
 
   function isElementVisible(element) {
@@ -1279,6 +1284,7 @@
     applyLanguage();
     setupLanguageObserver();
     setupCursor();
+    window.addEventListener('tangram:content-ready', scheduleResponsiveLayoutRefresh);
     window.setTimeout(applyLanguage, 600);
     window.setTimeout(applyLanguage, 1600);
     window.addEventListener('resize', scheduleResponsiveLayoutRefresh, { passive: true });

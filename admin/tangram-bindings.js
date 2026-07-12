@@ -549,7 +549,18 @@
           link.rel = 'noopener noreferrer';
         }
         link.dataset.tangramContentKey = `agenda.events.${index}.ticketLabel`;
-        link.textContent = item.text;
+        const statusMatch = item.text.match(/\s*(\([^)]*\))\s*$/);
+        const mainLabel = statusMatch ? item.text.slice(0, statusMatch.index).trim() : item.text;
+        const main = doc.createElement('span');
+        main.className = 'tangram-ticket-main';
+        main.textContent = mainLabel;
+        link.appendChild(main);
+        if (statusMatch) {
+          const status = doc.createElement('span');
+          status.className = 'tangram-ticket-status';
+          status.textContent = statusMatch[1];
+          link.appendChild(status);
+        }
         wrapper.appendChild(link);
       });
       wrapper.dataset.tangramAgendaSignature = signature;
@@ -631,6 +642,7 @@
     const instagram = getPath(content, 'links.instagram');
     if (instagram) {
       doc.querySelectorAll('a[href*="instagram.com"]').forEach((anchor) => {
+        if (anchor.classList.contains('tangram-ticket-link')) return;
         anchor.href = instagram;
         anchor.target = '_blank';
         anchor.rel = 'noopener noreferrer';
