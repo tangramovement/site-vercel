@@ -1799,6 +1799,7 @@ button[title*="Edit"],
     max-height: none !important;
     margin: 22px 0 0 !important;
     gap: 14px !important;
+    min-height: 160px !important;
     transform: none !important;
     translate: none !important;
   }
@@ -1833,6 +1834,18 @@ button[title*="Edit"],
     overflow: visible !important;
     transform: none !important;
     translate: none !important;
+  }
+
+  #about-me .framer-1w0mlb5,
+  #about-me .framer-li287w,
+  #about-me .framer-1gg4md,
+  #about-me .framer-eyk18a,
+  #about-me .framer-o78s6p,
+  #about-me .framer-1rop2vb {
+    width: calc(100% + 160px) !important;
+    max-width: none !important;
+    margin-left: -80px !important;
+    margin-right: 0 !important;
   }
 
   #about-me .framer-1w0mlb5 > div,
