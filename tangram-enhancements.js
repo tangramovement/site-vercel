@@ -842,6 +842,7 @@
       if (fallbackLabels.length) nextMovesLabels = fallbackLabels;
     }
 
+    const processedTicketNodes = new Set();
     nextMovesLabels.forEach((nextMovesLabel) => {
       const section = nextMovesLabel.closest('section');
       if (!section || section.classList.contains('tangram-hidden-legacy-events')) return;
@@ -851,7 +852,15 @@
       if (!ticketsLabel) return;
 
       const nextMovesNode = nextMovesLabel.closest('.tangram-tablet-next-moves__title') || nextMovesLabel.closest('[class*="framer-"]') || nextMovesLabel;
-      const ticketsNode = ticketsLabel.closest('.tangram-tablet-next-moves__tickets') || ticketsLabel.closest('[class*="framer-"]') || ticketsLabel;
+      const desktopTicketNode = window.innerWidth >= 1101
+        ? ticketsLabel.closest('.framer-xo2oy6')
+        : null;
+      const ticketsNode = ticketsLabel.closest('.tangram-tablet-next-moves__tickets')
+        || desktopTicketNode
+        || ticketsLabel.closest('[class*="framer-"]')
+        || ticketsLabel;
+      if (processedTicketNodes.has(ticketsNode)) return;
+      processedTicketNodes.add(ticketsNode);
       const loadingBlock = Array.from(section.querySelectorAll('a, div'))
         .find((element) => normalize(element.textContent).toLowerCase() === 'loading...');
       const ticketButtonNode = loadingBlock?.closest('a') || loadingBlock?.closest('.tangram-tablet-next-moves__loading') || loadingBlock?.closest('[class*="framer-"]') || loadingBlock;
