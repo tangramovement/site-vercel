@@ -2052,6 +2052,20 @@ button[title*="Edit"],
   }
 }
 
+@media (max-width: 809px) {
+  #about-me .framer-1w0mlb5 img,
+  #about-me .framer-li287w img,
+  #about-me .framer-1gg4md img,
+  #about-me .framer-eyk18a img,
+  #about-me .framer-o78s6p img,
+  #about-me .framer-1rop2vb img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+
 /* Final override: crop proportionally, never stretch. */
 @media (min-width: 810px) {
   #about-me .framer-1w0mlb5,
