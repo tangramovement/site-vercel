@@ -1758,7 +1758,7 @@ button[title*="Edit"],
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
-    object-fit: contain !important;
+    object-fit: fill !important;
     transform: none !important;
   }
 }
@@ -1864,7 +1864,7 @@ button[title*="Edit"],
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
-    object-fit: contain !important;
+    object-fit: fill !important;
     object-position: center center !important;
     transform: none !important;
     translate: none !important;
