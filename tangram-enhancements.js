@@ -916,15 +916,9 @@
         ticketsSectionChild = ticketsSectionChild.parentElement;
       }
       if (ticketsSectionChild.parentElement === section) {
-        let sibling = ticketsSectionChild.nextElementSibling;
-        while (sibling) {
-          if (window.innerWidth >= 810
-            && !sibling.classList.contains('tangram-next-moves-spacer-target')
-            && getComputedStyle(sibling).position !== 'absolute') {
-            sibling.classList.add('tangram-next-moves-spacer-target');
-          }
-          sibling = sibling.nextElementSibling;
-        }
+        // The original Framer siblings already have the correct document order.
+        // Artificially translating every following sibling made gallery images
+        // drift out of flow and disappear after hydration/scroll restoration.
       }
     });
     reconcileResponsiveNextMovesTitles();

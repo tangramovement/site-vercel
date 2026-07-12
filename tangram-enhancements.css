@@ -1762,3 +1762,96 @@ button[title*="Edit"],
     transform: none !important;
   }
 }
+
+/* Keep the desktop agenda and gallery in normal document flow. The exported
+   Framer layout uses fixed-height crop frames, which cuts portrait images and
+   leaves the ticket links in a zero-sized absolute container. */
+@media (min-width: 1101px) {
+  #about-me.framer-1jqzdj.hidden-10hqf1j {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  #about-me .tangram-next-moves-ticket-anchor {
+    align-items: stretch !important;
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  #about-me .tangram-next-moves-ticket-anchor > .tangram-next-moves-links {
+    position: static !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 930px) !important;
+    justify-content: center !important;
+    align-self: stretch !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 22px 0 0 !important;
+    gap: 14px !important;
+    transform: none !important;
+    translate: none !important;
+  }
+
+  #about-me .tangram-next-moves-ticket-anchor > .tangram-next-moves-links > .tangram-ticket-link {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  #about-me .framer-1w0mlb5,
+  #about-me .framer-li287w,
+  #about-me .framer-1gg4md,
+  #about-me .framer-eyk18a,
+  #about-me .framer-o78s6p,
+  #about-me .framer-1rop2vb {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    transform: none !important;
+    translate: none !important;
+  }
+
+  #about-me .framer-1w0mlb5 > div,
+  #about-me .framer-li287w > div,
+  #about-me .framer-1gg4md > div,
+  #about-me .framer-eyk18a > div,
+  #about-me .framer-o78s6p > div,
+  #about-me .framer-1rop2vb > div {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    transform: none !important;
+    translate: none !important;
+  }
+
+  #about-me .framer-1w0mlb5 img,
+  #about-me .framer-li287w img,
+  #about-me .framer-1gg4md img,
+  #about-me .framer-eyk18a img,
+  #about-me .framer-o78s6p img,
+  #about-me .framer-1rop2vb img {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    transform: none !important;
+    translate: none !important;
+  }
+}
