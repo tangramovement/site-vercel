@@ -1,0 +1,30 @@
+name: Deploy Tangram to Vercel
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: ${{ secrets.VERCEL_TOKEN != '' }}
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: team_KLEoevlvm2URAZUzZ9pB9gXl
+      VERCEL_PROJECT_ID: prj_FCThgZSsaAtuToXAnkeGNKez3a0f
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Pull Vercel project settings
+        run: npx vercel@55.0.0 pull --yes --environment=production --token="$VERCEL_TOKEN"
+
+      - name: Build production output
+        run: npx vercel@55.0.0 build --prod --token="$VERCEL_TOKEN"
+
+      - name: Deploy production output
+        run: npx vercel@55.0.0 deploy --prebuilt --prod --token="$VERCEL_TOKEN"
