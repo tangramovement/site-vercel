@@ -918,7 +918,9 @@
       if (ticketsSectionChild.parentElement === section) {
         let sibling = ticketsSectionChild.nextElementSibling;
         while (sibling) {
-          if (!sibling.classList.contains('tangram-next-moves-spacer-target') && getComputedStyle(sibling).position !== 'absolute') {
+          if (window.innerWidth >= 810
+            && !sibling.classList.contains('tangram-next-moves-spacer-target')
+            && getComputedStyle(sibling).position !== 'absolute') {
             sibling.classList.add('tangram-next-moves-spacer-target');
           }
           sibling = sibling.nextElementSibling;
