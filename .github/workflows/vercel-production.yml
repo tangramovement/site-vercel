@@ -10,7 +10,6 @@ permissions:
 
 jobs:
   deploy:
-    if: ${{ secrets.VERCEL_TOKEN != '' }}
     runs-on: ubuntu-latest
     env:
       VERCEL_ORG_ID: team_KLEoevlvm2URAZUzZ9pB9gXl
