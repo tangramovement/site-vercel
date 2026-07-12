@@ -1803,6 +1803,16 @@ button[title*="Edit"],
     min-width: 0 !important;
   }
 
+  #about-me .tangram-next-moves-ticket-anchor .tangram-next-moves-links.tangram-hidden-legacy-events {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+  }
+
   #about-me .framer-1w0mlb5,
   #about-me .framer-li287w,
   #about-me .framer-1gg4md,
@@ -1853,5 +1863,79 @@ button[title*="Edit"],
     object-position: center center !important;
     transform: none !important;
     translate: none !important;
+  }
+
+  #about-me .framer-1w0mlb5,
+  #about-me .framer-li287w,
+  #about-me .framer-1gg4md,
+  #about-me .framer-eyk18a,
+  #about-me .framer-o78s6p,
+  #about-me .framer-1rop2vb {
+    aspect-ratio: 2.4 / 1 !important;
+    height: auto !important;
+    overflow: hidden !important;
+    background: #000 !important;
+  }
+
+  #about-me .framer-1w0mlb5 > div,
+  #about-me .framer-li287w > div,
+  #about-me .framer-1gg4md > div,
+  #about-me .framer-eyk18a > div,
+  #about-me .framer-o78s6p > div,
+  #about-me .framer-1rop2vb > div {
+    height: 100% !important;
+  }
+
+  #about-me .framer-1w0mlb5 img,
+  #about-me .framer-li287w img,
+  #about-me .framer-1gg4md img,
+  #about-me .framer-eyk18a img,
+  #about-me .framer-o78s6p img,
+  #about-me .framer-1rop2vb img {
+    height: 100% !important;
+    object-fit: contain !important;
+    background: #000 !important;
+  }
+}
+
+@media (max-width: 809px) {
+  .tangram-tablet-next-moves-fallback {
+    padding-bottom: 24px !important;
+  }
+
+  #about-me.framer-1jqzdj.hidden-10hqf1j {
+    padding-top: 24px !important;
+  }
+
+  #about-me .framer-1w0mlb5,
+  #about-me .framer-li287w,
+  #about-me .framer-1gg4md,
+  #about-me .framer-eyk18a,
+  #about-me .framer-o78s6p,
+  #about-me .framer-1rop2vb {
+    aspect-ratio: 1.5 / 1 !important;
+    height: auto !important;
+    overflow: hidden !important;
+    background: #000 !important;
+  }
+
+  #about-me .framer-1w0mlb5 > div,
+  #about-me .framer-li287w > div,
+  #about-me .framer-1gg4md > div,
+  #about-me .framer-eyk18a > div,
+  #about-me .framer-o78s6p > div,
+  #about-me .framer-1rop2vb > div {
+    height: 100% !important;
+  }
+
+  #about-me .framer-1w0mlb5 img,
+  #about-me .framer-li287w img,
+  #about-me .framer-1gg4md img,
+  #about-me .framer-eyk18a img,
+  #about-me .framer-o78s6p img,
+  #about-me .framer-1rop2vb img {
+    height: 100% !important;
+    object-fit: contain !important;
+    background: #000 !important;
   }
 }
