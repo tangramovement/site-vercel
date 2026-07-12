@@ -1763,6 +1763,73 @@ button[title*="Edit"],
   }
 }
 
+/* Preserve the original aspect ratio while keeping every gallery image full-width. */
+@media (min-width: 810px) {
+  #about-me .framer-1w0mlb5,
+  #about-me .framer-li287w,
+  #about-me .framer-1gg4md,
+  #about-me .framer-eyk18a,
+  #about-me .framer-o78s6p,
+  #about-me .framer-1rop2vb {
+    aspect-ratio: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  #about-me .framer-1w0mlb5 > div,
+  #about-me .framer-li287w > div,
+  #about-me .framer-1gg4md > div,
+  #about-me .framer-eyk18a > div,
+  #about-me .framer-o78s6p > div,
+  #about-me .framer-1rop2vb > div {
+    height: auto !important;
+  }
+
+  #about-me .framer-1w0mlb5 img,
+  #about-me .framer-li287w img,
+  #about-me .framer-1gg4md img,
+  #about-me .framer-eyk18a img,
+  #about-me .framer-o78s6p img,
+  #about-me .framer-1rop2vb img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+}
+
+@media (max-width: 809px) {
+  #about-me .framer-1w0mlb5,
+  #about-me .framer-li287w,
+  #about-me .framer-1gg4md,
+  #about-me .framer-eyk18a,
+  #about-me .framer-o78s6p,
+  #about-me .framer-1rop2vb {
+    aspect-ratio: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  #about-me .framer-1w0mlb5 > div,
+  #about-me .framer-li287w > div,
+  #about-me .framer-1gg4md > div,
+  #about-me .framer-eyk18a > div,
+  #about-me .framer-o78s6p > div,
+  #about-me .framer-1rop2vb > div {
+    height: auto !important;
+  }
+
+  #about-me .framer-1w0mlb5 img,
+  #about-me .framer-li287w img,
+  #about-me .framer-1gg4md img,
+  #about-me .framer-eyk18a img,
+  #about-me .framer-o78s6p img,
+  #about-me .framer-1rop2vb img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+}
+
 /* Keep the desktop agenda and gallery in normal document flow. The exported
    Framer layout uses fixed-height crop frames, which cuts portrait images and
    leaves the ticket links in a zero-sized absolute container. */
