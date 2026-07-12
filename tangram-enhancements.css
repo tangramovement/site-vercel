@@ -2052,6 +2052,85 @@ button[title*="Edit"],
   }
 }
 
+/* Final override: crop proportionally, never stretch. */
+@media (min-width: 810px) {
+  #about-me .framer-1w0mlb5,
+  #about-me .framer-li287w,
+  #about-me .framer-1gg4md,
+  #about-me .framer-eyk18a,
+  #about-me .framer-o78s6p,
+  #about-me .framer-1rop2vb {
+    aspect-ratio: 2.4 / 1 !important;
+    height: auto !important;
+    overflow: hidden !important;
+  }
+
+  #about-me .framer-1w0mlb5 > div,
+  #about-me .framer-li287w > div,
+  #about-me .framer-1gg4md > div,
+  #about-me .framer-eyk18a > div,
+  #about-me .framer-o78s6p > div,
+  #about-me .framer-1rop2vb > div,
+  #about-me .framer-1w0mlb5 img,
+  #about-me .framer-li287w img,
+  #about-me .framer-1gg4md img,
+  #about-me .framer-eyk18a img,
+  #about-me .framer-o78s6p img,
+  #about-me .framer-1rop2vb img {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  #about-me .framer-1w0mlb5 img,
+  #about-me .framer-li287w img,
+  #about-me .framer-1gg4md img,
+  #about-me .framer-eyk18a img,
+  #about-me .framer-o78s6p img,
+  #about-me .framer-1rop2vb img {
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+
+@media (max-width: 809px) {
+  #about-me .framer-1w0mlb5,
+  #about-me .framer-li287w,
+  #about-me .framer-1gg4md,
+  #about-me .framer-eyk18a,
+  #about-me .framer-o78s6p,
+  #about-me .framer-1rop2vb {
+    aspect-ratio: 1.5 / 1 !important;
+    height: auto !important;
+    overflow: hidden !important;
+  }
+
+  #about-me .framer-1w0mlb5 > div,
+  #about-me .framer-li287w > div,
+  #about-me .framer-1gg4md > div,
+  #about-me .framer-eyk18a > div,
+  #about-me .framer-o78s6p > div,
+  #about-me .framer-1rop2vb > div,
+  #about-me .framer-1w0mlb5 img,
+  #about-me .framer-li287w img,
+  #about-me .framer-1gg4md img,
+  #about-me .framer-eyk18a img,
+  #about-me .framer-o78s6p img,
+  #about-me .framer-1rop2vb img {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  #about-me .framer-1w0mlb5 img,
+  #about-me .framer-li287w img,
+  #about-me .framer-1gg4md img,
+  #about-me .framer-eyk18a img,
+  #about-me .framer-o78s6p img,
+  #about-me .framer-1rop2vb img {
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+}
+
 @media (max-width: 809px) {
   .tangram-tablet-next-moves-fallback {
     padding-bottom: 24px !important;
