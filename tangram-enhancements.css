@@ -1758,7 +1758,7 @@ button[title*="Edit"],
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
-    object-fit: fill !important;
+    object-fit: cover !important;
     transform: none !important;
   }
 }
@@ -2013,7 +2013,7 @@ button[title*="Edit"],
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
-    object-fit: fill !important;
+    object-fit: cover !important;
     object-position: center center !important;
     transform: none !important;
     translate: none !important;
@@ -2047,7 +2047,7 @@ button[title*="Edit"],
   #about-me .framer-o78s6p img,
   #about-me .framer-1rop2vb img {
     height: 100% !important;
-    object-fit: fill !important;
+    object-fit: cover !important;
     background: #000 !important;
   }
 }
@@ -2182,7 +2182,7 @@ button[title*="Edit"],
   #about-me .framer-o78s6p img,
   #about-me .framer-1rop2vb img {
     height: 100% !important;
-    object-fit: fill !important;
+    object-fit: cover !important;
     background: #000 !important;
   }
 }
