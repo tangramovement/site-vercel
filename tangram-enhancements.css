@@ -1713,6 +1713,6 @@ button[title*="Edit"],
   #about-me img[src*="QVERUMsyClsAIz0SLq1G6v1kPA"],
   #about-me img[src*="hKGmTW7lzWU7jeXME9dm6tICRlk"],
   #about-me img[src*="KX3LayS56OxCxW5L488YHxjsVmc"] {
-    transform: none !important;
+    transform: translateY(-160px) !important;
   }
 }
