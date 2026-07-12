@@ -1637,7 +1637,7 @@ button[title*="Edit"],
     translate: none !important;
   }
 
-  .tangram-highlights-title .framer-1ftkrmm,
+  .framer-1ftkrmm,
   img[src*="vRxTMjYbP3ypjaZeV6BCgvHz9xc"],
   img[src*="QVERUMsyClsAIz0SLq1G6v1kPA"],
   img[src*="hKGmTW7lzWU7jeXME9dm6tICRlk"],
@@ -1702,5 +1702,17 @@ button[title*="Edit"],
   .tangram-ticket-status {
     margin-top: 2px;
     font-size: 0.92em;
+  }
+
+  #about-me .tangram-next-moves-ticket-anchor {
+    display: none !important;
+  }
+
+  #about-me .framer-1ftkrmm,
+  #about-me img[src*="vRxTMjYbP3ypjaZeV6BCgvHz9xc"],
+  #about-me img[src*="QVERUMsyClsAIz0SLq1G6v1kPA"],
+  #about-me img[src*="hKGmTW7lzWU7jeXME9dm6tICRlk"],
+  #about-me img[src*="KX3LayS56OxCxW5L488YHxjsVmc"] {
+    transform: translateY(-500px) !important;
   }
 }
