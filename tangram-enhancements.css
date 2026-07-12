@@ -1649,8 +1649,21 @@ button[title*="Edit"],
 @media (max-width: 809px) {
   .tangram-tablet-next-moves-fallback {
     display: flex !important;
+    flex-direction: column;
+    align-items: center !important;
     justify-content: center !important;
     padding: 64px 0 88px !important;
+  }
+
+  .tangram-mobile-hero-symbol {
+    position: relative !important;
+    width: min(200px, 58vw) !important;
+    height: min(200px, 58vw) !important;
+    min-height: 0 !important;
+    margin: 0 auto 52px !important;
+    inset: auto !important;
+    transform: none !important;
+    translate: none !important;
   }
 
   .tangram-tablet-next-moves {

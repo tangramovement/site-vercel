@@ -144,6 +144,7 @@
   let loaderInitialized = false;
   let layoutRefreshTimer;
   let observer;
+  let mobileHeroSymbolPlacement;
 
   function isReloadNavigation() {
     const navigation = performance.getEntriesByType?.('navigation')?.[0];
@@ -779,6 +780,35 @@
     document.documentElement.classList.add('tangram-has-responsive-fallback');
   }
 
+  function setupMobileHeroSymbolOrder() {
+    const symbol = document.querySelector('#about-me .tangram-hero-symbol-frame');
+    if (!symbol) return;
+
+    if (window.innerWidth > 809) {
+      if (mobileHeroSymbolPlacement?.parent) {
+        mobileHeroSymbolPlacement.parent.insertBefore(symbol, mobileHeroSymbolPlacement.nextSibling);
+      }
+      symbol.classList.remove('tangram-mobile-hero-symbol');
+      mobileHeroSymbolPlacement = null;
+      return;
+    }
+
+    const fallback = document.querySelector('.tangram-tablet-next-moves-fallback');
+    const nextMoves = fallback?.querySelector('.tangram-tablet-next-moves');
+    if (!fallback || !nextMoves) return;
+
+    if (!mobileHeroSymbolPlacement) {
+      mobileHeroSymbolPlacement = {
+        parent: symbol.parentElement,
+        nextSibling: symbol.nextSibling
+      };
+    }
+    symbol.classList.add('tangram-mobile-hero-symbol');
+    if (symbol.parentElement !== fallback || symbol.nextElementSibling !== nextMoves) {
+      fallback.insertBefore(symbol, nextMoves);
+    }
+  }
+
   function getNextMovesLabels() {
     return Array.from(document.querySelectorAll('p, div'))
       .filter((element) => {
@@ -790,6 +820,7 @@
   function setupAllNextMovesSections() {
     hideLegacyEventSections();
     setupTabletNextMovesFallback();
+    setupMobileHeroSymbolOrder();
     cleanupNextMovesEnhancements();
 
     let nextMovesLabels = getNextMovesLabels();
