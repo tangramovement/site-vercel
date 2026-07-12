@@ -564,6 +564,19 @@
       .forEach((footer) => footer.classList.add('tangram-site-footer'));
   }
 
+  function setupImageLoadingPerformance() {
+    const threshold = window.innerHeight * 1.45;
+    document.querySelectorAll('img').forEach((image) => {
+      image.decoding = 'async';
+      const rect = image.getBoundingClientRect();
+      const isHeaderImage = Boolean(image.closest('header'));
+      const isHeroSymbol = image.src.includes('mJLl0evtfHxya9YBFapUjtMO8HY.svg');
+      if (!isHeaderImage && !isHeroSymbol && rect.top > threshold) {
+        image.loading = 'lazy';
+      }
+    });
+  }
+
   function getWhatsappContext(anchor) {
     const label = normalize(anchor.textContent).toLowerCase();
     const href = anchor.getAttribute('href') || '';
@@ -1312,6 +1325,7 @@
     setupWhatsappMessages();
     setupFounderCardOrdering();
     setupContentLayoutTweaks();
+    setupImageLoadingPerformance();
     applyLanguage();
     setupLanguageObserver();
     setupCursor();
