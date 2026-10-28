@@ -185,14 +185,24 @@
   }
 
   function EventsControl(props) {
-    return fixedList(props.value, props.onChange, (items, update) => items.map((item, index) => {
+    const items = asJs(props.value, []);
+    const cards = items.map((item, index) => {
       const base = `agenda.events.${index}`;
-      const set = (keys, next) => update(index, keys, next);
+      const set = (keys, next) => props.onChange(updateArrayItem(items, index, keys, next));
       return card(`Botao ${index + 1}`, [
+        h('label', { className: 'tangram-widget__label' },
+          h('input', { type: 'checkbox', checked: item.active !== false,
+            onChange: (event) => set(['active'], event.target.checked) }), ' Evento ativo'),
         i18nRow(item, set, `${base}.ticketLabel`, 'Texto do botao', 'ticketLabel'),
-        plainRow(item, set, `${base}.ticketUrl`, 'Link do ingresso', 'ticketUrl', { type: 'url' })
+        plainRow(item, set, `${base}.ticketUrl`, 'Link do ingresso (opcional)', 'ticketUrl', { type: 'url' }),
+        h('button', { type: 'button', onClick: () => props.onChange(items.filter((_, row) => row !== index)) }, 'Remover evento')
       ], `${base}.ticketLabel`);
-    }));
+    });
+    return h('div', { className: 'tangram-list-widget' }, cards,
+      h('button', { type: 'button', onClick: () => props.onChange(items.concat({
+        active: true, date: '', place: { pt: '', en: '' }, title: { pt: '', en: '' },
+        lineup: { pt: '', en: '' }, ticketLabel: { pt: 'Novo evento (Em breve)', en: 'New event (Coming soon)' }, ticketUrl: ''
+      })) }, 'Adicionar evento'));
   }
 
   function ExperienceCardsControl(props) {
