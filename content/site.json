@@ -89,8 +89,8 @@
           "en": "Bhaskar + Marian Flow"
         },
         "ticketLabel": {
-          "pt": "30.07 | BRASILIA | LOOFY 🇺🇸 ( vendas em breve )",
-          "en": "30.07 | BRASILIA | LOOFY 🇺🇸 ( tickets soon )"
+          "pt": "DEZEMBRO | BELO HORIZONTE (Em breve)",
+          "en": "DECEMBER | BELO HORIZONTE (Coming soon)"
         },
         "ticketUrl": "",
         "active": true
@@ -110,31 +110,10 @@
           "en": "Marian Flow + Rod B + Ber Fontoura + Ryferr e Gadas"
         },
         "ticketLabel": {
-          "pt": "31.07 | EPHIGENIA SP | LOOFY 🇺🇸 ( vendas em breve )",
-          "en": "31.07 | EPHIGENIA SP | LOOFY 🇺🇸 ( tickets soon )"
+          "pt": "DEZEMBRO | FLORIANÓPOLIS (Em breve)",
+          "en": "DECEMBER | FLORIANÓPOLIS (Coming soon)"
         },
-        "ticketUrl": "https://www.instagram.com/ephigeniasp/?hl=pt",
-        "active": true
-      },
-      {
-        "date": "01.08",
-        "place": {
-          "pt": "Edifício Touring RJ | Last Night",
-          "en": "Touring Building RJ | Last Night"
-        },
-        "title": {
-          "pt": "Loofy",
-          "en": "Loofy"
-        },
-        "lineup": {
-          "pt": "Last Night",
-          "en": "Last Night"
-        },
-        "ticketLabel": {
-          "pt": "01.08 | LAST NIGHT | LOOFY 🇺🇸 ( vendas abertas )",
-          "en": "01.08 | LAST NIGHT | LOOFY 🇺🇸 "
-        },
-        "ticketUrl": "https://shotgun.live/pt-br/events/tangram-w-loofy-1-ago-ed-touring",
+        "ticketUrl": "",
         "active": true
       }
     ]
