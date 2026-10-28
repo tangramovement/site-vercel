@@ -141,7 +141,7 @@ button[title*="Edit"],
 }
 
 .tangram-tablet-next-moves__loading {
-  display: block;
+  display: none !important;
   margin-top: 34px;
   color: transparent;
 }
@@ -1707,6 +1707,7 @@ button[title*="Edit"],
   #about-me > .framer-10q7vah,
   #about-me > .framer-xo2oy6,
   #about-me > .framer-gsryrh-container,
+  #about-me > .framer-lq5xm9-container,
   #about-me .tangram-next-moves-ticket-anchor {
     display: none !important;
   }
