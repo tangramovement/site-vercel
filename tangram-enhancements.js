@@ -737,6 +737,7 @@
 
   function hideLegacyEventSections() {
     Array.from(document.querySelectorAll('section, [id*="evento"], [id*="about-me"], h2, h3, p, div')).forEach((element) => {
+      if (element.closest('.tangram-next-moves-links, .tangram-tablet-next-moves-fallback')) return;
       const text = normalize(element.textContent);
       if (!legacyEventPattern.test(text)) return;
       if (/NEXT MOVES|Tickets/i.test(text)) return;
@@ -776,8 +777,10 @@
       document.documentElement.classList.add('tangram-has-responsive-fallback');
       return;
     }
-    const legacySection = Array.from(document.querySelectorAll('section'))
-      .find((section) => legacyEventPattern.test(normalize(section.textContent)));
+    const legacySection = document.querySelector('#about-me-1')
+      || document.querySelector('#about-me')
+      || Array.from(document.querySelectorAll('section'))
+        .find((section) => legacyEventPattern.test(normalize(section.textContent)));
     if (!legacySection) return;
 
     const fallback = document.createElement('section');

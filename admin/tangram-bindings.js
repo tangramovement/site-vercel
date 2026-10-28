@@ -533,7 +533,8 @@
     const signature = JSON.stringify(ticketItems);
 
     doc.querySelectorAll('.tangram-next-moves-links').forEach((wrapper) => {
-      if (wrapper.dataset.tangramAgendaSignature === signature) return;
+      if (wrapper.dataset.tangramAgendaSignature === signature
+        && wrapper.querySelectorAll(':scope > .tangram-ticket-link').length === ticketItems.length) return;
       wrapper.innerHTML = '';
       ticketItems.forEach((item, index) => {
         const link = doc.createElement('a');
