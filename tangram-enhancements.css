@@ -1704,6 +1704,9 @@ button[title*="Edit"],
     font-size: 0.92em;
   }
 
+  #about-me > .framer-10q7vah,
+  #about-me > .framer-xo2oy6,
+  #about-me > .framer-gsryrh-container,
   #about-me .tangram-next-moves-ticket-anchor {
     display: none !important;
   }
